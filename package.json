@@ -1,0 +1,31 @@
+{
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "name": "icp-bitcoin-ai",
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "prebuild": "npm run prebuild --workspaces --if-present",
+    "pretest": "npm run prebuild --workspaces --if-present",
+    "start": "npm start --workspaces --if-present",
+    "test": "npm test --workspaces --if-present"
+  },
+  "type": "module",
+  "workspaces": [
+    "src/icp-bitcoin-ai-frontend"
+  ],
+  "dependencies": {
+    "@dfinity/agent": "^1.4.0",
+    "@tanstack/react-query": "^5.40.0",
+    "axios": "^1.7.2",
+    "json": "^11.0.0",
+    "JSON": "^1.0.0",
+    "mops": "^3.0.2",
+    "node": "^18.20.3"
+  },
+  "devDependencies": {
+    "@dfinity/auth-client": "^1.4.0",
+    "@dfinity/identity": "^1.4.0"
+  }
+}

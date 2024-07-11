@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+
+  .button {
+    padding: 12px 20px;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.9;
+    }
+  }
+
+  .wallet {
+    min-width: fit-content;
+    color: white;
+    background-color: transparent;
+    border-radius: 12px;
+    border: solid 1.5px #582CFF75;
+
+    &:hover {
+      background-color: #582CFF75;
+    }
+  }
+}

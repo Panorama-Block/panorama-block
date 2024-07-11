@@ -1,0 +1,42 @@
+{
+  "canisters": {
+    "mempool": {
+      "main": "src/icp-bitcoin-ai-backend/mempool.mo",
+      "type": "motoko"
+    },
+	"transactions": {
+      "main": "src/icp-bitcoin-ai-backend/transactions.mo",
+      "type": "motoko"
+   },
+    "icp-bitcoin-ai-frontend": {
+      "dependencies": [
+        "mempool",
+        "internet_identity"
+      ],
+      "source": [
+        "src/icp-bitcoin-ai-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "icp-bitcoin-ai-frontend"
+    },
+    "internet_identity": {
+      "type": "custom",
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz",
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "frontend": {}
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": "mops sources"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

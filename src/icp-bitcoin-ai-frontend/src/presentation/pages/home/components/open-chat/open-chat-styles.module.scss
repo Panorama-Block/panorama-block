@@ -1,0 +1,41 @@
+.openChat {
+  display: flex;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  min-width: 350px;
+  width: 350px;
+  height: 80%;
+  min-height: 80%;
+  background-color: "red";
+  border: solid 1px #06072250;
+  border-radius: 10px;
+
+
+  iFrame {
+    width: 100%;
+  }
+
+  .close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #ffffff20;
+    border: solid 1px rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    color: white;
+    cursor: pointer;
+  }
+}

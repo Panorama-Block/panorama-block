@@ -1,0 +1,423 @@
+.landing {
+  display: flex;
+  justify-content: center;
+  background-color: #0b0b0b;
+  color: #d1d1d1;
+
+  -webkit-scrollbar {
+    width: 10px;
+  }
+
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    z-index: 1;
+    overflow-x: hidden;
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 600px;
+      max-width: 1280px;
+      margin: 0 40px;
+    }
+
+    .intro {
+      max-width: 1400px;
+      justify-self: center;
+      width: 100%;
+      min-height: 100vh;
+      align-self: center;
+
+      .title {
+        max-width: 650px;
+        text-align: center;
+        margin-bottom: 50px;
+        font-size: 48px;
+        color: #f5f5f5;
+        text-shadow: #080808 3px 0 6px;
+
+        .highlight {
+          color: #d4d4d4;
+          font-weight: bold;
+          text-shadow: #080808 3px 0 6px;
+        }
+      }
+
+
+      .bg {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: -1;
+        opacity: 0.7;
+      }
+
+      .description {
+        text-align: center;
+        max-width: 800px;
+        font-size: 24px;
+        line-height: 1.5;
+        color: #ececec;
+        text-shadow: #080808 3px 0 6px;
+
+        .highlight {
+          color: #f5f5f5
+        }
+      }
+    }
+
+    .about {
+      width: 100%;
+      display: flex;
+      margin-bottom: 120px;
+
+      .icon {
+        display: flex;
+        background-color: #202020;
+        padding: 16px;
+        border-radius: 50%;
+        width: fit-content;
+
+        svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      .sectionTitle {
+        max-width: 700px;
+        text-align: center;
+        justify-self: flex-end;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .sectionBody {
+        display: flex;
+        flex-direction: row;
+        gap: 60px;
+        min-height: 280px;
+        padding: 20px;
+
+        .topic {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          h2 {
+            max-width: 300px;
+            font-size: 24px;
+            text-shadow: #080808 3px 0 6px;
+          }
+
+          p {
+            max-width: 400px;
+            font-size: 18px;
+            line-height: 1.5;
+            text-shadow: #080808 3px 0 6px;
+            // color: #d1d1d1;
+            color: #a0a0a0;
+            text-shadow: #080808 3px 0 6px;
+          }
+        }
+      }
+    }
+
+    .products {
+      width: 100%;
+      max-width: 100%;
+      // height: 100%;
+      position: relative;
+      margin-bottom: 120px;
+
+      .bg {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        z-index: -1;
+      }
+
+      .icon {
+        display: flex;
+        background-color: #b2b2b21e;
+        border: solid 1px #202020;
+        padding: 16px;
+        border-radius: 50%;
+        width: fit-content;
+
+        svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      .sectionTitle {
+        max-width: 700px;
+        text-align: center;
+        justify-self: flex-end;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .sectionBody {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        min-height: 280px;
+        padding: 40px;
+
+        .topic {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          background-color: #0808087a;
+          padding: 20px;
+          border-radius: 9px;
+          border: solid 1px #2b2b2b;
+          box-shadow: #202020 1px 1.5px 1.5px;
+
+          h2 {
+            max-width: 300px;
+            font-size: 24px;
+            text-shadow: #080808 3px 0 6px;
+          }
+
+          p {
+            max-width: 400px;
+            font-size: 18px;
+            line-height: 1.5;
+            text-shadow: #080808 3px 0 6px;
+            color: #a0a0a0;
+            text-shadow: #080808 3px 0 6px;
+          }
+        }
+      }
+    }
+
+    .partners {
+      width: 100%;
+      display: flex;
+      margin-bottom: 120px;
+
+      .icon {
+        display: flex;
+        background-color: #202020;
+        padding: 16px;
+        border-radius: 50%;
+        width: fit-content;
+
+        svg {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      .sectionTitle {
+        max-width: 700px;
+        text-align: center;
+        justify-self: flex-end;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .sectionBody {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        min-height: 300px;
+        padding: 20px;
+
+        .row {
+          display: flex;
+          gap: 40px;
+
+          .card {
+            display: flex;
+            background-color: #b6b6b630;
+            padding: 20px;
+            border-radius: 9px;
+
+            img {
+              width: 260px;
+              height: 120px;
+            }
+          }
+
+          .white {
+            background-color: #b6b6b675;
+          }
+        }
+      }
+    }
+
+    .goToTop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      background-color: rgb(59, 59, 59);
+      right: 0;
+      bottom: 0;
+      margin: 40px;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+@media (width < 1024px) {
+  .landing {
+    .container {
+      .section {
+        margin-bottom: 0px;
+
+        .title {
+          font-size: 26px;
+        }
+
+        .description {
+          width: 80%;
+          font-size: 18px;
+        }
+
+        h2 {
+          font-size: 22px;
+        }
+
+        .sectionBody {
+          flex-direction: column;
+          gap: 30px;
+
+          .topic {
+            padding: 20px;
+
+            .icon {
+              padding: 10px;
+
+              svg {
+                width: 24px;
+                height: 24px;
+              }
+            }
+
+            h2 {
+              font-size: 18px;
+            }
+
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      .products {
+        padding: 20px 0;
+
+        .sectionBody {
+          padding: 10px 30px;
+        }
+      }
+
+      .partners {
+        min-height: 0px;
+
+        .sectionTitle {
+          margin-top: 20px;
+        }
+
+        .sectionBody {
+          margin-top: 10px;
+          padding: 0px 20px;
+
+          .row {
+            gap: 20px;
+
+            .card {
+              display: flex;
+              background-color: #b6b6b630;
+              padding: 20px;
+              border-radius: 9px;
+
+              img {
+                width: 150px;
+                height: 80px;
+              }
+            }
+
+            .white {
+              background-color: #b6b6b675;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width < 768px) {
+  .landing {
+    .container {
+      .intro {
+        min-height: 80vh;
+      }
+
+      .partners {
+        .sectionTitle {
+          margin-top: 20px;
+        }
+
+        .sectionBody {
+          gap: 30px;
+          margin-bottom: 40px;
+
+          .row {
+            flex-direction: column;
+            gap: 30px;
+
+            .card {
+              display: flex;
+              background-color: #b6b6b630;
+              padding: 20px;
+              border-radius: 9px;
+
+              img {
+                width: 200px;
+                height: 100px;
+              }
+            }
+
+            .white {
+              background-color: #b6b6b675;
+            }
+          }
+        }
+      }
+    }
+  }
+}

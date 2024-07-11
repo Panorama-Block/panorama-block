@@ -1,0 +1,48 @@
+.login {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  .main {
+    display: flex;
+    width: 60%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .start {
+    flex: 1;
+    height: 100%;
+    background-color: #001204;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .container {
+      .intro {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        color: white;
+        margin-bottom: 40px;
+        cursor: default;
+
+        h2 {
+          font-size: 32px;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 16px;
+          color: #A0AEC0;
+        }
+      }
+    }
+  }
+}

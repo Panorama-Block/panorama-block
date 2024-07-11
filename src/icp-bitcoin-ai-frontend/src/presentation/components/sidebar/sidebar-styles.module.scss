@@ -1,0 +1,41 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 300px;
+  min-width: 200px;
+  max-width: 20%;
+
+  background: linear-gradient(95.84deg, rgba(6, 11, 38, 1) 65%, rgb(16, 27, 82) 100%);
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    margin-bottom: 16px;
+
+    img {
+      width: 140px;
+      color: #4022BE;
+
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      cursor: pointer;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1440px) {
+  .sidebar {
+    height: auto;
+
+    .container {
+      padding-bottom: 20px;
+    }
+  }
+}
