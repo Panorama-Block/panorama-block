@@ -1,5 +1,10 @@
 {
   "canisters": {
+    "rust": {
+      "candid": "src/icp-bitcoin-ai-backend-rust/icp-bitcoin-ai-backend-rust-backend.did",
+      "package": "icp-bitcoin-ai-backend-rust-backend",
+      "type": "rust"
+    },
     "mempool": {
       "main": "src/icp-bitcoin-ai-backend/mempool.mo",
       "type": "motoko"
