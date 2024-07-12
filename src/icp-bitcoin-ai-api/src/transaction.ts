@@ -1,4 +1,4 @@
-import { ic, None, Principal, Some, text, int, update, jsonStringify, jsonParse } from "azle";
+import { ic, int, jsonParse, None, Principal, Some, text, update } from "azle";
 import { managementCanister } from "azle/canisters/management";
 
 const defaultArgs = {
@@ -18,29 +18,21 @@ const defaultArgs = {
 }
 
 export const transaction = {
-  getHashblocks: update([text, int], text, async (id: string, count: int) => {
-    let lastId: string = id
-    const hashblocks = []
+  getTransaction: update([text], text, async (id: string) => {
+    const response = await ic.call(
+      managementCanister.http_request,
+      {
+        args: [
+          {
+            url: `https://api.mempool.space/api/tx/${id}`,
+            ...defaultArgs,
+            max_response_bytes: Some(10_000n)
+          }
+        ],
+        cycles: 50_000_000n
+      }
+    );
 
-    for (let i = 0; i < count; i++) {
-      const response = await ic.call(
-        managementCanister.http_request,
-        {
-          args: [
-            {
-              url: `https://api.mempool.space/api/block/${lastId}`,
-              ...defaultArgs
-            }
-          ],
-          cycles: 50_000_000n
-        }
-      );
-
-      const data: any = Buffer.from(response.body).toString()
-      hashblocks.push(data)
-      lastId = jsonParse(data).previousblockhash
-    }
-
-    return JSON.stringify(hashblocks)
+    return Buffer.from(response.body).toString()
   })
 }
