@@ -1,0 +1,9 @@
+{
+    "canisters": {
+        "backend": {
+            "type": "azle",
+            "main": "src/index.ts",
+            "candid_gen": "automatic"
+        }
+    }
+}
