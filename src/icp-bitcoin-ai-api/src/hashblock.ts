@@ -32,9 +32,9 @@ const Hashblocks = Record({
   bits: float64,
   difficulty: float64
 });
-export type Hashblocks = typeof Hashblocks.tsType;
+type Hashblocks = typeof Hashblocks.tsType;
 
-export let hashblocksMap = StableBTreeMap<string, Hashblocks>(2);
+let hashblocksMap = StableBTreeMap<string, Hashblocks>(0);
 
 let currentHashblock: text = '';
 let remain: int = BigInt(0)
