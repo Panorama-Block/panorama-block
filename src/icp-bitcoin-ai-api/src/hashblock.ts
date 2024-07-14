@@ -73,6 +73,13 @@ export const hashblock = {
 
     return jsonStringify(hashblocksMap.keys())
   }),
+
+  // New update function to handle WebSocket data for blocks only
+  updateHashblocksDirect: update([Hashblocks], text, (block: Hashblocks) => {
+    hashblocksMap.insert(block.id, block);
+    return 'Hashblock updated';
+  }),
+
   removeHashblocks: update([], text, () => {
     let hashblocks = hashblocksMap.keys()
 
@@ -82,9 +89,11 @@ export const hashblock = {
 
     return 'Wiped All Hashblocks'
   }),
+
   getHashblockIds: query([], Vec(text), () => {
     return hashblocksMap.keys();
   }),
+
   getHashblocks: query([], Vec(Hashblocks), () => {
     return hashblocksMap.values();
   }),
