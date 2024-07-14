@@ -133,7 +133,11 @@ async function hashblockCallback(): Promise<void> {
   }
 
   while (hashblocksMap.containsKey(currentHashblock)) {
-    currentHashblock = hashblocksMap.get(currentHashblock).Some!.previousblockhash
+    let previousblockhash = hashblocksMap.get(currentHashblock).Some?.previousblockhash
+
+    if (previousblockhash) {
+      currentHashblock = previousblockhash
+    }
   }
 
   const response = await ic.call(
@@ -154,7 +158,4 @@ async function hashblockCallback(): Promise<void> {
   hashblocksMap.insert(currentHashblock, json)
   currentHashblock = json.previousblockhash
   remain--
-
-  // return new Promise(() => void)
-  jsonStringify(hashblocksMap.keys())
 }
