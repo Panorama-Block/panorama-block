@@ -39,6 +39,7 @@ export let hashblocksMap = StableBTreeMap<string, Hashblocks>(2);
 let currentHashblock: text = '';
 let remain: int = BigInt(0)
 let timer: TimerId = BigInt(0)
+let newestTimer: TimerId = BigInt(0)
 
 export const hashblock = {
   oldUpdateHashblocks: update([Opt(text), int], text, async (id: Opt<text>, count: int) => {
@@ -94,7 +95,18 @@ export const hashblock = {
 
     timer = ic.setTimerInterval(BigInt(5), hashblockCallback)
 
-    return 'Ok, new timer configured'
+    return `Ok, collecting ${count} hashblocks`
+  }),
+  updateWithNewestHashblocks: update([], text, () => {
+    if (newestTimer) {
+      ic.clearTimer(newestTimer)
+    }
+
+    newersHashblockCallback()
+
+    newestTimer = ic.setTimerInterval(BigInt(1800), newersHashblockCallback)
+
+    return `Ok, collecting the newest hashblocks`
   }),
   removeHashblocks: update([], text, () => {
     let hashblocks = hashblocksMap.keys()
@@ -105,9 +117,13 @@ export const hashblock = {
 
     return 'Wiped All Hashblocks'
   }),
-  resetTimer: update([], text, () => {
+  resetUpdateTimer: update([], text, () => {
     ic.clearTimer(timer)
-    return 'Timer has canceled'
+    return 'Timer of updateHashblocks has canceled'
+  }),
+  resetUpdateNewestTimer: update([], text, () => {
+    ic.clearTimer(newestTimer)
+    return 'Timer of updateWithNewestHashblocks has canceled'
   }),
   getHashblockIds: query([], Vec(text), () => {
     return hashblocksMap.keys();
@@ -129,6 +145,7 @@ async function hashblockCallback(): Promise<void> {
   }
 
   if (!remain) {
+    ic.clearTimer(timer)
     return
   }
 
@@ -157,5 +174,35 @@ async function hashblockCallback(): Promise<void> {
   const json: Hashblocks = jsonParse(data)
   hashblocksMap.insert(currentHashblock, json)
   currentHashblock = json.previousblockhash
-  remain--
+  if (remain > 0) {
+    remain--
+  }
+}
+
+async function newersHashblockCallback(): Promise<void> {
+  const response = await ic.call(
+    managementCanister.http_request,
+    {
+      args: [
+        {
+          url: `https://api.mempool.space/api/blocks/`,
+          ...defaultArgs,
+          max_response_bytes: Some(10_000n),
+        }
+      ],
+      cycles: 11_078_400n
+    }
+  )
+  const data: any = Buffer.from(response.body).toString()
+  const json: Hashblocks[] = jsonParse(data)
+
+  json.map((hashblock) => {
+    if (!hashblocksMap.containsKey(hashblock.id)) {
+      hashblocksMap.insert(hashblock.id, hashblock)
+      currentHashblock = hashblock.previousblockhash
+    }
+    else {
+      currentHashblock = hashblock.previousblockhash
+    }
+  })
 }
