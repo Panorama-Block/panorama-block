@@ -1,7 +1,7 @@
-import { ic, None, Principal, Some, text, int, update, jsonStringify, jsonParse, Record, nat, StableBTreeMap, nat8, nat64, float64, query, Vec, Opt } from "azle";
+import { ic, None, Principal, Some, text, int, update, jsonStringify, jsonParse, Record, nat, StableBTreeMap, nat8, nat64, float64, query, Vec, Opt, Void, TimerId } from "azle";
 import { managementCanister } from "azle/canisters/management";
 
-const defaultArgs = {
+export const defaultArgs = {
   max_response_bytes: Some(2_000n),
   method: {
     get: null
@@ -32,12 +32,16 @@ const Hashblocks = Record({
   bits: float64,
   difficulty: float64
 });
-type Hashblocks = typeof Hashblocks.tsType;
+export type Hashblocks = typeof Hashblocks.tsType;
 
-let hashblocksMap = StableBTreeMap<string, Hashblocks>(2);
+export let hashblocksMap = StableBTreeMap<string, Hashblocks>(2);
+
+let currentHashblock: text = '';
+let remain: int = BigInt(0)
+let timer: TimerId = BigInt(0)
 
 export const hashblock = {
-  updateHashblocks: update([Opt(text), int], text, async (id: Opt<text>, count: int) => {
+  oldUpdateHashblocks: update([Opt(text), int], text, async (id: Opt<text>, count: int) => {
     let lastId: string = id.Some?.toString() ?? hashblocksMap.keys().slice(-1)[0]
 
     if (!lastId) {
@@ -68,10 +72,29 @@ export const hashblock = {
       }
       else {
         lastId = hashblocksMap.get(lastId).Some!.previousblockhash
+        count++
       }
     }
 
     return jsonStringify(hashblocksMap.keys())
+  }),
+  setHashblock: update([text], Void, (id) => {
+    currentHashblock = id;
+  }),
+  updateHashblocks: update([int], text, (count: int) => {
+    remain = count
+
+    if (timer) {
+      ic.clearTimer(timer)
+    }
+
+    if (!currentHashblock) {
+      return 'No Hashblocks found'
+    }
+
+    timer = ic.setTimerInterval(BigInt(5), hashblockCallback)
+
+    return 'Ok, new timer configured'
   }),
   removeHashblocks: update([], text, () => {
     let hashblocks = hashblocksMap.keys()
@@ -82,10 +105,56 @@ export const hashblock = {
 
     return 'Wiped All Hashblocks'
   }),
+  resetTimer: update([], text, () => {
+    ic.clearTimer(timer)
+    return 'Timer has canceled'
+  }),
   getHashblockIds: query([], Vec(text), () => {
     return hashblocksMap.keys();
   }),
   getHashblocks: query([], Vec(Hashblocks), () => {
     return hashblocksMap.values();
   }),
+  getHashblocksLength: query([], int, () => {
+    return hashblocksMap.len()
+  }),
+  getQueueRemain: query([], int, () => {
+    return remain
+  })
+}
+
+async function hashblockCallback(): Promise<void> {
+  if (!currentHashblock) {
+    return
+  }
+
+  if (!remain) {
+    return
+  }
+
+  while (hashblocksMap.containsKey(currentHashblock)) {
+    currentHashblock = hashblocksMap.get(currentHashblock).Some!.previousblockhash
+  }
+
+  const response = await ic.call(
+    managementCanister.http_request,
+    {
+      args: [
+        {
+          url: `https://api.mempool.space/api/block/${currentHashblock}`,
+          ...defaultArgs
+        }
+      ],
+      cycles: 5_000_000n
+    }
+  );
+
+  const data: any = Buffer.from(response.body).toString()
+  const json: Hashblocks = jsonParse(data)
+  hashblocksMap.insert(currentHashblock, json)
+  currentHashblock = json.previousblockhash
+  remain--
+
+  // return new Promise(() => void)
+  jsonStringify(hashblocksMap.keys())
 }
