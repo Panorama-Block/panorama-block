@@ -55,7 +55,7 @@ export const address = {
             ...defaultArgs,
           }
         ],
-        cycles: 0n
+        cycles: 5_000_000n
       }
     );
     return Buffer.from(response.body).toString()

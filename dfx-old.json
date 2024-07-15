@@ -1,22 +1,16 @@
 {
   "canisters": {
-    "rust": {
-      "candid": "src/icp-bitcoin-ai-backend-rust/icp-bitcoin-ai-backend-rust-backend.did",
-      "package": "icp-bitcoin-ai-backend-rust-backend",
-      "type": "rust"
-    },
     "mempool": {
       "main": "src/icp-bitcoin-ai-backend/mempool.mo",
       "type": "motoko"
-		},
-    "icp-bitcoin-ai-api": {
-      "type": "azle",
-      "main": "src/icp-bitcoin-ai-api/src/index.ts",
-      "candid_gen": "automatic"
+    },
+    "transactions": {
+      "main": "src/icp-bitcoin-ai-backend/transactions.mo",
+      "type": "motoko"
     },
     "icp-bitcoin-ai-frontend": {
       "dependencies": [
-        "icp-bitcoin-ai-api",
+        "mempool",
         "internet_identity"
       ],
       "source": [
