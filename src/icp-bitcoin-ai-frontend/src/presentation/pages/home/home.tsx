@@ -10,11 +10,12 @@ import Header from '../../components/header/header'
 import InfoModal from '../../components/info-modal/info-modal'
 import TransactionInfo from './components/transaction-info/transaction-info'
 import AddressInfo from './components/address-info/address-info'
-import { dayInterval } from '../../../utils/day-interval'
 import HashblockInfo from './components/hashblock-info/hashblock-info'
 import { Tooltip } from '@mui/material'
 import OpenChat from './components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
+import { hoursInterval } from '../../../utils/time'
+import { compareTimestampDesc } from '../../../utils/sort'
 
 const Home: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
@@ -38,9 +39,9 @@ const Home: React.FC = () => {
 
   const verifyCacheInterval = (cache: any) => {
     if (cache.date) {
-      const interval = dayInterval(Date.now(), cache.date)
+      const interval = hoursInterval(Date.now(), cache.date)
 
-      if (interval >= 0 && interval < 1) {
+      if (interval >= 0 && interval < 5) {
         return true
       }
     }
@@ -58,12 +59,15 @@ const Home: React.FC = () => {
       else {
         const response: any = await IcpService.getHashblocks()
 
-        if (response.ok) {
+        if (response) {
           localStorage.clear()
           const json = jsonParseBigint(response)
-          json.date = Date.now()
-          setHashblocks(json.ok)
-          localStorage.setItem('hashblocks', JSON.stringify(json))
+          const sorted = json.sort(compareTimestampDesc)
+
+          const data = { ok: sorted, date: 0 }
+          data.date = Date.now()
+          setHashblocks(data.ok)
+          localStorage.setItem('hashblocks', JSON.stringify(data))
         }
       }
     }
@@ -76,13 +80,33 @@ const Home: React.FC = () => {
 
     if (type === 'address') {
       const response: any = await IcpService.getAddressInfo(value)
-      response.type = type
-      setInfo(response)
+
+      if (response && response.includes('funded_txo_count')) {
+        const data = {
+          ok: JSON.parse(response),
+          type: type
+        }
+
+        setInfo(data)
+      }
+      else {
+        setInfo({ error: 'fail' })
+      }
     }
     else if (type === 'transaction') {
       const response: any = await IcpService.getTransactionInfo(value)
-      response.type = type
-      setInfo(response)
+
+      if (response && response.includes('txid')) {
+        const data = {
+          ok: JSON.parse(response),
+          type: type
+        }
+
+        setInfo(data)
+      }
+      else {
+        setInfo({ error: 'fail' })
+      }
     }
   }
 
@@ -127,7 +151,7 @@ const Home: React.FC = () => {
           {
             info?.type === 'address' ? <AddressInfo title="Address Information" data={info?.['ok']} />
               // : <TransactionInfo title="Transaction Information" data={info?.['ok'] && info?.['ok'][0] !== 'Invalid hex string' && JSON.parse(info?.['ok'][0])} />
-              : <TransactionInfo title="Transaction Information" data={info} />
+              : <TransactionInfo title="Transaction Information" data={info?.['ok']} />
           }
         </InfoModal>
       }

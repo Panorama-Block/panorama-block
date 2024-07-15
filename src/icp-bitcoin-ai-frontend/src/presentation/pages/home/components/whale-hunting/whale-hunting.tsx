@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './whale-hunting-styles.module.scss'
 import { Backdrop, Box, Modal, Tab, Tabs, Tooltip } from '@mui/material'
 import { TabContext, TabPanel } from '@mui/lab'
 import { customId } from '../../../../../utils/custom-id'
+import IcpService from '../../../../../data/services/icp-service'
 
 type Props = {
   onSelect: (id: string) => void
@@ -27,39 +28,52 @@ const style = {
 
 const data = [
   {
-    id: "bc1qq0l4jgg9rcm3puhhfwaz4c9t8hdee8hfz6738z",
-    title: "Germany Bitcoin Address"
+    address: "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH",
+    name: "FBI Bitcoin Address"
   },
   {
-    id: "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH",
-    title: "FBI Bitcoin Address"
+    address: "34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo",
+    name: "Binance Bitcoin Address"
   },
   {
-    id: "34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo",
-    title: "Binance Bitcoin Address"
+    address: "3HcEUguUZ4vyyMAPWDPUDjLqz882jXwMfV",
+    name: "Kraken Bitcoin Address"
   },
   {
-    id: "bc1qgdjqv0av3q56jvd82tkdjpy7gdp9ut8tlqmgrpmv24sq90ecnvqqjwvw97",
-    title: "Bitfinex Bitcoin Address"
+    address: "3M219KR5vEneNb47ewrPfWyb5jQ2DjxRP6",
+    name: "Binance Bitcoin Address"
   },
   {
-    id: "3M219KR5vEneNb47ewrPfWyb5jQ2DjxRP6",
-    title: "Binance Bitcoin Address"
+    address: "bc1qgdjqv0av3q56jvd82tkdjpy7gdp9ut8tlqmgrpmv24sq90ecnvqqjwvw97",
+    name: "Bitfinex Bitcoin Address"
   },
   {
-    id: "3HcEUguUZ4vyyMAPWDPUDjLqz882jXwMfV",
-    title: "Kraken Bitcoin Address"
-  },
+    address: "bc1qq0l4jgg9rcm3puhhfwaz4c9t8hdee8hfz6738z",
+    name: "Germany Bitcoin Address"
+  }
 ]
 
 const labels = ["General", "Custom"]
 
 const WhaleHunting: React.FC<Props> = ({ onSelect, onClose }: Props) => {
-  const [value, setValue] = React.useState('0')
+  const [value, setValue] = useState('0')
+  const [whales, setWhales] = useState(data)
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
+
+  useEffect(() => {
+    const getWhales = async (): Promise<void> => {
+      const response: any = await IcpService.getWhales()
+
+      if (response) {
+        setWhales(response)
+      }
+    }
+
+    getWhales()
+  }, [])
 
   return (
     <Modal
@@ -91,14 +105,14 @@ const WhaleHunting: React.FC<Props> = ({ onSelect, onClose }: Props) => {
 
           <TabPanel className={styles.panel} sx={{ display: value === '0' ? 'flex' : 'none' }} value='0' key={`panel - 0`}>
             {
-              data && data.map(((item, index) => {
+              whales && whales.map(((item, index) => {
                 return (
                   <div className={styles.row} key={`whale-${index}`}>
                     <div className={styles.item}>
                       <span className={styles.label}>ID</span>
-                      <Tooltip title={item.id} placement="top">
-                        <div className={`${styles.value} ${styles.id}`} onClick={() => onSelect(item.id)}>
-                          <p>{customId(item.id)}</p>
+                      <Tooltip title={item.address} placement="top">
+                        <div className={`${styles.value} ${styles.id}`} onClick={() => onSelect(item.address)}>
+                          <p>{customId(item.address)}</p>
                         </div>
                       </Tooltip>
                     </div>
@@ -106,7 +120,7 @@ const WhaleHunting: React.FC<Props> = ({ onSelect, onClose }: Props) => {
                     <div className={styles.item}>
                       <span className={styles.label}>NAME</span>
                       <div className={styles.value}>
-                        <p>{item.title}</p>
+                        <p>{item.name}</p>
                       </div>
                     </div>
                   </div>

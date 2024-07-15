@@ -34,7 +34,7 @@ export const transaction = {
             max_response_bytes: Some(10_000n)
           }
         ],
-        cycles: 11_078_400n
+        cycles: 12_000_000n
       }
     );
     return Buffer.from(response.body).toString()

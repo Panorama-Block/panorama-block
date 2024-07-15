@@ -7,12 +7,7 @@ type Props = {
 }
 
 const TransactionInfo: React.FC<Props> = ({ title, data }: Props) => {
-  const [info, setInfo] = useState<any>()
-  useEffect(() => {
-    if (JSON.stringify(data).includes("txid")) {
-      setInfo(JSON.parse(data?.['ok'][0]))
-    }
-  }, [])
+  const [info, setInfo] = useState<any>(data)
 
   return (
     info && info.txid && <div className={styles.transactionInfo}>

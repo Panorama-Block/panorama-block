@@ -1,37 +1,19 @@
-import { createActor } from "../../../../declarations/mempool"
 import data from './data.json'
+import { createActor } from '../../../../declarations/icp-bitcoin-ai-api'
 
 const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID);
 
 const IcpService = {
-  setblock: async () => {
-    try {
-      const response = await actor.set_block_hash(
-        "000000000000000000031b5866b8a3702b70c44b751be809462a6adc5d490fc7"
-      );
-      return response
-    } catch (error) {
-      return error
-    }
-  },
-  getBlockInfo: async () => {
-    try {
-      const response = await actor.get_bitcoin_block_info()
-      return response
-    } catch (error) {
-      return error
-    }
-  },
   getHashblocks: async () => {
     try {
-      const response = await actor.get_stable_blocks()
+      const response = await actor.getHashblocks()
       return response
     }
     catch (error) {
       return error
     }
   },
-  getHashblocksCached: (count: bigint) => {
+  getHashblocksCached: () => {
     try {
       const response = { ok: data.hashblocks }
       return response
@@ -42,7 +24,16 @@ const IcpService = {
   },
   getAddressInfo: async (address: string) => {
     try {
-      const response = await actor.get_address_info(address)
+      const response = await actor.getAddress(address)
+      return response
+    }
+    catch (error) {
+      return error
+    }
+  },
+  getWhales: async () => {
+    try {
+      const response = await actor.getWhaleList()
       return response
     }
     catch (error) {
@@ -51,7 +42,7 @@ const IcpService = {
   },
   getTransactionInfo: async (transaction: string) => {
     try {
-      const response = await actor.get_bitcoin_transaction_info(transaction)
+      const response = await actor.getTransaction(transaction)
       return response
     }
     catch (error) {
