@@ -10,7 +10,7 @@ import HubIcon from '@mui/icons-material/Hub'
 import LandingFooter from './components/landing-footer/landing-footer'
 import { AuthClient } from "@dfinity/auth-client";
 import { HttpAgent } from "@dfinity/agent"
-import { createActor } from "../../../../../declarations/mempool";
+import { createActor } from "../../../../../declarations/icp-bitcoin-ai-api";
 import { useNavigate } from 'react-router-dom'
 
 // const host = "http://localhost:4943/";
