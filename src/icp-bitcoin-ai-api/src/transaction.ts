@@ -29,7 +29,7 @@ export const transaction = {
         {
           url: `https://api.mempool.space/api/tx/${id}`,
           ...defaultArgs,
-          max_response_bytes: Some(10_000n),
+          max_response_bytes: Some(5_200n),
         },
       ],
       cycles: 153_691_200n,
@@ -45,7 +45,7 @@ export const transaction = {
           {
             url: `https://api.mempool.space/api/block/${id}/txids`,
             ...defaultArgs,
-            max_response_bytes: Some(500_000n),
+            max_response_bytes: Some(525_000n),
           },
         ],
         cycles: 5_249_738_000n,
@@ -88,7 +88,7 @@ export const transaction = {
 //         {
 //           url: `https://api.mempool.space/api/block/${id}/txids`,
 //           ...defaultArgs,
-//           max_response_bytes: Some(500_000n)
+//           max_response_bytes: Some(525_000n)
 //         }
 //       ],
 //       cycles: 403_106_000n

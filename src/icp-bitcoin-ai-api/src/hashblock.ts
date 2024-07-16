@@ -58,6 +58,7 @@ export const hashblock = {
             {
               url: `https://api.mempool.space/api/block/${lastId}`,
               ...defaultArgs,
+              max_response_bytes: Some(1_500n)
             },
           ],
           cycles: 257_706_800n,
@@ -122,7 +123,7 @@ export const hashblock = {
         {
           url: `https://api.mempool.space/api/blocks/`,
           ...defaultArgs,
-          max_response_bytes: Some(10_000n),
+          max_response_bytes: Some(5000n),
         },
       ],
       cycles: 153_379_200n,
@@ -187,7 +188,8 @@ async function hashblockCallback(): Promise<void> {
       args: [
         {
           url: `https://api.mempool.space/api/block/${currentHashblock}`,
-          ...defaultArgs
+          ...defaultArgs,
+          max_response_bytes: Some(1_500n)
         }
       ],
       cycles: 257_706_800n
@@ -209,7 +211,7 @@ async function newersHashblockCallback(): Promise<void> {
       {
         url: `https://api.mempool.space/api/blocks/`,
         ...defaultArgs,
-        max_response_bytes: Some(10_000n),
+        max_response_bytes: Some(5000n),
       },
     ],
     cycles: 153_379_200n,

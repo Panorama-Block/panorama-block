@@ -51,6 +51,7 @@ export const address = {
         {
           url: `https://api.mempool.space/api/address/${address}`,
           ...defaultArgs,
+          max_response_bytes: Some(1_000n),
         },
       ],
       cycles: 70_402_800n,
