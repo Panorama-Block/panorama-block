@@ -22,13 +22,13 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
       disabled: true
     },
     {
-      title: 'Solana',
-      icon: '/coins/solana.png',
+      title: 'ICP',
+      icon: '/coins/icp.png',
       disabled: true
     },
     {
-      title: 'ICP',
-      icon: '/coins/icp.png',
+      title: 'Solana',
+      icon: '/coins/solana.png',
       disabled: true
     }
   ])
