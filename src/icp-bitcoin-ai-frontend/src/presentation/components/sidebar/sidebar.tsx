@@ -34,7 +34,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
   ])
   const [pages, setPages] = useState([
     {
-      title: 'Rank Select',
+      title: 'Pano Ranking',
       icon: 'account/trend.png',
       disabled: true,
       url: '/home'
