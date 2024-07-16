@@ -2,7 +2,7 @@ import { ic, None, Principal, Some, text, int, update, jsonStringify, jsonParse,
 import { managementCanister } from "azle/canisters/management";
 
 export const defaultArgs = {
-  max_response_bytes: Some(20_000n),
+  max_response_bytes: Some(2_000n),
   method: {
     get: null
   },
