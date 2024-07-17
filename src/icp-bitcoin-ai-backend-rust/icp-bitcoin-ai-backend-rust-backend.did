@@ -1,7 +1,7 @@
+type Result = variant { Ok : text; Err : text };
+
 service : {
-<<<<<<< HEAD
     "get_hash_block": (text) -> (text);
-=======
-    "greet": (text) -> (text) query;
->>>>>>> 06585f8 (rebase from develop)
+    "set_hashblock": (text) -> (Result);
+    "get_set_hash_block": () -> (text);
 }
