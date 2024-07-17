@@ -1,4 +1,3 @@
-//use candid::CandidType;
 use ic_cdk::api::management_canister::http_request::{
     http_request, CanisterHttpRequestArgument, HttpHeader, HttpMethod,
 };
@@ -91,7 +90,6 @@ async fn set_hashblock(hash_block: String) -> Result<String, String> {
             current.borrow_mut().update(hash_block);
         });
     });
-
     match result {
         Ok(_) => Ok("Hash block was set successfully".to_string()),
         Err(_) => Err("Err to set Hash block".to_string()),
@@ -105,6 +103,5 @@ async fn get_set_hash_block() -> String {
     })
 }
 
-// setHashblock: update([text], Void, (id) => {
-//   currentHashblock = id;
-// }),
+// TODO: use set_hashblock as parameter to get_hash_block
+// TODO: get output from get_set_hash_block into a stable variable
