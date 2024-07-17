@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use ic_cdk::api::management_canister::http_request::{
     http_request, CanisterHttpRequestArgument, HttpHeader, HttpMethod,
 };
@@ -35,4 +36,9 @@ async fn get_hash_block(hash_block: String) -> String {
             message
         }
     }
+=======
+#[ic_cdk::query]
+fn greet(name: String) -> String {
+    format!("Hello, {}!", name)
+>>>>>>> 06585f8 (rebase from develop)
 }

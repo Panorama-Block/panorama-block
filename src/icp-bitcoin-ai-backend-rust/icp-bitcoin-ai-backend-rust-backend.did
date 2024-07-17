@@ -1,3 +1,7 @@
 service : {
+<<<<<<< HEAD
     "get_hash_block": (text) -> (text);
+=======
+    "greet": (text) -> (text) query;
+>>>>>>> 06585f8 (rebase from develop)
 }
