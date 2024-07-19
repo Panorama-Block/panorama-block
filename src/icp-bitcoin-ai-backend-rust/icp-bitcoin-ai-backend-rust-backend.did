@@ -1,7 +1,8 @@
 type Result = variant { Ok : text; Err : text };
 
 service : {
-    "get_hash_block": (text) -> (text);
+    "get_hashblock": () -> (Result);
     "set_hashblock": (text) -> (Result);
-    "get_set_hash_block": () -> (text);
+    "get_set_hashblock": () -> (text);
+    "append_hashblock_to_stable": () -> (Result);
 }
