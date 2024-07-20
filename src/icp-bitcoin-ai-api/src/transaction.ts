@@ -24,38 +24,32 @@ export let hashblockTransactionsIDsMap = StableBTreeMap<string, HashblockTransac
 
 export const transaction = {
   getTransaction: update([text], text, async (id: string) => {
-    const response = await ic.call(
-      managementCanister.http_request,
-      {
-        args: [
-          {
-            url: `https://api.mempool.space/api/tx/${id}`,
-            ...defaultArgs,
-            max_response_bytes: Some(10_000n)
-          }
-        ],
-        cycles: 12_000_000n
-      }
-    );
+    const response = await ic.call(managementCanister.http_request, {
+      args: [
+        {
+          url: `https://api.mempool.space/api/tx/${id}`,
+          ...defaultArgs,
+          max_response_bytes: Some(5_200n),
+        },
+      ],
+      cycles: 153_691_200n,
+    });
     return Buffer.from(response.body).toString()
   }),
   getTransactions: update([text], text, async (id: string) => {
     let hashblockIds = []
 
     if (!hashblockTransactionsIDsMap || !hashblockTransactionsIDsMap.containsKey(id)) {
-      const response = await ic.call(
-        managementCanister.http_request,
-        {
-          args: [
-            {
-              url: `https://api.mempool.space/api/block/${id}/txids`,
-              ...defaultArgs,
-              max_response_bytes: Some(500_000n)
-            }
-          ],
-          cycles: 403_106_000n
-        }
-      );
+      const response = await ic.call(managementCanister.http_request, {
+        args: [
+          {
+            url: `https://api.mempool.space/api/block/${id}/txids`,
+            ...defaultArgs,
+            max_response_bytes: Some(525_000n),
+          },
+        ],
+        cycles: 5_249_738_000n,
+      });
 
       const data: any = Buffer.from(response.body).toString()
       const json: HashblockTransactionsIDs = jsonParse(data)
@@ -94,7 +88,7 @@ export const transaction = {
 //         {
 //           url: `https://api.mempool.space/api/block/${id}/txids`,
 //           ...defaultArgs,
-//           max_response_bytes: Some(500_000n)
+//           max_response_bytes: Some(525_000n)
 //         }
 //       ],
 //       cycles: 403_106_000n
