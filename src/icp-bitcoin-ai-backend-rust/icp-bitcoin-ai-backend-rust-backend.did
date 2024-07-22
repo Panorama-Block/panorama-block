@@ -1,8 +1,24 @@
 type Result = variant { Ok : text; Err : text };
 
+type Hashblock = record {
+    id: text;
+    height: float64;
+    version: float64;
+    timestamp: float64;
+    tx_count: float64;
+    size: float64;
+    weight: float64;
+    merkle_root: text;
+    previousblockhash: text;
+    mediantime: float64;
+    nonce: float64;
+    bits: float64;
+    difficulty: float64;
+};
+
 service : {
     "get_hashblock": () -> (Result);
-    "set_hashblock": (text) -> (Result);
-    "get_set_hashblock": () -> (text);
-    "append_hashblock_to_stable": () -> (Result);
+    "insert_hashblock": (nat, Hashblock) -> (opt Hashblock);
+    "set_hashblock": (text) -> ();
+    "get_current_hashblock": () -> (opt text);
 }

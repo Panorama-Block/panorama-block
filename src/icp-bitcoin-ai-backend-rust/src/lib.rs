@@ -1,60 +1,59 @@
-use ic_cdk::api::management_canister::http_request::{
-    http_request, CanisterHttpRequestArgument, HttpHeader, HttpMethod,
-};
-
-use candid::{CandidType, Deserialize};
-use ic_cdk::{init, post_upgrade, pre_upgrade};
-use ic_stable_memory::collections::SVec;
-use ic_stable_memory::derive::{AsFixedSizeBytes, StableType};
-use ic_stable_memory::{retrieve_custom_data, stable_memory_init, stable_memory_post_upgrade, stable_memory_pre_upgrade, store_custom_data, SBox};
+use candid::{decode_one, encode_one, CandidType};
+use ic_cdk::api::management_canister::http_request::{http_request, CanisterHttpRequestArgument, HttpHeader, HttpMethod};
+use ic_cdk_macros::{post_upgrade, pre_upgrade, query, update};
+use ic_stable_structures::{writer::Writer, Memory as _, StableBTreeMap};
+use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
-use std::panic::catch_unwind;
+mod memory;
+use memory::Memory;
 
-#[derive(CandidType, Deserialize, StableType, Debug, Clone, AsFixedSizeBytes)]
+#[derive(Serialize, Deserialize)]
+struct State {
+    data_on_the_heap: Vec<u8>,
+
+    #[serde(skip, default = "init_stable_data")]
+    stable_data: StableBTreeMap<u128, Vec<u8>, Memory>,
+    current_hashblock: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, CandidType, Clone)]
 struct Hashblock {
-    id: u128,
+    id: String,
     height: f64,
     version: f64,
     timestamp: f64,
     tx_count: f64,
     size: f64,
     weight: f64,
-    merkle_root: u128,
-    previous_hashblock: u128,
+    merkle_root: String,
+    previousblockhash: String,
     mediantime: f64,
     nonce: f64,
     bits: f64,
     difficulty: f64,
 }
 
-type Hashblocks = SVec<SBox<Hashblock>>;
-
 thread_local! {
-    static CURRENT_HASHBLOCK: RefCell<CurrentHashblock> = RefCell::new(CurrentHashblock::new(String::new()));
-    static HASHBLOCKS: RefCell<Option<Hashblocks>> = RefCell::new(None);
+    static STATE: RefCell<State> = RefCell::new(State::default());
 }
 
-struct CurrentHashblock {
-    hash: String,
+#[update]
+fn set_hashblock(hash: String) {
+    STATE.with(|s| {
+        s.borrow_mut().current_hashblock = Some(hash);
+    })
 }
 
-impl CurrentHashblock {
-    pub fn new(hash: String) -> Self {
-        Self { hash }
-    }
-
-    pub fn update(&mut self, new_hash: String) {
-        self.hash = new_hash;
-    }
-
-    pub fn get_hash(&self) -> &String {
-        &self.hash
-    }
+#[query]
+fn get_current_hashblock() -> Option<String> {
+    STATE.with(|s| {
+        s.borrow().current_hashblock.clone()
+    })
 }
 
-#[ic_cdk::update]
+#[update]
 async fn get_hashblock() -> Result<String, String> {
-    let current_hash = CURRENT_HASHBLOCK.with(|current| current.borrow().get_hash().clone());
+    let current_hash = get_current_hashblock().ok_or("No current hashblock set")?;
 
     let url = format!("https://mempool.space/api/block/{}", current_hash);
 
@@ -85,95 +84,58 @@ async fn get_hashblock() -> Result<String, String> {
     }
 }
 
-#[ic_cdk::update]
-async fn set_hashblock(hash_block: String) -> Result<String, String> {
-    let result = catch_unwind(|| {
-        CURRENT_HASHBLOCK.with(|current| {
-            current.borrow_mut().update(hash_block);
-        });
+// Inserts a Hashblock into the map after serializing it.
+#[update]
+fn insert_hashblock(key: u128, block: Hashblock) -> Option<Hashblock> {
+    STATE.with(|s| {
+        let bytes = encode_one(&block).expect("Failed to serialize Hashblock");
+        s.borrow_mut().stable_data.insert(key, bytes)
+            .and_then(|old_bytes| decode_one::<Hashblock>(&old_bytes).ok())
+    })
+}
+
+// A pre-upgrade hook for serializing the data stored on the heap.
+#[pre_upgrade]
+fn pre_upgrade() {
+    let mut state_bytes = vec![];
+    STATE.with(|s| ciborium::ser::into_writer(&*s.borrow(), &mut state_bytes))
+        .expect("failed to encode state");
+
+    let len = state_bytes.len() as u32;
+    let mut memory = memory::get_upgrades_memory();
+    let mut writer = Writer::new(&mut memory, 0);
+    writer.write(&len.to_le_bytes()).unwrap();
+    writer.write(&state_bytes).unwrap()
+}
+
+// A post-upgrade hook for deserializing the data back into the heap.
+#[post_upgrade]
+fn post_upgrade() {
+    let memory = memory::get_upgrades_memory();
+
+    let mut state_len_bytes = [0; 4];
+    memory.read(0, &mut state_len_bytes);
+    let state_len = u32::from_le_bytes(state_len_bytes) as usize;
+
+    let mut state_bytes = vec![0; state_len];
+    memory.read(4, &mut state_bytes);
+
+    let state = ciborium::de::from_reader(&*state_bytes).expect("failed to decode state");
+    STATE.with(|s| {
+        *s.borrow_mut() = state
     });
-    match result {
-        Ok(_) => Ok("Hash block was set successfully".to_string()),
-        Err(_) => Err("Err to set Hash block".to_string()),
-    }
 }
 
-#[ic_cdk::update]
-async fn get_set_hashblock() -> String {
-    CURRENT_HASHBLOCK.with(|current| current.borrow().get_hash().clone())
+fn init_stable_data() -> StableBTreeMap<u128, Vec<u8>, Memory> {
+    StableBTreeMap::init(crate::memory::get_stable_btree_memory())
 }
 
-#[ic_cdk::update]
-fn append_hashblock_to_stable() -> Result<String, String> {
-    let current_hash = CURRENT_HASHBLOCK.with(|current| current.borrow().get_hash().clone());
-
-    let id = hash_to_u128(&current_hash);
-    let merkle_root = 0u128;
-    let previous_hashblock = 0u128;
-
-    let new_block = Hashblock {
-        id,
-        height: 0.0,
-        version: 0.0,
-        timestamp: 0.0,
-        tx_count: 0.0,
-        size: 0.0,
-        weight: 0.0,
-        merkle_root,
-        previous_hashblock,
-        mediantime: 0.0,
-        nonce: 0.0,
-        bits: 0.0,
-        difficulty: 0.0,
-    };
-
-    let boxed_block = SBox::new(new_block).map_err(|_| "Out of memory")?;
-    HASHBLOCKS.with(|hashblocks| {
-        if let Some(ref mut hashblocks) = *hashblocks.borrow_mut() {
-            hashblocks.push(boxed_block).map_err(|_| "Failed to append hash block")?;
+impl Default for State {
+    fn default() -> Self {
+        Self {
+            data_on_the_heap: vec![],
+            stable_data: init_stable_data(),
+            current_hashblock: None,
         }
-        Ok::<(), String>(())
-    })?;
-
-    Ok("Hash block was appended successfully".to_string())
-}
-
-fn hash_to_u128(hash: &str) -> u128 {
-    let bytes = hash.as_bytes();
-    let mut result = 0u128;
-    for &byte in bytes.iter().take(10) {
-        result = (result << 8) | byte as u128;
     }
-    result
 }
-
-#[init]
-fn init() {
-    stable_memory_init();
-
-    HASHBLOCKS.with(|s| {
-        *s.borrow_mut() = Some(SVec::new());
-    });
-}
-
-// #[pre_upgrade]
-// fn pre_upgrade() {
-//   let state: Hashblocks = HASHBLOCKS.with(|s| s.borrow_mut().take().unwrap());
-//   let boxed_state = SBox::new(state).expect("Out of memory");
-
-//   store_custom_data(0, boxed_state);
-
-//   stable_memory_pre_upgrade().expect("Out of memory");
-// }
-
-// #[post_upgrade]
-// fn post_upgrade() {
-//   stable_memory_post_upgrade();
-
-//   let state = retrieve_custom_data::<Hashblocks>(0).unwrap().into_inner();
-//   HASHBLOCKS.with(|s| {
-//     *s.borrow_mut() = Some(state);
-//   });
-// }
-
-// TODO: get output from get_set_hash_block into a stable variable
