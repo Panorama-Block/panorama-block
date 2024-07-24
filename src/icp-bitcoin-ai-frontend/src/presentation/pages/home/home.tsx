@@ -61,8 +61,9 @@ const Home: React.FC = () => {
 
         if (response) {
           localStorage.clear()
-          const json = jsonParseBigint(response).map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
-          const sorted = json.sort(compareTimestampDesc)
+          const json = await jsonParseBigint(response)
+          const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
+          const sorted = jsonFormated.sort(compareTimestampDesc)
 
           const data = { ok: sorted, date: 0 }
           data.date = Date.now()
