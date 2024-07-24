@@ -154,7 +154,14 @@ export const hashblock = {
     return hashblocksMap.keys();
   }),
   getHashblocks: query([], Vec(Hashblocks), () => {
-    return hashblocksMap.values();
+    const data = hashblocksMap.values()
+
+    if (data) {
+      const result = data.sort((a, b) => b.timestamp - a.timestamp)
+      return result
+    }
+
+    return [];
   }),
   getHashblocksLength: query([], int, () => {
     return hashblocksMap.len()
