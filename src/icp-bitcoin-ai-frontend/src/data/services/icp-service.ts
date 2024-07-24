@@ -1,5 +1,6 @@
 import data from './data.json'
 import { createActor } from '../../../../declarations/icp-bitcoin-ai-api'
+import axios from 'axios';
 
 const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID);
 
@@ -46,6 +47,16 @@ const IcpService = {
       return response
     }
     catch (error) {
+      return error
+    }
+  },
+  getHashblockTransactions: async (id: string) => {
+    try {
+      const response = await axios.get(`https://mempool.space/api/v1/block/${id}/summary`)
+      return response
+    }
+    catch (error) {
+      console.log(error)
       return error
     }
   }

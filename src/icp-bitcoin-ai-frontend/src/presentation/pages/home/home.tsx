@@ -16,11 +16,19 @@ import OpenChat from './components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
 import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
+import axios from 'axios'
+
+interface HashblockTransactions {
+  id: string,
+  transactions: any[]
+}
 
 const Home: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
+  const [updated, setUpdated] = useState(false)
   const [actualHashblock, setActualHashblock] = useState(null)
-  const [hashblocks, setHashblocks] = useState()
+  const [hashblocks, setHashblocks] = useState([])
+  const [hashblocksTransactions, setHashblockTransactions] = useState<HashblockTransactions[]>([])
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
   const [whaleOpened, setWhaleOpened] = useState(false)
@@ -48,6 +56,38 @@ const Home: React.FC = () => {
     return false
   }
 
+  const getHashblocksTransactions = async () => {
+    console.log(hashblocks)
+    const cache = localStorage.getItem('hashblocksTransactions')
+
+    if (cache) {
+      console.log('cache')
+      console.log(await JSON.parse(cache))
+
+      setHashblockTransactions(await JSON.parse(cache))
+    }
+
+    if (hashblocks) {
+      const newData = [...hashblocksTransactions]
+      hashblocks.map(async (hashblock: any) => {
+        const id = hashblock['id']
+        if (id) {
+          if (hashblocksTransactions.indexOf(id) === -1) {
+            const response: any = await IcpService.getHashblockTransactions(id)
+
+            if (response.data) {
+              newData.push({
+                id: hashblock['id'],
+                transactions: response['data']
+              })
+              localStorage.setItem('hashblocksTransactions', JSON.stringify(newData))
+            }
+          }
+        }
+      })
+    }
+  }
+
   useEffect(() => {
     const getHashblocks = async (): Promise<void> => {
       const cache = localStorage.getItem('hashblocks')
@@ -60,7 +100,7 @@ const Home: React.FC = () => {
         const response: any = await IcpService.getHashblocks()
 
         if (response) {
-          localStorage.clear()
+          localStorage.removeItem('hashblocks')
           const json = jsonParseBigint(response).map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
           const sorted = json.sort(compareTimestampDesc)
 
@@ -70,6 +110,8 @@ const Home: React.FC = () => {
           localStorage.setItem('hashblocks', JSON.stringify(data))
         }
       }
+
+      // getHashblocksTransactions()
     }
 
     getHashblocks()
