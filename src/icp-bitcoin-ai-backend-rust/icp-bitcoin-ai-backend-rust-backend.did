@@ -21,4 +21,6 @@ service : {
     "insert_hashblock": (nat, Hashblock) -> (opt Hashblock);
     "set_hashblock": (text) -> ();
     "get_current_hashblock": () -> (opt text);
+    "append_current_hashblock_to_stable": () -> (opt text);
+    "get_stable_hashblock_by_key": (text) -> (opt Hashblock);
 }

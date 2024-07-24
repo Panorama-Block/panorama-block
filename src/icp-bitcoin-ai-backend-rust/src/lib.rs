@@ -84,7 +84,7 @@ async fn get_hashblock() -> Result<String, String> {
     }
 }
 
-// Inserts a Hashblock into the map after serializing it.
+/// Append hashblock to stable memory
 #[update]
 fn insert_hashblock(key: u128, block: Hashblock) -> Option<Hashblock> {
     STATE.with(|s| {
@@ -93,6 +93,57 @@ fn insert_hashblock(key: u128, block: Hashblock) -> Option<Hashblock> {
             .and_then(|old_bytes| decode_one::<Hashblock>(&old_bytes).ok())
     })
 }
+
+#[update]
+async fn append_current_hashblock_to_stable() -> Option<String> {
+    let current_hash = match get_current_hashblock() {
+        Some(hash) => hash,
+        None => return None,
+    };
+
+    let url = format!("https://mempool.space/api/block/{}", current_hash);
+    let request_headers = vec![HttpHeader {
+        name: "User-Agent".to_string(),
+        value: "https://panoramablock.com".to_string(),
+    }];
+
+    let request = CanisterHttpRequestArgument {
+        url: url.to_string(),
+        method: HttpMethod::GET,
+        body: None,
+        max_response_bytes: None,
+        transform: None,
+        headers: request_headers,
+    };
+
+    let response = match http_request(request, 1603126400).await {
+        Ok((response,)) => response,
+        Err(_) => return None,
+    };
+
+    let body_str = match String::from_utf8(response.body) {
+        Ok(str) => str,
+        Err(_) => return None,
+    };
+
+    let block: Hashblock = match serde_json::from_str(&body_str) {
+        Ok(block) => block,
+        Err(_) => return None,
+    };
+
+    let serialized_block = match encode_one(&block) {
+        Ok(bytes) => bytes,
+        Err(_) => return None,
+    };
+
+    STATE.with(|s| {
+        let key = hash_to_u128(&block.id);
+        s.borrow_mut().stable_data.insert(key, serialized_block);
+    });
+
+    Some("Hashblock appended successfully".to_string())
+}
+ // Convert block ID hash to u128 }
 
 // A pre-upgrade hook for serializing the data stored on the heap.
 #[pre_upgrade]
@@ -139,3 +190,25 @@ impl Default for State {
         }
     }
 }
+
+#[query]
+fn get_stable_hashblock_by_key(key: u128) -> Option<Hashblock> {
+    STATE.with(|s| {
+        s.borrow().stable_data.get(&key).and_then(|value| {
+            decode_one::<Hashblock>(&value).ok()
+        })
+    })
+}
+
+fn hash_to_u128(hash: &str) -> u128 {
+    let mut result = 0u128;
+    for byte in hash.as_bytes().iter().take(16) {
+        result = result << 8 | *byte as u128;
+    }
+
+    result
+}
+
+// TODO: get hashblocks from stable memory
+// TODO: print a stable hashblock by key
+// TODO: change insert to append current hashblock to stable
