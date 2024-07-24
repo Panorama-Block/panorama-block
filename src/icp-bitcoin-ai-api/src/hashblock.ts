@@ -158,6 +158,10 @@ export const hashblock = {
 
     if (data) {
       const result = data.sort((a, b) => b.timestamp - a.timestamp)
+
+      if (result.length > 1000) {
+        return result.slice(0, 1000)
+      }
       return result
     }
 
