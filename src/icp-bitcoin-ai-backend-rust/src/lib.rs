@@ -9,6 +9,8 @@ use std::cell::RefCell;
 use types::Hashblock;
 use memory::Memory;
 use config::{API_URL, default_headers};
+#[cfg(test)]
+mod tests;
 
 #[derive(Serialize, Deserialize)]
 struct State {
@@ -35,7 +37,7 @@ thread_local! {
 /// set_hashblock("new_hash_value".to_string());
 /// ```
 #[update]
-fn set_hashblock(hash: String) {
+pub fn set_hashblock(hash: String) {
     STATE.with(|s| {
         s.borrow_mut().current_hashblock = Some(hash);
     })
@@ -55,7 +57,7 @@ fn set_hashblock(hash: String) {
 /// let current_hash = get_current_hashblock();
 /// ```
 #[query]
-fn get_current_hashblock() -> Option<String> {
+pub fn get_current_hashblock() -> Option<String> {
     STATE.with(|s| {
         s.borrow().current_hashblock.clone()
     })
@@ -275,3 +277,9 @@ fn delete_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
         })
     })
 }
+
+// TODO: address operations + tests (fat)
+// TODO: conversion prices + tests (fat)
+// TODO: transaction + tests (fat) -> next
+// TODO: hashblock tests (80kg)
+// TODO: multi-canister
