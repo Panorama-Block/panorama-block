@@ -8,9 +8,7 @@ use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use types::Hashblock;
 use memory::Memory;
-use config::{API_URL, default_headers};
-#[cfg(test)]
-mod tests;
+use config::{HASHBLOCK_API_URL, default_headers};
 
 #[derive(Serialize, Deserialize)]
 struct State {
@@ -79,7 +77,7 @@ pub fn get_current_hashblock() -> Option<String> {
 #[update]
 async fn get_hashblock() -> Result<String, String> {
     let current_hash = get_current_hashblock().ok_or("No current hashblock has been set")?;
-    let url = format!("{}{}", API_URL, current_hash);
+    let url = format!("{}{}", HASHBLOCK_API_URL, current_hash);
 
     let request = CanisterHttpRequestArgument {
         url: url.to_string(),
@@ -119,7 +117,7 @@ async fn get_hashblock() -> Result<String, String> {
 #[update]
 async fn append_current_hashblock_to_stable() -> Option<String> {
     let current_hash = get_current_hashblock()?;
-    let url = format!("{}{}", API_URL, current_hash);
+    let url = format!("{}{}", HASHBLOCK_API_URL, current_hash);
 
     let request = CanisterHttpRequestArgument {
         url: url.to_string(),

@@ -1,7 +1,7 @@
 use candid::CandidType;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, CandidType, Clone)]
+#[derive(Serialize, Deserialize, CandidType, Clone, Debug)]
 pub struct Hashblock {
     pub id: String,
     pub height: f64,
