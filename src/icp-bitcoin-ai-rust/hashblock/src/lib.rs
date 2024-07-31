@@ -21,68 +21,28 @@ thread_local! {
     static STATE: RefCell<State> = RefCell::new(State::default())
 }
 
-/// Sets the current hashblock to the given hash value.
-///
-/// This function updates the `current_hashblock` in the application state to the provided hash value.
-///
-/// # Parameters
-///
-/// - `hash`: A `String` representing the new hash value to be set.
-///
-/// # Examples
-///
-/// ```
-/// set_hashblock("new_hash_value".to_string());
-/// ```
 #[update]
 pub fn set_hashblock(hash: String) {
     STATE.with(|s| {
         s.borrow_mut().current_hashblock = Some(hash);
     })
 
-    // function send message to other caninsters
-
+    // TODO: function send message to other caninsters
 }
 
-/// Retrieves the current hashblock.
-///
-/// This function returns the current hashblock from the application state.
-///
-/// # Returns
-///
-/// - `Option<String>`: The current hashblock, if it has been set.
-///
-/// # Examples
-///
-/// ```
-/// let current_hash = get_current_hashblock();
-/// ```
 #[query]
-pub fn get_current_hashblock() -> Option<String> {
+pub fn get_current_hashblock() -> String {
     STATE.with(|s| {
-        s.borrow().current_hashblock.clone()
+        s.borrow().current_hashblock.clone().unwrap_or_else(|| "No current hashblock set".to_string())
     })
 }
 
-/// Fetches the current hashblock from a remote server.
-///
-/// This function constructs a URL using the current hashblock and sends an HTTP GET request to fetch it.
-///
-/// # Returns
-///
-/// - `Result<String, String>`: The response body as a string if the request is successful, otherwise an error message.
-///
-/// # Examples
-///
-/// ```
-/// let response = get_hashblock().await;
-/// ```
 #[update]
 async fn get_hashblock() -> String {
-    let current_hash = match get_current_hashblock() {
-        Some(hash) => hash,
-        None => return "Error: No current hashblock has been set".to_string(),
-    };
+    let current_hash = get_current_hashblock();
+    if current_hash == "No current hashblock set" {
+        return current_hash;
+    }
 
     let url = format!("{}{}", HASHBLOCK_API_URL, current_hash);
     let request = CanisterHttpRequestArgument {
@@ -103,22 +63,12 @@ async fn get_hashblock() -> String {
     }
 }
 
-/// Appends the current hashblock to the stable storage.
-///
-/// This function fetches the current hashblock from a remote server and appends it to the `stable_hashblock`.
-///
-/// # Returns
-///
-/// - `Option<String>`: A message indicating the operation was successful, or `None` if it failed.
-///
-/// # Examples
-///
-/// ```
-/// let result = append_current_hashblock_to_stable().await;
-/// ```
 #[update]
-async fn append_current_hashblock_to_stable() -> Option<String> {
-    let current_hash = get_current_hashblock()?;
+async fn append_current_hashblock_to_stable() -> String {
+    let current_hash = get_current_hashblock();
+    if current_hash == "No current hashblock set" {
+        return current_hash.to_string();
+    }
     let url = format!("{}{}", HASHBLOCK_API_URL, current_hash);
 
     let request = CanisterHttpRequestArgument {
@@ -132,61 +82,45 @@ async fn append_current_hashblock_to_stable() -> Option<String> {
 
     let response = match http_request(request, 1603126400).await {
         Ok((response,)) => response,
-        Err(_) => return None,
+        Err(_) => return "Request failed".to_string(),
     };
 
-    let body_str = String::from_utf8(response.body).ok()?;
-    let block: Hashblock = serde_json::from_str(&body_str).ok()?;
-    let serialized_block = encode_one(&block).ok()?;
+    let body_str = match String::from_utf8(response.body) {
+        Ok(body) => body,
+        Err(_) => return "Failed to decode response body".to_string(),
+    };
+
+    let block: Hashblock = match serde_json::from_str(&body_str) {
+        Ok(block) => block,
+        Err(_) => return "Failed to parse JSON response".to_string(),
+    };
+
+    let serialized_block = match encode_one(&block) {
+        Ok(serialized) => serialized,
+        Err(_) => return "Failed to serialize hashblock".to_string(),
+    };
 
     STATE.with(|s| {
         let key = block.id.clone();
         s.borrow_mut().stable_hashblock.insert(key, serialized_block);
     });
 
-    Some("Hashblock appended successfully".to_string())
+    "Hashblock appended successfully".to_string()
 }
 
-/// Retrieves a `Hashblock` from the stable storage by the given key.
-///
-/// This function fetches a `Hashblock` from the `stable_hashblock` based on the provided key.
-///
-/// # Parameters
-///
-/// - `key`: A `String` representing the key of the `Hashblock` to be retrieved.
-///
-/// # Returns
-///
-/// - `Option<Hashblock>`: The `Hashblock` associated with the given key, if it exists.
-///
-/// # Examples
-///
-/// ```
-/// let key = "example_key".to_string();
-/// let hashblock = get_stable_hashblock_by_key(key);
-/// ```
 #[query]
-fn get_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
+fn get_stable_hashblock_by_key(key: String) -> Hashblock {
     STATE.with(|s| {
-        s.borrow().stable_hashblock.get(&key).and_then(|value| {
-            decode_one::<Hashblock>(&value).ok()
-        })
+        match s.borrow().stable_hashblock.get(&key) {
+            Some(value) => match decode_one::<Hashblock>(&value) {
+                Ok(hashblock) => hashblock,
+                Err(_) => Hashblock::default(),
+            },
+            None => Hashblock::default()
+        }
     })
 }
 
-/// Retrieves all `Hashblock`s from the stable storage.
-///
-/// This function returns a list of all `Hashblock`s stored in the `stable_hashblock`.
-///
-/// # Returns
-///
-/// - `Vec<Hashblock>`: A vector containing all `Hashblock`s in the stable storage.
-///
-/// # Examples
-///
-/// ```
-/// let all_hashblocks = get_all_stable_hashblocks();
-/// ```
 #[query]
 fn get_all_stable_hashblocks() -> Vec<Hashblock> {
     STATE.with(|s| {
@@ -195,19 +129,6 @@ fn get_all_stable_hashblocks() -> Vec<Hashblock> {
     })
 }
 
-/// Initializes the `stable_hashblock` storage.
-///
-/// This function initializes the `stable_hashblock` using the memory defined in the `memory` module.
-///
-/// # Returns
-///
-/// - `StableBTreeMap<String, Vec<u8>, Memory>`: An initialized `StableBTreeMap` instance.
-///
-/// # Examples
-///
-/// ```
-/// let stable_hashblock = init_stable_hashblock();
-/// ```
 fn init_stable_hashblock() -> StableBTreeMap<String, Vec<u8>, Memory> {
     StableBTreeMap::init(crate::memory::get_stable_btree_memory())
 }
@@ -221,67 +142,20 @@ impl Default for State {
     }
 }
 
-/// Clears the `stable_hashblock` and returns a message indicating the operation was successful.
-///
-/// This function uses a query to clear the `stable_hashblock` in the application state.
-/// It borrows the staautote mutably and clears the `stable_hashblock`.
-///
-/// # Returns
-///
-/// - `Option<String>`: A message indicating that the `stable_hashblock` has been cleared.
-///
-/// # Examples
-///
-/// ```
-/// let result = delete_stable_hashblocks();
-/// assert_eq!(result, Some("Stable hashblocks were clear".to_string()));
-/// ```
 #[update]
-fn delete_stable_hasblocks() -> Option<String> {
+fn delete_stable_hasblocks() -> String {
     STATE.with(|s| {
         s.borrow_mut().stable_hashblock.clear_new();
     });
 
-    Some("Stable hashblocks were clear".to_string())
+    "Stable hashblocks were clear".to_string()
 }
 
-/// Deletes an entry in the `stable_hashblock` by the given key and returns the corresponding `Hashblock` if it exists.
-///
-/// This function uses a query to remove an entry from the `stable_hashblock` based on the provided key.
-/// It borrows the state mutably and attempts to remove the entry corresponding to the key.
-/// If the entry exists, it decodes the value into a `Hashblock` and returns it.
-///
-/// # Parameters
-///
-/// - `key`: A `String` representing the key of the `Hashblock` to be removed.
-///
-/// # Returns
-///
-/// - `Option<Hashblock>`: The `Hashblock` associated with the given key, if it exists.
-///
-/// # Examples
-///
-/// ```
-/// let key = "example_key".to_string();
-/// let hashblock = delete_stable_hashblock_by_key(key);
-/// match hashblock {
-///     Some(block) => println!("Deleted hashblock: {:?}", block),
-///     None => println!("No hashblock found for the given key"),
-/// }
-/// ```
 #[update]
-fn delete_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
+fn delete_stable_hashblock_by_key(key: String) -> Hashblock {
     STATE.with(|s| {
-        s.borrow_mut().stable_hashblock.remove(&key).and_then(|value| {
-            decode_one::<Hashblock>(&value).ok()
-        })
+        let maybe_value = s.borrow_mut().stable_hashblock.remove(&key);
+        maybe_value.and_then(|value| decode_one::<Hashblock>(&value).ok())
+            .unwrap_or_default()
     })
 }
-
-// TODO: multi-canister (200kg+)
-// TODO: address operations + tests (fat)
-// TODO: conversion prices + tests (fat)
-// TODO: transaction + tests (fat) -> next
-// TODO: hashblock tests (8kg)
-
-// ADDRESS ///////////////////////////////////////////

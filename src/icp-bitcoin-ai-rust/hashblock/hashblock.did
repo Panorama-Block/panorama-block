@@ -1,5 +1,3 @@
-type Result = variant { Ok : text; Err : text };
-
 type Hashblock = record {
     id: text;
     height: float64;
@@ -19,10 +17,10 @@ type Hashblock = record {
 service : {
     "get_hashblock": () -> (text);
     "set_hashblock": (text) -> ();
-    "get_current_hashblock": () -> (opt text);
-    "append_current_hashblock_to_stable": () -> (opt text);
-    "get_stable_hashblock_by_key": (text) -> (opt Hashblock);
+    "get_current_hashblock": () -> (text);
+    "append_current_hashblock_to_stable": () -> (text);
+    "get_stable_hashblock_by_key": (text) -> (Hashblock);
     "get_all_stable_hashblocks": () -> (vec Hashblock);
-    "delete_stable_hasblocks": () -> (opt text);
-    "delete_stable_hashblock_by_key": (text) -> (opt Hashblock);
+    "delete_stable_hasblocks": () -> (text);
+    "delete_stable_hashblock_by_key": (text) -> (Hashblock);
 }
