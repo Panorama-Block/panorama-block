@@ -1,0 +1,5 @@
+service : {
+    "greet": (text) -> (text) query;
+    "sexo": (canister_id: principal, hashblock_id: text) -> (text);
+    "meia_nove": (canister_id: principal) -> (text);
+}

@@ -9,9 +9,14 @@
       "main": "src/icp-bitcoin-ai-api/src/index.ts",
       "candid_gen": "automatic"
 		},
-    "rust": {
-      "candid": "src/icp-bitcoin-ai-backend-rust/icp-bitcoin-ai-backend-rust-backend.did",
-      "package": "icp-bitcoin-ai-backend-rust-backend",
+    "hashblock": {
+      "candid": "src/icp-bitcoin-ai-rust/hashblock/hashblock.did",
+      "package": "hashblock",
+      "type": "rust"
+    },
+    "core": {
+      "candid": "src/icp-bitcoin-ai-rust/core/core.did",
+      "package": "core",
       "type": "rust"
     },
     "icp-bitcoin-ai-frontend": {

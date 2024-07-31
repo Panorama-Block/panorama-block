@@ -39,6 +39,9 @@ pub fn set_hashblock(hash: String) {
     STATE.with(|s| {
         s.borrow_mut().current_hashblock = Some(hash);
     })
+
+    // function send message to other caninsters
+
 }
 
 /// Retrieves the current hashblock.
@@ -75,10 +78,13 @@ pub fn get_current_hashblock() -> Option<String> {
 /// let response = get_hashblock().await;
 /// ```
 #[update]
-async fn get_hashblock() -> Result<String, String> {
-    let current_hash = get_current_hashblock().ok_or("No current hashblock has been set")?;
-    let url = format!("{}{}", HASHBLOCK_API_URL, current_hash);
+async fn get_hashblock() -> String {
+    let current_hash = match get_current_hashblock() {
+        Some(hash) => hash,
+        None => return "Error: No current hashblock has been set".to_string(),
+    };
 
+    let url = format!("{}{}", HASHBLOCK_API_URL, current_hash);
     let request = CanisterHttpRequestArgument {
         url: url.to_string(),
         method: HttpMethod::GET,
@@ -90,14 +96,10 @@ async fn get_hashblock() -> Result<String, String> {
 
     match http_request(request, 1603126400).await {
         Ok((response,)) => match String::from_utf8(response.body) {
-           Ok(str_body) => Ok(str_body),
-           Err(_) => Err("Failed to decode UTF-8 response".to_string())
-        }
-
-        Err((r, m)) => {
-            let message = format!("HTTP request error. RejectionCode: {r:?}, Error: {m}");
-            Err(message)
-        }
+            Ok(str_body) => str_body,
+            Err(_) => "Error: Failed to decode UTF-8 response".to_string(),
+        },
+        Err((r, m)) => format!("HTTP request error. RejectionCode: {:?}, Error: {}", r, m),
     }
 }
 
@@ -222,7 +224,7 @@ impl Default for State {
 /// Clears the `stable_hashblock` and returns a message indicating the operation was successful.
 ///
 /// This function uses a query to clear the `stable_hashblock` in the application state.
-/// It borrows the state mutably and clears the `stable_hashblock`.
+/// It borrows the staautote mutably and clears the `stable_hashblock`.
 ///
 /// # Returns
 ///
@@ -276,8 +278,10 @@ fn delete_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
     })
 }
 
+// TODO: multi-canister (200kg+)
 // TODO: address operations + tests (fat)
 // TODO: conversion prices + tests (fat)
 // TODO: transaction + tests (fat) -> next
-// TODO: hashblock tests (80kg)
-// TODO: multi-canister
+// TODO: hashblock tests (8kg)
+
+// ADDRESS ///////////////////////////////////////////

@@ -1,5 +1,6 @@
 [workspace]
 members = [
-    "src/icp-bitcoin-ai-backend-rust"
+    "src/icp-bitcoin-ai-rust/hashblock",
+    "src/icp-bitcoin-ai-rust/core"
 ]
 resolver = "2"

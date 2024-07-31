@@ -1,5 +1,5 @@
 [package]
-name = "icp-bitcoin-ai-backend-rust-backend"
+name = "hashblock"
 version = "0.1.0"
 edition = "2021"
 
