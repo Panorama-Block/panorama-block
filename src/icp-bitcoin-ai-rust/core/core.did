@@ -1,0 +1,5 @@
+service : {
+    "greet": (text) -> (text) query;
+    "call_set_hashblock": (canister_id: principal, hashblock_id: text) -> (text);
+    "call_get_hashblock": (canister_id: principal) -> (text);
+}

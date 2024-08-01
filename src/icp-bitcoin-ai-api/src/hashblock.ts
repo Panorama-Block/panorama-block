@@ -53,6 +53,7 @@ export const hashblock = {
       const hasHashblock = hashblocksMap.containsKey(lastId)
 
       if (!hasHashblock) {
+
         const response = await ic.call(managementCanister.http_request, {
           args: [
             {
@@ -91,6 +92,7 @@ export const hashblock = {
       return 'No Hashblocks found'
     }
 
+
     hashblockCallback();
 
     timer = ic.setTimerInterval(BigInt(15), hashblockCallback)
@@ -117,6 +119,7 @@ export const hashblock = {
 
     return 'Wiped All Hashblocks'
   }),
+
   testCycles: update([], text, async () => {
     const response = await ic.call(managementCanister.http_request, {
       args: [
@@ -154,6 +157,7 @@ export const hashblock = {
     return hashblocksMap.keys();
   }),
   getHashblocks: query([], Vec(Hashblocks), () => {
+
     const data = hashblocksMap.values()
 
     if (data) {

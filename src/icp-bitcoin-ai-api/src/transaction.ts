@@ -88,6 +88,7 @@ export const transaction = {
 //         {
 //           url: `https://api.mempool.space/api/block/${id}/txids`,
 //           ...defaultArgs,
+
 //           max_response_bytes: Some(525_000n)
 //         }
 //       ],

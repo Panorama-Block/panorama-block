@@ -12,6 +12,7 @@ import {
 } from 'recharts'
 import styles from './time-transactions-chart-styles.module.scss'
 import { Skeleton } from '@mui/material'
+
 import { dayInterval, hoursInterval } from '../../../../../utils/time'
 
 type Props = {
