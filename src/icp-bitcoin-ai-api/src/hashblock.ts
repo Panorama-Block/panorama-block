@@ -53,18 +53,17 @@ export const hashblock = {
       const hasHashblock = hashblocksMap.containsKey(lastId)
 
       if (!hasHashblock) {
-        const response = await ic.call(
-          managementCanister.http_request,
-          {
-            args: [
-              {
-                url: `https://api.mempool.space/api/block/${lastId}`,
-                ...defaultArgs
-              }
-            ],
-            cycles: 5_000_000n
-          }
-        );
+
+        const response = await ic.call(managementCanister.http_request, {
+          args: [
+            {
+              url: `https://api.mempool.space/api/block/${lastId}`,
+              ...defaultArgs,
+              max_response_bytes: Some(1_500n)
+            },
+          ],
+          cycles: 257_706_800n,
+        });
 
         const data: any = Buffer.from(response.body).toString()
         const json: Hashblocks = jsonParse(data)
@@ -93,7 +92,10 @@ export const hashblock = {
       return 'No Hashblocks found'
     }
 
-    timer = ic.setTimerInterval(BigInt(5), hashblockCallback)
+
+    hashblockCallback();
+
+    timer = ic.setTimerInterval(BigInt(15), hashblockCallback)
 
     return `Ok, collecting ${count} hashblocks`
   }),
@@ -117,6 +119,32 @@ export const hashblock = {
 
     return 'Wiped All Hashblocks'
   }),
+
+  testCycles: update([], text, async () => {
+    const response = await ic.call(managementCanister.http_request, {
+      args: [
+        {
+          url: `https://api.mempool.space/api/blocks/`,
+          ...defaultArgs,
+          max_response_bytes: Some(5000n),
+        },
+      ],
+      cycles: 153_379_200n,
+    });
+    const data: any = Buffer.from(response.body).toString()
+    const json: Hashblocks[] = jsonParse(data)
+
+    json.map((hashblock) => {
+      if (!hashblocksMap.containsKey(hashblock.id)) {
+        hashblocksMap.insert(hashblock.id, hashblock)
+        currentHashblock = hashblock.previousblockhash
+      }
+      else {
+        currentHashblock = hashblock.previousblockhash
+      }
+    })
+    return `Ok, collected ${json.length} hashblocks`
+  }),
   resetUpdateTimer: update([], text, () => {
     ic.clearTimer(timer)
     return 'Timer of updateHashblocks has canceled'
@@ -129,7 +157,19 @@ export const hashblock = {
     return hashblocksMap.keys();
   }),
   getHashblocks: query([], Vec(Hashblocks), () => {
-    return hashblocksMap.values();
+
+    const data = hashblocksMap.values()
+
+    if (data) {
+      const result = data.sort((a, b) => b.timestamp - a.timestamp)
+
+      if (result.length > 1000) {
+        return result.slice(0, 1000)
+      }
+      return result
+    }
+
+    return [];
   }),
   getHashblocksLength: query([], int, () => {
     return hashblocksMap.len()
@@ -163,10 +203,11 @@ async function hashblockCallback(): Promise<void> {
       args: [
         {
           url: `https://api.mempool.space/api/block/${currentHashblock}`,
-          ...defaultArgs
+          ...defaultArgs,
+          max_response_bytes: Some(1_500n)
         }
       ],
-      cycles: 5_000_000n
+      cycles: 257_706_800n
     }
   );
 
@@ -180,19 +221,16 @@ async function hashblockCallback(): Promise<void> {
 }
 
 async function newersHashblockCallback(): Promise<void> {
-  const response = await ic.call(
-    managementCanister.http_request,
-    {
-      args: [
-        {
-          url: `https://api.mempool.space/api/blocks/`,
-          ...defaultArgs,
-          max_response_bytes: Some(10_000n),
-        }
-      ],
-      cycles: 11_078_400n
-    }
-  )
+  const response = await ic.call(managementCanister.http_request, {
+    args: [
+      {
+        url: `https://api.mempool.space/api/blocks/`,
+        ...defaultArgs,
+        max_response_bytes: Some(5000n),
+      },
+    ],
+    cycles: 153_379_200n,
+  });
   const data: any = Buffer.from(response.body).toString()
   const json: Hashblocks[] = jsonParse(data)
 

@@ -14,7 +14,7 @@ import HashblockInfo from './components/hashblock-info/hashblock-info'
 import { Tooltip } from '@mui/material'
 import OpenChat from './components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
-import { hoursInterval } from '../../../utils/time'
+import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
 
 const Home: React.FC = () => {
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
 
   const verifyCacheInterval = (cache: any) => {
     if (cache.date) {
-      const interval = hoursInterval(Date.now(), cache.date)
+      const interval = minutesInterval(Date.now(), cache.date)
 
       if (interval >= 0 && interval < 5) {
         return true
@@ -61,8 +61,9 @@ const Home: React.FC = () => {
 
         if (response) {
           localStorage.clear()
-          const json = jsonParseBigint(response)
-          const sorted = json.sort(compareTimestampDesc)
+          const json = await jsonParseBigint(response)
+          const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
+          const sorted = jsonFormated.sort(compareTimestampDesc)
 
           const data = { ok: sorted, date: 0 }
           data.date = Date.now()

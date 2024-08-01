@@ -12,7 +12,8 @@ import {
 } from 'recharts'
 import styles from './time-transactions-chart-styles.module.scss'
 import { Skeleton } from '@mui/material'
-import { dayInterval } from '../../../../../utils/time'
+
+import { dayInterval, hoursInterval } from '../../../../../utils/time'
 
 type Props = {
   data: any
@@ -64,6 +65,7 @@ const TimeTransactionsChart: React.FC<Props> = ({ data }: Props) => {
 
   const generateData = () => {
     const max = dayInterval(data[0].timestamp, data[data.length - 1].timestamp)
+
     const newData: any = Array.from({ length: max > 0 ? max : 1 }, () => new Object({ 'transactions': 0, name: '' }))
     let lastDiff = 0
 

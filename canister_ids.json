@@ -1,4 +1,7 @@
 {
+  "icp-bitcoin-ai-api": {
+    "ic": "h3ovm-oaaaa-aaaak-akwtq-cai"
+  },
   "icp-bitcoin-ai-frontend": {
     "ic": "2o62e-wiaaa-aaaak-akuwa-cai"
   },
