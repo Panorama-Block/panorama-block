@@ -13,7 +13,7 @@ const items = [
   },
   {
     icon: <GitHubIcon />,
-    url: 'https://github.com/PanoramaBlock'
+    url: 'https://github.com/Panorama-Block'
   },
   {
     icon: <XIcon />,
