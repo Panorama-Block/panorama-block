@@ -23,4 +23,6 @@ service : {
     "get_all_stable_hashblocks": () -> (vec Hashblock);
     "delete_stable_hasblocks": () -> (text);
     "delete_stable_hashblock_by_key": (text) -> (Hashblock);
+    "get": (nat64) -> (opt Hashblock) query;
+    "insert": (nat64, Hashblock) -> (opt Hashblock);
 }

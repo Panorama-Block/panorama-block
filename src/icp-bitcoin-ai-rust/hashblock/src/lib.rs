@@ -3,7 +3,7 @@ mod types;
 mod config;
 use candid::{decode_one, encode_one};
 use ic_cdk::{api::management_canister::http_request::{http_request, CanisterHttpRequestArgument, HttpMethod}, query, update};
-use ic_stable_structures::StableBTreeMap;
+use ic_stable_structures::{memory_manager::{MemoryId, MemoryManager}, DefaultMemoryImpl, StableBTreeMap};
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use types::Hashblock;
@@ -18,7 +18,19 @@ struct State {
 }
 
 thread_local! {
-    static STATE: RefCell<State> = RefCell::new(State::default())
+    static STATE: RefCell<State> = RefCell::new(State::default());
+    static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> = RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
+    static MAP: RefCell<StableBTreeMap<u64, Hashblock, Memory>> = RefCell::new(StableBTreeMap::init(MEMORY_MANAGER.with(|m| m.borrow().get(MemoryId::new(1)))));
+}
+
+#[ic_cdk::query]
+fn get(key: u64) -> Option<Hashblock> {
+    MAP.with(|p| p.borrow().get(&key))
+}
+
+#[ic_cdk::update]
+fn insert(key: u64, value: Hashblock) -> Option<Hashblock> {
+    MAP.with(|p| p.borrow_mut().insert(key, value))
 }
 
 #[update]

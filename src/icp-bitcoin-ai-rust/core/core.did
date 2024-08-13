@@ -1,5 +1,12 @@
+type UserProfile = record {
+    age: nat8;
+    name: text;
+};
+
 service : {
     "greet": (text) -> (text) query;
     "call_set_hashblock": (canister_id: principal, hashblock_id: text) -> (text);
     "call_get_hashblock": (canister_id: principal) -> (text);
+    "get": (nat64) -> (opt UserProfile) query;
+    "insert": (nat64, UserProfile) -> (opt UserProfile);
 }
