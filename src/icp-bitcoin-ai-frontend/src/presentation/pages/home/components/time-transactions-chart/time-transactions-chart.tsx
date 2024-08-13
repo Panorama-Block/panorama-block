@@ -12,56 +12,12 @@ import {
 } from 'recharts'
 import styles from './time-transactions-chart-styles.module.scss'
 import { Skeleton } from '@mui/material'
-import { dayInterval } from '../../../../../utils/day-interval'
+
+import { dayInterval, hoursInterval } from '../../../../../utils/time'
 
 type Props = {
   data: any
 }
-
-const data = [
-  {
-    name: '9 April',
-    transactions: 7630,
-    pv: 800,
-    amt: 1400,
-  },
-  {
-    name: '8 April',
-    transactions: 5780,
-    pv: 967,
-    amt: 1506,
-  },
-  {
-    name: '7 April',
-    transactions: 4300,
-    pv: 1098,
-    amt: 989,
-  },
-  {
-    name: '6 April',
-    transactions: 3951,
-    pv: 1200,
-    amt: 1228,
-  },
-  {
-    name: '5 April',
-    transactions: 4351,
-    pv: 1108,
-    amt: 1100,
-  },
-  {
-    name: '4 April',
-    transactions: 1351,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: '3 April',
-    transactions: 5473,
-    pv: 680,
-    amt: 1700,
-  }
-]
 
 const TimeTransactionsChart: React.FC<Props> = ({ data }: Props) => {
   const [opacity, setOpacity] = useState({
@@ -109,6 +65,7 @@ const TimeTransactionsChart: React.FC<Props> = ({ data }: Props) => {
 
   const generateData = () => {
     const max = dayInterval(data[0].timestamp, data[data.length - 1].timestamp)
+
     const newData: any = Array.from({ length: max > 0 ? max : 1 }, () => new Object({ 'transactions': 0, name: '' }))
     let lastDiff = 0
 

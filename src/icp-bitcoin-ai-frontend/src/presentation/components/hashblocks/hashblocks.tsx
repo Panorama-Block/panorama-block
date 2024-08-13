@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import styles from './hashblocks-styles.module.scss'
 import { Skeleton, Tooltip } from '@mui/material'
+import { customId } from '../../../utils/custom-id'
 
 type Props = {
   coin: string
@@ -62,7 +63,7 @@ const Hashblocks: React.FC<Props> = ({ coin, data, onSelect }: Props) => {
   }
 
   const getDate = (timestamp: number) => {
-    const date = new Date(timestamp * 1000)
+    const date = new Date(timestamp)
 
     return `${minDigit(date.getMonth() + 1)}/${minDigit(date.getDate())}/${date.getFullYear()} - ${minDigit(date.getHours())}:${minDigit(date.getMinutes())}:${minDigit(date.getSeconds())}`
   }
@@ -95,7 +96,7 @@ const Hashblocks: React.FC<Props> = ({ coin, data, onSelect }: Props) => {
                 <div className={styles.card} onClick={() => onSelect(item)}>
                   <div className={styles.info}>
                     <Tooltip title={item.id} placement="right-start">
-                      <p className={styles.id}>{item.id}</p>
+                      <p className={styles.id}>{customId(item.id)}</p>
                     </Tooltip>
                     <div className={styles.value}>
                       <Tooltip title="Transactions" placement="right-start">

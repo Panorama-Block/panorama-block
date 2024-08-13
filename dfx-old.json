@@ -3,25 +3,14 @@
     "mempool": {
       "main": "src/icp-bitcoin-ai-backend/mempool.mo",
       "type": "motoko"
-		},
-    "icp-bitcoin-ai-api": {
-      "type": "azle",
-      "main": "src/icp-bitcoin-ai-api/src/index.ts",
-      "candid_gen": "automatic"
-		},
-    "hashblock": {
-      "candid": "src/icp-bitcoin-ai-rust/hashblock/hashblock.did",
-      "package": "hashblock",
-      "type": "rust"
     },
-    "core": {
-      "candid": "src/icp-bitcoin-ai-rust/core/core.did",
-      "package": "core",
-      "type": "rust"
+    "transactions": {
+      "main": "src/icp-bitcoin-ai-backend/transactions.mo",
+      "type": "motoko"
     },
     "icp-bitcoin-ai-frontend": {
       "dependencies": [
-        "icp-bitcoin-ai-api",
+        "mempool",
         "internet_identity"
       ],
       "source": [

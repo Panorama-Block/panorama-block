@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "setup": "npm i && dfx canister create icp-bitcoin-ai-backend && dfx generate icp-bitcoin-ai-backend && dfx deploy",
+    "setup": "npm i && dfx canister create icp-bitcoin-ai-api && dfx generate icp-bitcoin-ai-api && dfx deploy",
     "start": "vite --port 5173",
     "prebuild": "dfx generate",
     "build": "tsc && vite build",

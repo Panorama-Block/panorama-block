@@ -1,0 +1,26 @@
+type Hashblock = record {
+    id: text;
+    height: float64;
+    version: float64;
+    timestamp: float64;
+    tx_count: float64;
+    size: float64;
+    weight: float64;
+    merkle_root: text;
+    previousblockhash: text;
+    mediantime: float64;
+    nonce: float64;
+    bits: float64;
+    difficulty: float64;
+};
+
+service : {
+    "get_hashblock": () -> (text);
+    "set_hashblock": (text) -> ();
+    "get_current_hashblock": () -> (text);
+    "append_current_hashblock_to_stable": () -> (text);
+    "get_stable_hashblock_by_key": (text) -> (Hashblock);
+    "get_all_stable_hashblocks": () -> (vec Hashblock);
+    "delete_stable_hasblocks": () -> (text);
+    "delete_stable_hashblock_by_key": (text) -> (Hashblock);
+}
