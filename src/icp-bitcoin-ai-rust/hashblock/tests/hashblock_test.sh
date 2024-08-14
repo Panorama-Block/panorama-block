@@ -1,4 +1,4 @@
-#!core/bin/bash
+#!/bin/bash
 
 CANISTER_ID="hashblock"
 HASHBLOCK="0000000000000000000155a9029badd7fe1262e3fa2fdeb13a09236803b60d59"
