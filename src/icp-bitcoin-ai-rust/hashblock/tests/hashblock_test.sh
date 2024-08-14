@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CANISTER_ID="rust"
+CANISTER_ID="hashblock"
 HASHBLOCK="0000000000000000000155a9029badd7fe1262e3fa2fdeb13a09236803b60d59"
 
 # Colors
@@ -34,7 +34,7 @@ function test_get_current_hashblock {
     echo "Result: $result"
 
     # The expected format based on your output
-    expected="(opt \"$HASHBLOCK\")"
+    expected="(\"$HASHBLOCK\")"
     if [[ "$result" == "$expected" ]]; then
         echo -e "${GREEN}Test PASSED: get_current_hashblock returned the expected hashblock.${NC}"
     else
@@ -53,7 +53,7 @@ function test_append_current_hashblock_to_stable {
     echo "Result: $result"
 
     # Check if append was successful
-    expected='(opt "Hashblock appended successfully")'
+    expected="(\"Hashblock appended successfully\")"
     if [[ "$result" == "$expected" ]]; then
         echo -e "${GREEN}Test PASSED: Hashblock appended successfully.${NC}"
     else
