@@ -44,6 +44,7 @@ function test_get_current_hashblock {
 }
 
 # Function to test appending a hashblock to the stable storage
+# If it succeeds, then get_hashblock also works correctly, hence why there is no specific test for it
 function test_append_current_hashblock_to_stable {
     echo "Testing append_current_hashblock_to_stable..."
     # Set a hashblock first
@@ -62,9 +63,26 @@ function test_append_current_hashblock_to_stable {
     fi
 }
 
+# Function to test retrieving a hashblock from stable storage by key
+function test_get_stable_hashblock_by_key {
+    echo "Testing get_stable_hashblock_by_key..."
+    # Retrieve the hashblock
+    result=$(dfx canister call $CANISTER_ID get_stable_hashblock_by_key "\"$HASHBLOCK\"")
+    echo "Result: $result"
+
+    # Check if the response is not null
+    if [[ "$result" != "(null)" ]]; then
+        echo -e "${GREEN}Test PASSED: Retrieved a valid hashblock.${NC}"
+    else
+        echo -e "${RED}Test FAILED: Retrieved hashblock is null, expected a valid hashblock.${NC}"
+        all_tests_passed=false
+    fi
+}
+
 test_set_hashblock
 test_get_current_hashblock
 test_append_current_hashblock_to_stable
+test_get_stable_hashblock_by_key
 
 if [[ "$all_tests_passed" == true ]]; then
     echo -e "${BLUE}All tests PASSED! We gucci.${NC}"
