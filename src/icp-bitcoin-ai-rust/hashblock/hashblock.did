@@ -19,10 +19,8 @@ service : {
     "set_hashblock": (text) -> ();
     "get_current_hashblock": () -> (text);
     "append_current_hashblock_to_stable": () -> (text);
-    "get_stable_hashblock_by_key": (text) -> (Hashblock);
+    "get_stable_hashblock_by_key": (text) -> (opt Hashblock);
     "get_all_stable_hashblocks": () -> (vec Hashblock);
     "delete_stable_hasblocks": () -> (text);
-    "delete_stable_hashblock_by_key": (text) -> (Hashblock);
-    "get": (nat64) -> (opt Hashblock) query;
-    "insert": (nat64, Hashblock) -> (opt Hashblock);
+    "delete_stable_hashblock_by_key": (text) -> (opt Hashblock);
 }
