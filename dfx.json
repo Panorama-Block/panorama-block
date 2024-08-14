@@ -1,9 +1,5 @@
 {
   "canisters": {
-    "mempool": {
-      "main": "src/icp-bitcoin-ai-backend/mempool.mo",
-      "type": "motoko"
-		},
     "icp-bitcoin-ai-api": {
       "type": "azle",
       "main": "src/icp-bitcoin-ai-api/src/index.ts",
