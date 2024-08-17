@@ -7,7 +7,7 @@ build: deploy setup
 deploy:
 	@dfx deploy
 	@$(MAKE) setup_hashblock
-
+  
 # Deploy a specific canister - never use this
 .PHONY: deploy_canister
 deploy_canister:
@@ -32,3 +32,4 @@ test: hashblock_test
 .PHONY: hashblock_test
 hashblock_test:
 	@./src/icp-bitcoin-ai-rust/hashblock/tests/hashblock_test.sh
+

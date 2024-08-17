@@ -1,4 +1,4 @@
-import { float64, ic, int, jsonStringify, None, Principal, query, Record, Some, StableBTreeMap, text, TimerId, update, Vec } from "azle";
+import { float64, ic, int, jsonParse, jsonStringify, None, Principal, query, Record, Some, StableBTreeMap, text, TimerId, update, Vec } from "azle";
 import { managementCanister } from "azle/canisters/management";
 
 const defaultArgs = {
@@ -35,6 +35,7 @@ const Address = Record({
   })
 });
 type Address = typeof Address.tsType;
+let addressMap = StableBTreeMap<string, Address>(3);
 
 const Whale = Record({
   address: text,
@@ -46,17 +47,26 @@ let whalesMap = StableBTreeMap<string, Whale>(2);
 
 export const address = {
   getAddress: update([text], text, async (address: string) => {
-    const response = await ic.call(managementCanister.http_request, {
-      args: [
-        {
-          url: `https://api.mempool.space/api/address/${address}`,
-          ...defaultArgs,
-          max_response_bytes: Some(1_000n),
-        },
-      ],
-      cycles: 70_402_800n,
-    });
-    return Buffer.from(response.body).toString()
+    if (!addressMap.containsKey(address)) {
+      const response = await ic.call(managementCanister.http_request, {
+        args: [
+          {
+            url: `https://api.mempool.space/api/address/${address}`,
+            ...defaultArgs,
+            max_response_bytes: Some(1_000n),
+          },
+        ],
+        cycles: 70_402_800n,
+      });
+
+      const data: any = Buffer.from(response.body).toString()
+      const json: Address = jsonParse(data)
+      addressMap.insert(json.address, json)
+
+      return data
+    }
+
+    return jsonStringify(addressMap.get(address).Some!)
   }),
   setWhales: update([text, text], text, async (address: string, name: string) => {
     if (!address || !name) {

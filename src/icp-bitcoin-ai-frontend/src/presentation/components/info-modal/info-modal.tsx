@@ -46,10 +46,21 @@ const InfoModal: React.FC<Props> = ({ data, onClose, children }: Props) => {
                 : children
             }
           </div>
-            : <CircularProgress className={styles.loading} color="inherit" size={60} />
+            : <div className={styles.loadingWrap}>
+              <CircularProgress className={styles.loading} color="inherit" size={60} />
+              <div className={styles.loadingText}>
+                <span>L</span>
+                <span>o</span>
+                <span>a</span>
+                <span>d</span>
+                <span>i</span>
+                <span>n</span>
+                <span>g</span>
+              </div>
+            </div>
         }
       </Box>
-    </Modal>
+    </Modal >
   )
 }
 

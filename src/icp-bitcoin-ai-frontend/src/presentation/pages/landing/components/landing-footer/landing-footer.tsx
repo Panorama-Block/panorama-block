@@ -13,7 +13,7 @@ const items = [
   },
   {
     icon: <GitHubIcon />,
-    url: 'https://github.com/PanoramaBlock'
+    url: 'https://github.com/Panorama-Block'
   },
   {
     icon: <XIcon />,
@@ -42,7 +42,7 @@ const LandingFooter: React.FC<Props> = ({ connect }: Props) => {
           <h3 className={styles.title}>Resources</h3>
           <div className={styles.content}>
             <a href="https://docs.panoramablock.com/" target='__blank'>Docs</a>
-            <a href="https://github.com/PanoramaBlock" target='__blank'>Github</a>
+            <a href="https://github.com/Panorama-Block" target='__blank'>Github</a>
             <a href="https://www.linkedin.com/company/panoramablock/" target='__blank'>LinkedIn</a>
             <a href="https://x.com/panoramablock" target='__blank'>X</a>
             <a href="https://t.me/panoramablock" target='__blank'>Telegram</a>

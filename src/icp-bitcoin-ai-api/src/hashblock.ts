@@ -92,7 +92,6 @@ export const hashblock = {
       return 'No Hashblocks found'
     }
 
-
     hashblockCallback();
 
     timer = ic.setTimerInterval(BigInt(15), hashblockCallback)
@@ -157,14 +156,13 @@ export const hashblock = {
     return hashblocksMap.keys();
   }),
   getHashblocks: query([], Vec(Hashblocks), () => {
-
     const data = hashblocksMap.values()
 
     if (data) {
       const result = data.sort((a, b) => b.timestamp - a.timestamp)
 
-      if (result.length > 1000) {
-        return result.slice(0, 1000)
+      if (result.length > 800) {
+        return result.slice(0, 800)
       }
       return result
     }
@@ -189,34 +187,39 @@ async function hashblockCallback(): Promise<void> {
     return
   }
 
-  while (hashblocksMap.containsKey(currentHashblock)) {
+  let count = 0
+
+  while (count < 100 && hashblocksMap.containsKey(currentHashblock)) {
     let previousblockhash = hashblocksMap.get(currentHashblock).Some?.previousblockhash
 
     if (previousblockhash) {
       currentHashblock = previousblockhash
     }
+    count++
   }
 
-  const response = await ic.call(
-    managementCanister.http_request,
-    {
-      args: [
-        {
-          url: `https://api.mempool.space/api/block/${currentHashblock}`,
-          ...defaultArgs,
-          max_response_bytes: Some(1_500n)
-        }
-      ],
-      cycles: 257_706_800n
-    }
-  );
+  if (!hashblocksMap.containsKey(currentHashblock)) {
+    const response = await ic.call(
+      managementCanister.http_request,
+      {
+        args: [
+          {
+            url: `https://api.mempool.space/api/block/${currentHashblock}`,
+            ...defaultArgs,
+            max_response_bytes: Some(1_500n)
+          }
+        ],
+        cycles: 257_706_800n
+      }
+    );
 
-  const data: any = Buffer.from(response.body).toString()
-  const json: Hashblocks = jsonParse(data)
-  hashblocksMap.insert(currentHashblock, json)
-  currentHashblock = json.previousblockhash
-  if (remain > 0) {
-    remain--
+    const data: any = Buffer.from(response.body).toString()
+    const json: Hashblocks = jsonParse(data)
+    hashblocksMap.insert(currentHashblock, json)
+    currentHashblock = json.previousblockhash
+    if (remain > 0) {
+      remain--
+    }
   }
 }
 
