@@ -19,7 +19,7 @@
   }
 
   .chat {
-    position: absolute;
+    position: fixed;
     right: 20px;
     bottom: 20px;
     display: flex;
@@ -50,6 +50,13 @@
 
     .container {
       padding-bottom: 20px;
+    }
+
+    .chat {
+      img {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }
