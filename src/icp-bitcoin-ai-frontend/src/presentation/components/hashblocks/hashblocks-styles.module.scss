@@ -164,7 +164,7 @@
 }
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
   .container {
     gap: 16px;
 
@@ -177,16 +177,53 @@
       position: relative;
 
       .card {
-        min-width: 220px;
+        min-width: 180px;
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          position: relative;
+          gap: 6px;
+          // background: linear-gradient(125deg, rgba(16, 27, 82, 0.863) 65%, rgb(51, 62, 126) 100%);
+          background-color: #121D52;
+          padding: 16px;
+          border-radius: 14px;
+          height: 45px;
+
+          .id {
+            font-size: 10px;
+          }
+
+          .value {
+            font-size: 14px;
+            font-weight: bold;
+          }
+
+          .graph {
+            border-bottom: 77px solid #2b305548;
+
+            .size {
+              height: 60px;
+              gap: 20px;
+              font-size: 8px;
+            }
+
+            // border-right: 60px solid white;
+            p {
+              color: white;
+            }
+          }
+        }
 
         .title {
-          font-size: 12px;
+          font-size: 10px;
         }
 
         .details {
           .coin {
-            width: 36px;
-            height: 36px;
+            width: 28px;
+            height: 28px;
 
             img {
               width: 50%;
@@ -195,11 +232,11 @@
 
           .date {
             h3 {
-              font-size: 14px;
+              font-size: 12px;
             }
 
             p {
-              font-size: 12px;
+              font-size: 10px;
               color: #A0AEC0;
             }
           }
