@@ -108,7 +108,7 @@ const TimeTransactionsChart: React.FC<Props> = ({ data }: Props) => {
               <CartesianGrid stroke="#56577A" strokeDasharray="0 0" />
               <XAxis dataKey="name" stroke="#A0AEC0" fontSize={14} />
               <YAxis stroke="#A0AEC0" fontSize={14} />
-              <Legend margin={{ bottom: 60 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
+              <Legend fontSize={10} margin={{ bottom: 60 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="transactions" barSize={30} fill="#4022BE" />
               <Line fontSize={14} type="monotone" dataKey="transactions" stroke="#ff7300"

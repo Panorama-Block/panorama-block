@@ -171,11 +171,6 @@ const Home: React.FC = () => {
               <img src="openchat.svg" alt="" />
             </Tooltip>
           </div>
-        // <a className={styles.chat} href='https://oc.app/group/lejtn-6aaaa-aaaar-bijya-cai/?ref=erjy7-6iaaa-aaaar-bhukq-cai' target='__blank'>
-        //   <Tooltip title="Community" placement="left" >
-        //     <img src="openchat.svg" alt="" />
-        //   </Tooltip>
-        // </a>
       }
 
       {

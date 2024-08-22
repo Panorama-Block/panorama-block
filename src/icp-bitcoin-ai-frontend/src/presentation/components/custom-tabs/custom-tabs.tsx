@@ -20,7 +20,7 @@ const CustomTabs: React.FC<Props> = ({ labels, hashblocks }: Props) => {
   return (
     <div className={styles.tabs}>
       <TabContext value={value}>
-        <Box sx={{ display: 'flex', height: '60px', padding: '8px', borderBottom: 1, borderColor: 'divider' }}>
+        <Box className={styles.box} sx={{ display: 'flex', height: '60px', padding: '8px', borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             sx={{ marginBottom: '4px' }}
             value={value}

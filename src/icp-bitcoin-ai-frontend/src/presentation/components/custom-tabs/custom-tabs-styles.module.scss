@@ -3,7 +3,6 @@
 
   max-width: 850px;
   min-width: 60%;
-  max-height: fit-content;
 
   border-radius: 14px;
   color: white;
@@ -17,9 +16,9 @@
 
   .panel {
     width: calc(100% - 40px);
-    // height: calc(100% - 124px);
-    height: 70%;
-    min-height: 304px;
+    height: 65%;
+    min-height: 250px;
+    // min-height: 304px;
   }
 }
 
@@ -32,9 +31,27 @@
 
 @media screen and (max-width: 1440px) {
   .tabs {
+    margin: 20px;
+
+    flex: 1;
+    min-width: 60%;
+    max-height: 100%;
+
+    .box {
+      height: 40px;
+    }
+
+    .tab {
+      padding: 10px;
+      color: white;
+      font-size: 10px;
+    }
+
     .panel {
-      height: 65%;
-      min-height: 250px;
+      // height: 65%;
+      // min-height: 300px;
+      padding: 14px 20px;
+      // margin: 20px;
     }
   }
 }
