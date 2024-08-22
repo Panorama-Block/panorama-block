@@ -25,9 +25,21 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
   .header {
     padding: 10px 20px;
     margin-bottom: 20px;
+
+    .textField {
+      max-width: 150px;
+
+      * {
+        font-size: 10px;
+      }
+    }
+
+    .button {
+      font-size: 10px;
+    }
   }
 }
