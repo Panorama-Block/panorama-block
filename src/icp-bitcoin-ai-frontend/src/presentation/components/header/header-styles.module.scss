@@ -25,13 +25,14 @@
   }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1440px) {
   .header {
     padding: 10px 20px;
     margin-bottom: 20px;
 
     .textField {
       max-width: 150px;
+      height: 30px;
 
       * {
         font-size: 10px;
@@ -40,6 +41,7 @@
 
     .button {
       font-size: 10px;
+      height: 32px;
     }
   }
 }

@@ -1,5 +1,5 @@
 export const customId = (id: string) => {
-  const lenght = id.length
+  const length = id.length
 
-  return `${id.slice(0, 4)}-${id.slice(lenght - 4)}`
+  return `${id.slice(0, 4)}-${id.slice(length - 4)}`
 }
