@@ -2,6 +2,7 @@
   display: flex;
   width: 100vw;
   height: 100vh;
+  max-height: 100vh;
 
   .container {
     display: flex;
@@ -11,6 +12,7 @@
     background-color: #060722;
     padding-bottom: 20px;
     display: flex;
+    overflow-y: auto;
 
     .info {
       display: flex;
@@ -19,7 +21,7 @@
   }
 
   .chat {
-    position: absolute;
+    position: fixed;
     right: 20px;
     bottom: 20px;
     display: flex;
@@ -46,10 +48,16 @@
 @media screen and (max-width: 1440px) {
   .home {
     min-height: 100vh;
-    height: auto;
 
     .container {
       padding-bottom: 20px;
+    }
+
+    .chat {
+      img {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }

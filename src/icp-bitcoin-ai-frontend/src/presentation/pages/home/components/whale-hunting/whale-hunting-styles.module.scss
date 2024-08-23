@@ -74,3 +74,30 @@
     }
   }
 }
+
+@media screen and (max-width: 1440px) {
+  .container {
+    min-height: 320px !important;
+
+    .tab {
+      padding: 20px;
+      font-size: 12px;
+    }
+  
+    .panel {  
+      .row {
+        font-size: 14px;
+        gap: 20px;
+  
+        .item {
+          gap: 4px;
+          font-size: 12px;
+  
+          .value {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }  
+}

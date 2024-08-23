@@ -37,6 +37,7 @@ const HashblockInfo: React.FC<Props> = ({ data, onClose }: Props) => {
 
   return (
     <Modal
+      className={styles.modal}
       open={true}
       onClose={onClose}
       aria-labelledby="modal-title"

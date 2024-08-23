@@ -1,6 +1,6 @@
 .openChat {
   display: flex;
-  position: absolute;
+  position: fixed;
   right: 20px;
   bottom: 20px;
   min-width: 350px;
@@ -10,7 +10,6 @@
   background-color: "red";
   border: solid 1px #06072250;
   border-radius: 10px;
-
 
   iFrame {
     width: 100%;
@@ -38,5 +37,14 @@
 
     color: grey;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .openChat {
+    min-width: 280px;
+    width: 280px;
+    height: 80%;
+    min-height: 80%;
   }
 }
