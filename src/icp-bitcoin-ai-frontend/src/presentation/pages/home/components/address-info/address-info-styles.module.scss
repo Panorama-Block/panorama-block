@@ -18,3 +18,15 @@
     background: linear-gradient(to right, #E0E1E228 0, #E0E1E228 10%, #E0E1E2 25%, #E0E1E2 75%, #E0E1E228 90%, #E0E1E228 100%);
   }
 }
+
+@media screen and (max-width: 1440px) {
+  .addressInfo {
+    .title {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}

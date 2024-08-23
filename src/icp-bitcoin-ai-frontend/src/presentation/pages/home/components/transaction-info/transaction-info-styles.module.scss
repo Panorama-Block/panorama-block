@@ -22,3 +22,15 @@
     word-break: break-all;
   }
 }
+
+@media screen and (max-width: 1440px) {
+  .transactionInfo {
+    .title {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}

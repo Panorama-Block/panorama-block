@@ -51,6 +51,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const getHashblocks = async (): Promise<void> => {
       const cache = localStorage.getItem('hashblocks')
+      console.log(cache)
       if (cache && verifyCacheInterval(JSON.parse(cache))) {
         console.log('cache')
 
@@ -58,6 +59,7 @@ const Home: React.FC = () => {
       }
       else {
         const response: any = await IcpService.getHashblocks()
+        console.log(response)
 
         if (response) {
           localStorage.clear()

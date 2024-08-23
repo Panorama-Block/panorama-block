@@ -101,7 +101,7 @@ const TimeTransactionsChart: React.FC<Props> = ({ data }: Props) => {
               margin={{
                 top: 8,
                 right: 20,
-                left: 8,
+                left: 0,
                 bottom: 8,
               }}
             >

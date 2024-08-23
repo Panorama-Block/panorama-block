@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  min-height: 300px;
   padding: 20px;
   color: white;
 
@@ -49,10 +51,45 @@
     }
   }
 
-
   .error {
     margin: auto;
     align-self: center;
     justify-self: center;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .container {
+    min-height: 240px !important;
+
+    .loadingWrap {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      & > span {
+        width: 48px !important;
+        height: 48px !important;
+  
+        svg {
+          width: 48px;
+          height: 48px;
+        }
+      }
+
+      .loading {
+        margin: auto;
+        align-self: center;
+        justify-self: center;
+      }
+
+      .loadingText {
+        text-align: center;
+        color: #f5f5f5;
+        font-size: 14px;
+      }
+    }
   }
 }
