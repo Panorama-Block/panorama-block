@@ -15,11 +15,6 @@
       "package": "core",
       "type": "rust"
     },
-    "db": {
-      "candid": "src/icp-bitcoin-ai-rust/db/db.did",
-      "package": "db",
-      "type": "rust"
-    },
     "icp-bitcoin-ai-frontend": {
       "dependencies": [
         "icp-bitcoin-ai-api",

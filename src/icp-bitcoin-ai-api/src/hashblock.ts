@@ -1,4 +1,4 @@
-import { ic, None, Principal, Some, text, int, update, jsonStringify, jsonParse, Record, nat, StableBTreeMap, nat8, nat64, float64, query, Vec, Opt, Void, TimerId } from "azle";
+import { ic, None, Principal, Some, text, int, update, jsonStringify, jsonParse, Record, nat, StableBTreeMap, nat8, nat64, float64, query, Vec, Opt, Void, TimerId, bool, AzleTuple, Tuple } from "azle";
 import { managementCanister } from "azle/canisters/management";
 
 export const defaultArgs = {
@@ -155,19 +155,28 @@ export const hashblock = {
   getHashblockIds: query([], Vec(text), () => {
     return hashblocksMap.keys();
   }),
-  getHashblocks: query([], Vec(Hashblocks), () => {
+  getHashblocks: query([int], Vec(Hashblocks), (page: int) => {
     const data = hashblocksMap.values()
+    const perPage = 10
 
     if (data) {
-      const result = data.sort((a, b) => b.timestamp - a.timestamp)
+      const length = data.length
+      if (length > perPage) {
+        const initial = Number(page) * perPage
+        const max = initial + perPage
 
-      if (result.length > 800) {
-        return result.slice(0, 800)
+        if(length > max) {
+          return data.slice(initial, max)
+        }
+        else {
+          return data.slice(initial)
+        }
       }
-      return result
+
+      return data
     }
 
-    return [];
+    return []
   }),
   getHashblocksLength: query([], int, () => {
     return hashblocksMap.len()
