@@ -157,7 +157,7 @@ export const hashblock = {
   }),
   getHashblocks: query([int], Vec(Hashblocks), (page: int) => {
     const data = hashblocksMap.values()
-    const perPage = 10
+    const perPage = 250
 
     if (data) {
       const length = data.length
