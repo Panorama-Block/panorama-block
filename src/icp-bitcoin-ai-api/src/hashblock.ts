@@ -165,7 +165,7 @@ export const hashblock = {
         const initial = Number(page) * perPage
         const max = initial + perPage
 
-        if(length > max) {
+        if (length > max) {
           return data.slice(initial, max)
         }
         else {
