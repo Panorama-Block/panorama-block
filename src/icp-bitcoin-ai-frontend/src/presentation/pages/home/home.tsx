@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './home-styles.module.scss'
 import Sidebar from '../../components/sidebar/sidebar'
-import Hashblocks from '../../components/hashblocks/hashblocks'
+import Hashblocks, { HashblockProps } from '../../components/hashblocks/hashblocks'
 import Network, { NetworkData } from '../../components/network/network'
 import CustomTabs from '../../components/custom-tabs/custom-tabs'
 import IcpService from '../../../data/services/icp-service'
@@ -20,7 +20,7 @@ import { compareTimestampDesc } from '../../../utils/sort'
 const Home: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
   const [actualHashblock, setActualHashblock] = useState(null)
-  const [hashblocks, setHashblocks] = useState()
+  const [hashblocks, setHashblocks] = useState<HashblockProps[]>()
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
   const [whaleOpened, setWhaleOpened] = useState(false)
@@ -51,23 +51,38 @@ const Home: React.FC = () => {
   useEffect(() => {
     const getHashblocks = async (): Promise<void> => {
       const cache = localStorage.getItem('hashblocks')
-      console.log(cache)
-      if (cache && verifyCacheInterval(JSON.parse(cache))) {
-        console.log('cache')
 
+      if (cache && verifyCacheInterval(JSON.parse(cache))) {
         setHashblocks(JSON.parse(cache).ok)
       }
       else {
-        const response: any = await IcpService.getHashblocks()
-        console.log(response)
+        let count = 0
+        const data: { ok: HashblockProps[], date: number } = { ok: [], date: 0 }
+        let lastIdAdded = ''
 
-        if (response) {
-          localStorage.clear()
-          const json = await jsonParseBigint(response)
-          const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
-          const sorted = jsonFormated.sort(compareTimestampDesc)
+        while (true) {
+          const response: any = await IcpService.getHashblocks(count)
 
-          const data = { ok: sorted, date: 0 }
+          if (response && response.length > 0) {
+            const json = await jsonParseBigint(response)
+            const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
+            const sorted: HashblockProps[] = jsonFormated.sort(compareTimestampDesc)
+
+            if (lastIdAdded == sorted[0].id) {
+              break
+            }
+
+            lastIdAdded = sorted[0].id
+
+            data.ok.push(...sorted)
+            count++
+          }
+          else {
+            break
+          }
+        }
+
+        if (data.ok.length > 0) {
           data.date = Date.now()
           setHashblocks(data.ok)
           localStorage.setItem('hashblocks', JSON.stringify(data))
