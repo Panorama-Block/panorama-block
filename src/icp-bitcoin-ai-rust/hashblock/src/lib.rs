@@ -14,23 +14,19 @@ use ic_stable_structures::{
 use std::cell::RefCell;
 use types::{ApiHashblock, Hashblock};
 
-#[derive(Serialize, Deserialize)]
-struct State {
-    #[serde(skip, default = "init_stable_hashblock")]
-    stable_hashblock: StableBTreeMap<String, Vec<u8>, Memory>,
-    current_hashblock: Option<String>,
-}
+type Memory = VirtualMemory<DefaultMemoryImpl>;
 
 thread_local! {
-    static STATE: RefCell<State> = RefCell::new(State::default())
+    static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> = RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
+    static HASHBLOCK_MAP: RefCell<StableBTreeMap<String, Hashblock, Memory>> = RefCell::new(StableBTreeMap::init(MEMORY_MANAGER.with(|m| m.borrow().get(MemoryId::new(0)))));
+    static CURRENT_HASHBLOCK: RefCell<Option<String>> = RefCell::new(None);
 }
 
 #[update]
 pub fn set_hashblock(hash: String) {
-    STATE.with(|s| {
-        s.borrow_mut().current_hashblock = Some(hash);
-    })
-
+    CURRENT_HASHBLOCK.with(|current| {
+        *current.borrow_mut() = Some(hash);
+    });
     // TODO: function send message to other caninsters
 }
 
@@ -102,30 +98,16 @@ async fn append_current_hashblock_to_stable() -> String {
         Err(_) => return "Failed to parse JSON response".to_string(),
     };
 
-    let serialized_block = match encode_one(&block) {
-        Ok(serialized) => serialized,
-        Err(_) => return "Failed to serialize hashblock".to_string(),
-    };
-
-    STATE.with(|s| {
-        let key = block.id.clone();
-        s.borrow_mut().stable_hashblock.insert(key, serialized_block);
+    HASHBLOCK_MAP.with(|map| {
+        map.borrow_mut().insert(block.id.clone(), block);
     });
 
     "Hashblock appended successfully".to_string()
 }
 
 #[query]
-fn get_stable_hashblock_by_key(key: String) -> Hashblock {
-    STATE.with(|s| {
-        match s.borrow().stable_hashblock.get(&key) {
-            Some(value) => match decode_one::<Hashblock>(&value) {
-                Ok(hashblock) => hashblock,
-                Err(_) => Hashblock::default(),
-            },
-            None => Hashblock::default()
-        }
-    })
+fn get_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
+    HASHBLOCK_MAP.with(|map| map.borrow().get(&key).clone())
 }
 
 #[query]
@@ -207,10 +189,6 @@ fn delete_stable_hasblocks() -> String {
 }
 
 #[update]
-fn delete_stable_hashblock_by_key(key: String) -> Hashblock {
-    STATE.with(|s| {
-        let maybe_value = s.borrow_mut().stable_hashblock.remove(&key);
-        maybe_value.and_then(|value| decode_one::<Hashblock>(&value).ok())
-            .unwrap_or_default()
-    })
+fn delete_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
+    HASHBLOCK_MAP.with(|map| map.borrow_mut().remove(&key))
 }

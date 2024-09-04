@@ -2,6 +2,8 @@
 members = [
     "src/icp-bitcoin-ai-rust/hashblock",
     "src/icp-bitcoin-ai-rust/core",
-	"src/icp-bitcoin-ai-rust/db"
+	"src/icp-bitcoin-ai-rust/db",
+    "src/icp-bitcoin-ai-rust/addresses",
+    "src/icp-bitcoin-ai-rust/transactions"
 ]
 resolver = "2"

@@ -1,0 +1,38 @@
+type Transaction = record {
+    txid: text;
+    version: float64;
+    locktime: float64;
+    size: float64;
+    weight: float64;
+    fee: float64;
+    inputs: vec Input;
+    outputs: vec Output;
+};
+
+type Input = record {
+    txid: text;
+    vout: float64;
+    prevout: Output;
+    scriptsig: text;
+    scriptsig_asm: text;
+    witness: vec text;
+    is_coinbase: bool;
+    sequence: float64;
+};
+
+type Output = record {
+    scriptpubkey: text;
+    scriptpubkey_asm: text;
+    scriptpubkey_type: text;
+    scriptpubkey_address: text;
+    value: float64;
+};
+
+service : {
+    "get_transaction": (text) -> (text) query;
+    "append_transaction_to_stable": (text) -> (text);
+    "get_stable_transaction": (text) -> (opt Transaction) query;
+    "get_all_stable_transactions": () -> (vec Transaction) query;
+    "delete_stable_transactions": () -> (text);
+    "delete_stable_transaction": (text) -> (opt Transaction);
+}

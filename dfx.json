@@ -10,6 +10,11 @@
       "package": "hashblock",
       "type": "rust"
     },
+    "addresses": {
+      "candid": "src/icp-bitcoin-ai-rust/addresses/addresses.did",
+      "package": "addresses",
+      "type": "rust"
+    },
     "core": {
       "candid": "src/icp-bitcoin-ai-rust/core/core.did",
       "package": "core",
