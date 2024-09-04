@@ -23,4 +23,5 @@ service : {
     "get_all_stable_hashblocks": () -> (vec Hashblock);
     "delete_stable_hasblocks": () -> (text);
     "delete_stable_hashblock_by_key": (text) -> (opt Hashblock);
+    "set_newest_hashblock_into_current": () -> (text);
 }
