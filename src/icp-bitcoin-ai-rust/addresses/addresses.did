@@ -1,0 +1,24 @@
+type Address = record {
+    address: text;
+    chain_stats: Stats;
+    mempool_stats: Stats;
+};
+
+type Stats = record {
+    funded_txo_count: nat64;
+    funded_txo_sum: nat64;
+    spent_txo_count: nat64;
+    spent_txo_sum: nat64;
+    tx_count: nat64;
+};
+
+service : {
+    "set_address": (text) -> ();
+    "get_address": () -> (text);
+    "get_current_address": () -> (text);
+    "append_current_address_to_stable": () -> (text);
+    "get_stable_address_by_key": (text) -> (opt Address);
+    "get_addresses": () -> (vec Address);
+    "delete_stable_addresses": () -> (text);
+    "delete_stable_address_by_key": (text) -> (opt Address);
+}
