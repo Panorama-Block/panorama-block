@@ -1,10 +1,18 @@
-mod types;
 mod config;
-use ic_cdk::{api::management_canister::http_request::{http_request, CanisterHttpRequestArgument, HttpMethod}, query, update};
-use ic_stable_structures::{memory_manager::{MemoryId, MemoryManager, VirtualMemory}, DefaultMemoryImpl, StableBTreeMap};
+mod types;
+use config::{default_headers, HASHBLOCKS_API_URL, HASHBLOCK_API_URL};
+use ic_cdk::{
+    api::management_canister::http_request::{
+        http_request, CanisterHttpRequestArgument, HttpMethod,
+    },
+    query, update,
+};
+use ic_stable_structures::{
+    memory_manager::{MemoryId, MemoryManager, VirtualMemory},
+    DefaultMemoryImpl, StableBTreeMap,
+};
 use std::cell::RefCell;
-use types::Hashblock;
-use config::{HASHBLOCK_API_URL, default_headers};
+use types::{ApiHashblock, Hashblock};
 
 type Memory = VirtualMemory<DefaultMemoryImpl>;
 
@@ -25,7 +33,10 @@ pub fn set_hashblock(hash: String) {
 #[query]
 pub fn get_current_hashblock() -> String {
     CURRENT_HASHBLOCK.with(|current| {
-        current.borrow().clone().unwrap_or_else(|| "No current hashblock set".to_string())
+        current
+            .borrow()
+            .clone()
+            .unwrap_or_else(|| "No current hashblock set".to_string())
     })
 }
 
@@ -102,15 +113,77 @@ fn get_stable_hashblock_by_key(key: String) -> Option<Hashblock> {
 #[query]
 fn get_all_stable_hashblocks() -> Vec<Hashblock> {
     HASHBLOCK_MAP.with(|map| {
-        map.borrow().iter().map(|(_, value)| value.clone()).collect()
+        map.borrow()
+            .iter()
+            .map(|(_, value)| value.clone())
+            .collect()
     })
 }
 
 #[update]
-fn delete_stable_hasblocks() -> String {
+async fn set_newest_hashblock_into_current() -> String {
+    let request = CanisterHttpRequestArgument {
+        url: HASHBLOCKS_API_URL.to_string(),
+        method: HttpMethod::GET,
+        body: None,
+        max_response_bytes: None,
+        transform: None,
+        headers: default_headers(),
+    };
+
+    let response = match http_request(request, 1_603_088_800).await {
+        Ok((response,)) => response,
+        Err(err) => return format!("Request Failed: {:?}", err),
+    };
+
+    let body_str = match String::from_utf8(response.body) {
+        Ok(body) => body,
+        Err(_) => return "Failed to decode response body".to_string(),
+    };
+
+    let blocks: Vec<ApiHashblock> = match serde_json::from_str(&body_str) {
+        Ok(blocks) => blocks,
+        Err(_) => return "Failed to parse JSON response".to_string(),
+    };
+
     HASHBLOCK_MAP.with(|map| {
-        map.borrow_mut().clear_new()
+        let mut map = map.borrow_mut();
+        CURRENT_HASHBLOCK.with(|current_hash| {
+            let mut current_hash = current_hash.borrow_mut();
+
+            for block in blocks {
+                if !map.contains_key(&block.id) {
+                    let hashblock = Hashblock {
+                        id: block.id.clone(),
+                        height: block.height,
+                        version: block.version,
+                        timestamp: block.timestamp,
+                        tx_count: block.tx_count,
+                        size: block.size,
+                        weight: block.weight,
+                        merkle_root: block.merkle_root.clone(),
+                        previousblockhash: block.previousblockhash.clone(),
+                        mediantime: block.mediantime,
+                        nonce: block.nonce,
+                        bits: block.bits,
+                        difficulty: block.difficulty,
+                    };
+
+                    map.insert(block.id.clone(), hashblock);
+                    *current_hash = Some(block.previousblockhash);
+                } else {
+                    *current_hash = Some(block.previousblockhash);
+                }
+            }
+        })
     });
+
+    "Hashblocks updated successfully".to_string()
+}
+
+#[update]
+fn delete_stable_hasblocks() -> String {
+    HASHBLOCK_MAP.with(|map| map.borrow_mut().clear_new());
 
     "Stable hashblocks were clear".to_string()
 }

@@ -23,6 +23,23 @@ pub struct Hashblock {
     pub difficulty: f64,
 }
 
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct ApiHashblock {
+    pub id: String,
+    pub height: f64,
+    pub version: f64,
+    pub timestamp: f64,
+    pub tx_count: f64,
+    pub size: f64,
+    pub weight: f64,
+    pub merkle_root: String,
+    pub previousblockhash: String,
+    pub mediantime: f64,
+    pub nonce: f64,
+    pub bits: f64,
+    pub difficulty: f64,
+}
+
 impl Storable for Hashblock {
     fn to_bytes(&self) -> std::borrow::Cow<[u8]> {
         Cow::Owned(Encode!(self).unwrap())
