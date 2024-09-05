@@ -12,6 +12,7 @@ import { AuthClient } from "@dfinity/auth-client";
 import { HttpAgent } from "@dfinity/agent"
 import { createActor } from "../../../../../declarations/icp-bitcoin-ai-api";
 import { useNavigate } from 'react-router-dom'
+import IcpService from '../../../data/services/icp-service'
 
 // const host = "http://localhost:4943/";
 // const host = "https://identity.ic0.app";
@@ -29,18 +30,13 @@ const Landing: React.FC = () => {
   const handleConnectWallet = async () => {
     const authClient = await AuthClient.create()
 
-    await authClient.login({
-      identityProvider: import.meta.env.II_CANISTER_ID, // Certifique-se de definir esta variável de ambiente
-      onSuccess: async () => {
-        const identity = authClient.getIdentity()
 
-        const host = import.meta.env.VITE_HOST ?? undefined;
-        const agent = new HttpAgent({ host, identity })
-        const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID, {
-          agent,
-        })
+    await authClient.login({
+      onSuccess: async () => {
+        await IcpService.auth(authClient)
         navigate("/home")
       },
+      identityProvider: import.meta.env.II_CANISTER_ID
     })
   }
 
