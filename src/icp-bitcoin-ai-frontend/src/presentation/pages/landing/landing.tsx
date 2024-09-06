@@ -9,8 +9,6 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph'
 import HubIcon from '@mui/icons-material/Hub'
 import LandingFooter from './components/landing-footer/landing-footer'
 import { AuthClient } from "@dfinity/auth-client";
-import { HttpAgent } from "@dfinity/agent"
-import { createActor } from "../../../../../declarations/icp-bitcoin-ai-api";
 import { useNavigate } from 'react-router-dom'
 import IcpService from '../../../data/services/icp-service'
 

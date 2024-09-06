@@ -60,10 +60,7 @@ let weeklyTimer: TimerId = BigInt(0);
 let currentPriceTimer: TimerId = BigInt(0);
 
 export const conversionPrice = {
-  getHistoricalPrice: update(
-    [text, int],
-    Vec(HistoricalPrice),
-    async (currency: string, timestamp: int) => {
+  getHistoricalPrice: update([text, int], Vec(HistoricalPrice),async (currency: string, timestamp: int) => {
       if (historicalPricesMap.containsKey(currency)) {
         return historicalPricesMap.get(currency).Some ?? [];
       }
