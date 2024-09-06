@@ -13,9 +13,8 @@ const IcpService = {
     
       const host = import.meta.env.VITE_HOST ?? undefined;
       const agent = new HttpAgent({ host, identity })
-      const actor = Actor.createActor<_SERVICE>(idlFactory, {
-        agent,
-        canisterId: import.meta.env.II_CANISTER_ID as string,
+      const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID, {
+        agent
       });
   },
   getHashblocks: async (page: number = 0) => {
