@@ -28,12 +28,33 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1440px) {
   .chart {
-    // max-width: 240px;
-    // margin: 20px;
+    .title {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    max-height: 90%;
+    width: 100%;
 
     * tspan {
+      font-size: 10px;
+    }
+
+    .tooltip {
+      gap: 8px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .legend {
+      margin-top: 10px;
+      font-size: 10px;
+    }
+
+    span {
       font-size: 10px;
     }
   }

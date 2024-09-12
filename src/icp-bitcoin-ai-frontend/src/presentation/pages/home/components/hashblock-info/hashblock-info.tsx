@@ -37,6 +37,7 @@ const HashblockInfo: React.FC<Props> = ({ data, onClose }: Props) => {
 
   return (
     <Modal
+      className={styles.modal}
       open={true}
       onClose={onClose}
       aria-labelledby="modal-title"
@@ -91,7 +92,7 @@ const HashblockInfo: React.FC<Props> = ({ data, onClose }: Props) => {
               </div>
 
               <div className={styles.item}>
-                <span className={styles.label}>HEIGHT</span>
+                <span className={styles.label}>Weight</span>
                 <div className={styles.value}>
                   <p>{(Number(data.height) / 1000).toFixed(0)} WU</p>
                 </div>

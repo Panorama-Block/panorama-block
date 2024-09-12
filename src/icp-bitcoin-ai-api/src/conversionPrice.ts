@@ -50,9 +50,9 @@ const CurrentPrice = Record({
 type CurrentPrice = typeof CurrentPrice.tsType;
 
 // Mapa estável para armazenar os preços históricos
-let historicalPricesMap = StableBTreeMap<string, HistoricalPrice[]>(1);
+let historicalPricesMap = StableBTreeMap<string, HistoricalPrice[]>(4);
 // Mapa estável para armazenar os preços atuais
-let currentPricesMap = StableBTreeMap<string, CurrentPrice[]>(2);
+let currentPricesMap = StableBTreeMap<string, CurrentPrice[]>(5);
 
 // Variáveis para timers
 let dailyTimer: TimerId = BigInt(0);

@@ -73,3 +73,36 @@
     }
   }
 }
+
+@media screen and (max-width: 1440px) {
+  .menu {
+    gap: 4px;
+    margin-bottom: 12px;
+
+    .title {
+      width: 80%;
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .item {
+      gap: 14px;
+      width: 80%;
+      padding: 8px;
+
+      .icon {
+        width: 32px;
+        height: 32px;
+
+        img {
+          max-width: 20px;
+          max-height: 20px;
+        }
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+}

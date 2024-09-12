@@ -15,7 +15,6 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 550,
-  minHeight: 300,
   bgcolor: '#0C1541',
   border: '0',
   borderRadius: '4px',
@@ -46,10 +45,21 @@ const InfoModal: React.FC<Props> = ({ data, onClose, children }: Props) => {
                 : children
             }
           </div>
-            : <CircularProgress className={styles.loading} color="inherit" size={60} />
+            : <div className={styles.loadingWrap}>
+              <CircularProgress className={styles.loading} color="inherit" size={60} />
+              <div className={styles.loadingText}>
+                <span>L</span>
+                <span>o</span>
+                <span>a</span>
+                <span>d</span>
+                <span>i</span>
+                <span>n</span>
+                <span>g</span>
+              </div>
+            </div>
         }
       </Box>
-    </Modal>
+    </Modal >
   )
 }
 

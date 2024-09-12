@@ -17,7 +17,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
       icon: '/coins/bitcoin.png'
     },
     {
-      title: 'Etherum',
+      title: 'Ethereum',
       icon: '/coins/eth.png',
       disabled: true
     },

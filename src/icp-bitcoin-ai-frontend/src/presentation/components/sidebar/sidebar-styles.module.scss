@@ -33,6 +33,15 @@
 @media screen and (max-width: 1440px) {
   .sidebar {
     height: auto;
+    width: 220px;
+
+    .header {
+      margin-bottom: 0;
+
+      img {
+        width: 120px;
+      }
+    }
 
     .container {
       padding-bottom: 20px;

@@ -4,9 +4,9 @@ import { createActor } from '../../../../declarations/icp-bitcoin-ai-api'
 const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID);
 
 const IcpService = {
-  getHashblocks: async () => {
+  getHashblocks: async (page: number = 0) => {
     try {
-      const response = await actor.getHashblocks()
+      const response = await actor.getHashblocks(BigInt(page))
       return response
     }
     catch (error) {

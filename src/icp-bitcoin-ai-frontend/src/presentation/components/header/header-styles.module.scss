@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  width: 100%;
   padding: 20px 40px;
   border-bottom: solid 0.5px #56577A;
   margin-bottom: 40px;
@@ -25,9 +24,23 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1440px) {
   .header {
     padding: 10px 20px;
     margin-bottom: 20px;
+
+    .textField {
+      max-width: 150px;
+      height: 30px;
+
+      * {
+        font-size: 10px;
+      }
+    }
+
+    .button {
+      font-size: 10px;
+      height: 32px;
+    }
   }
 }

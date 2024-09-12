@@ -164,11 +164,12 @@
 }
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1440px) {
   .container {
-    gap: 16px;
+    gap: 12px;
 
     h2 {
+      font-size: 10px;
       padding-left: 20px;
     }
 
@@ -177,29 +178,52 @@
       position: relative;
 
       .card {
-        min-width: 220px;
+        min-width: 180px;
+        min-height: 0px;
+
+        .info {
+          justify-content: center;
+          gap: 6px;
+          padding: 16px;
+          height: 45px;
+
+          .id {
+            font-size: 10px;
+            max-width: 16ch;
+          }
+
+          .value {
+            font-size: 14px;
+          }
+
+          .graph {
+            border-bottom: 77px solid #2b305548;
+
+            .size {
+              height: 60px;
+              gap: 20px;
+              font-size: 8px;
+            }
+          }
+        }
 
         .title {
-          font-size: 12px;
+          font-size: 10px;
         }
 
         .details {
           .coin {
-            width: 36px;
-            height: 36px;
-
-            img {
-              width: 50%;
-            }
+            width: 28px;
+            height: 28px;
           }
 
           .date {
             h3 {
-              font-size: 14px;
+              font-size: 10px;
             }
 
             p {
-              font-size: 12px;
+              font-size: 10px;
               color: #A0AEC0;
             }
           }

@@ -51,7 +51,7 @@ const Hashblocks: React.FC<Props> = ({ coin, data, onSelect }: Props) => {
     switch (coin) {
       case 'Bitcoin':
         return <img src="/coins/bitcoin.png" alt="" />
-      case 'Etherum':
+      case 'Ethereum':
         return <img src="/coins/eth.png" alt="" />
       case 'Solana':
         return <img src="/coins/solana.png" alt="" />
