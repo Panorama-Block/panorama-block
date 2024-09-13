@@ -2,7 +2,6 @@
   - [ ] Makefile for setup multi-canister
   - [ ] Makefile for tests setup
   - [ ] github pipeline for tests
-  - [ ] make custom errors and implement them into functions
 
 ### Core
   - [x] multi-canister setup
@@ -10,11 +9,14 @@
   - [ ] all hashblock functions call setup
 
 ### Hashblock
-  - [ ] use custom errors
-  - [ ] finish tests
+  - [x] use custom string errors
+  - [x] finish tests
 
 ### Address
   TODO...
 
 ### Transactions
+  TODO...
+
+### Bitcoin node 
   TODO...
