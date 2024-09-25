@@ -159,8 +159,9 @@ export const hashblock = {
     const data = hashblocksMap.values()
     const perPage = 250
 
-    if (data) {
-      const length = data.length
+    const length = data.length
+
+    if (length > 0) {
       if (length > perPage) {
         const initial = Number(page) * perPage
         const max = initial + perPage
