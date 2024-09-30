@@ -17,6 +17,22 @@ import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
 import TransactionInfo from '../../components/transaction-info/transaction-info'
 
+type HashblocksInfo = {
+  txs: number
+  height: number
+  eficiency: number
+  week: number
+}
+
+type Hashblock = {
+  id: string
+  height: number
+  timestamp: Date
+  address: string
+  value: number
+  fee: number
+}
+
 const Solana: React.FC = () => {
   const [actual, setActual] = useState('Solana')
   const [actualHashblock, setActualHashblock] = useState(null)
