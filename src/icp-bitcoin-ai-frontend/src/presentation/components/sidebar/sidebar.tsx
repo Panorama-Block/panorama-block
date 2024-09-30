@@ -29,7 +29,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
     {
       title: 'Solana',
       icon: '/coins/solana.png',
-      disabled: true
+      url: '/solana'
     }
   ])
   const [pages, setPages] = useState([
@@ -60,6 +60,13 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
   const handleClick = (type: string, value: string) => {
     if (type === 'coin') {
       onChange(value)
+
+      if (value == 'Bitcoin') {
+        navigate(`/home`)
+      }
+      else {
+        navigate(`/${value}`)
+      }
     }
     else {
       open(value)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './home-styles.module.scss'
+import styles from './solana-styles.module.scss'
 import Sidebar from '../../components/sidebar/sidebar'
 import Hashblocks, { HashblockProps } from '../../components/hashblocks/hashblocks'
 import Network, { NetworkData } from '../../components/network/network'
@@ -8,17 +8,17 @@ import IcpService from '../../../data/services/icp-service'
 import { jsonParseBigint } from '../../../utils/json-parse-bigint'
 import Header from '../../components/header/header'
 import InfoModal from '../../components/info-modal/info-modal'
-import TransactionInfo from '../../components/transaction-info/transaction-info'
 import AddressInfo from './components/address-info/address-info'
 import HashblockInfo from './components/hashblock-info/hashblock-info'
 import { Tooltip } from '@mui/material'
 import OpenChat from '../../components/open-chat/open-chat'
-import WhaleHunting from './components/whale-hunting/whale-hunting'
+import WhaleHunting from '../../components/whale-hunting/whale-hunting'
 import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
+import TransactionInfo from '../../components/transaction-info/transaction-info'
 
-const Home: React.FC = () => {
-  const [actual, setActual] = useState('Bitcoin')
+const Solana: React.FC = () => {
+  const [actual, setActual] = useState('Solana')
   const [actualHashblock, setActualHashblock] = useState(null)
   const [hashblocks, setHashblocks] = useState<HashblockProps[]>()
   const [modalOpened, setModalOpened] = useState(false)
@@ -28,12 +28,11 @@ const Home: React.FC = () => {
   const [info, setInfo] = useState<any>()
   const [data, setData] = useState<NetworkData>(
     {
-      description: "Bitcoin is the first decentralized cryptocurrency. Nodes in the peer-to-peer bitcoin network verify transactions through cryptography and record them in a public distributed ledger, called a blockchain.",
-      transactions: '2.487.316 transactions',
-      avgTransactions: '59.267 BTC',
-      transactionsValue: '414.869 BTC',
-      address: '2.118.955 addresses',
-      token: 'BTC USD'
+      description: "AI: Solana network shows high transactional activity with an increase in active addresses; however, there has been a slight decrease in transaction volume on exchanges, suggesting a possible accumulation of tokens in private wallets and reduced trading movement in the short term",
+      transactions: '2.020.749 transactions',
+      transactionsValue: '2980937292746 SOL',
+      address: '12300289033 addresses',
+      token: 'SOL USD'
     }
   )
 
@@ -199,4 +198,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Solana
