@@ -65,7 +65,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
         navigate(`/home`)
       }
       else {
-        navigate(`/${value}`)
+        navigate(`/${value.toLowerCase()}`)
       }
     }
     else {

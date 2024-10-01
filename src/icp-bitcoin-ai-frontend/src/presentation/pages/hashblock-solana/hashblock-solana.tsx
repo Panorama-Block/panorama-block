@@ -1,43 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import styles from './solana-styles.module.scss'
+import styles from './hashblock-solana-styles.module.scss'
 import Sidebar from '../../components/sidebar/sidebar'
-import Hashblocks, { HashblockProps } from '../../components/hashblocks/hashblocks'
-import Network, { NetworkData } from './components/network/network'
-import CustomTabs from './components/custom-tabs/custom-tabs'
+import Hashblocks from '../../components/hashblocks/hashblocks'
 import IcpService from '../../../data/services/icp-service'
-import { jsonParseBigint } from '../../../utils/json-parse-bigint'
 import Header from '../../components/header/header'
 import InfoModal from '../../components/info-modal/info-modal'
-import AddressInfo from './components/address-info/address-info'
-import HashblockInfo from './components/hashblock-info/hashblock-info'
-import { Tooltip } from '@mui/material'
 import OpenChat from '../../components/open-chat/open-chat'
 import WhaleHunting from '../../components/whale-hunting/whale-hunting'
-import { hoursInterval, minutesInterval } from '../../../utils/time'
-import { compareTimestampDesc } from '../../../utils/sort'
 import TransactionInfo from '../../components/transaction-info/transaction-info'
 
 import GitHubIcon from '@mui/icons-material/GitHub';
 import XIcon from '@mui/icons-material/X'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import { Facebook, Instagram } from '@mui/icons-material'
-import { TokenChart } from './components/token-chart/token-chart'
-import { useNavigate } from 'react-router-dom'
+import AddressInfo from '../../components/address-info/address-info'
+import { Tooltip } from '@mui/material'
+import HashblockInfo from './components/hashblock-info/hashblock-info'
 
 type HashblocksInfo = {
   tx_count: number
   height: number
   eficiency: number
   week: number
-}
-
-type Hashblock = {
-  id: string
-  height: number
-  timestamp: Date
-  address: string
-  value: number
-  fee: number
 }
 
 const items = [
@@ -55,8 +39,7 @@ const items = [
   },
 ]
 
-const Solana: React.FC = () => {
-  const navigate = useNavigate()
+const HashblockSolana: React.FC = () => {
   const [actual, setActual] = useState('Solana')
   const [actualHashblock, setActualHashblock] = useState(null)
   const [hashblocks, setHashblocks] = useState(
@@ -147,29 +130,7 @@ const Solana: React.FC = () => {
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
   const [whaleOpened, setWhaleOpened] = useState(false)
-  const [hashblockOpened, setHashblockOpened] = useState(false)
   const [info, setInfo] = useState<any>()
-  const [data, setData] = useState<NetworkData>(
-    {
-      description: "AI: Solana network shows high transactional activity with an increase in active addresses; however, there has been a slight decrease in transaction volume on exchanges, suggesting a possible accumulation of tokens in private wallets and reduced trading movement in the short term",
-      transactions: '2.020.749 transactions',
-      transactionsValue: '2980937292746 SOL',
-      address: '12300289033 addresses',
-      token: 'SOL USD',
-      links: items
-    }
-  )
-
-  const verifyCacheInterval = (cache: any) => {
-    if (cache.date) {
-      const interval = minutesInterval(Date.now(), cache.date)
-
-      if (interval >= 0 && interval < 5) {
-        return true
-      }
-    }
-    return false
-  }
 
   const handleGetInfo = async (type: string, value: string) => {
     setModalOpened(true)
@@ -211,20 +172,6 @@ const Solana: React.FC = () => {
     setModalOpened(false)
   }
 
-  const handleHashblock = (hashblock?: any) => {
-    if (hashblock) {
-      setActualHashblock(hashblock)
-      // setHashblockOpened(true)
-      navigate(`/solana/${hashblock.id}`, {
-        state: hashblock
-      })
-    }
-    else {
-      setActualHashblock(null)
-      setHashblockOpened(false)
-    }
-  }
-
   const handleOpen = (page: string) => {
     if (page === 'Whale Hunting') {
       setWhaleOpened(true)
@@ -236,14 +183,8 @@ const Solana: React.FC = () => {
       <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
-        <Hashblocks coin={actual} data={hashblocks} onSelect={(hashblock: any) => handleHashblock(hashblock)} />
+        <HashblockInfo />
         <div className={styles.info}>
-          <Network data={data} />
-          <div className={styles.custom}>
-            <CustomTabs
-              hashblocks={hashblocks}
-              labels={['Token Transfers', 'Fees', 'Active Addresses', 'Transcations', 'Current Epoch']} />
-          </div>
         </div>
       </div>
 
@@ -255,10 +196,6 @@ const Solana: React.FC = () => {
               : <TransactionInfo title="Transaction Information" data={info?.['ok']} />
           }
         </InfoModal>
-      }
-
-      {
-        hashblockOpened && actualHashblock && <HashblockInfo data={actualHashblock} onClose={() => handleHashblock()} />
       }
 
       {
@@ -282,4 +219,4 @@ const Solana: React.FC = () => {
   )
 }
 
-export default Solana
+export default HashblockSolana
