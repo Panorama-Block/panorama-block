@@ -32,14 +32,13 @@ export default defineConfig({
     environment("all", { prefix: "DFX_" }),
   ],
   resolve: {
-    alias: [ 
+    alias:  
       {
-        "@": path.resolve(__dirname, "./src"),
+        "@": path.resolve(__dirname, "./"),
         find: "declarations",
         replacement: fileURLToPath(
           new URL("../declarations", import.meta.url)
         ),
       },
-    ],
   },
 })

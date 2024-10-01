@@ -96,7 +96,7 @@ const Hashblocks: React.FC<Props> = ({ coin, data, onSelect }: Props) => {
                 <div className={styles.card} onClick={() => onSelect(item)}>
                   <div className={styles.info}>
                     <Tooltip title={item.id} placement="right-start">
-                      <p className={styles.id}>Block {customId(item.id)}</p>
+                      <p className={styles.id}>Block: {item.id}</p>
                     </Tooltip>
                     <div className={styles.value}>
                       <Tooltip title="Transactions" placement="right-start">

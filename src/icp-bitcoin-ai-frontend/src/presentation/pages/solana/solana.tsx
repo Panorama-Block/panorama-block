@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styles from './solana-styles.module.scss'
 import Sidebar from '../../components/sidebar/sidebar'
 import Hashblocks, { HashblockProps } from '../../components/hashblocks/hashblocks'
-import Network, { NetworkData } from '../../components/network/network'
-import CustomTabs from '../../components/custom-tabs/custom-tabs'
+import Network, { NetworkData } from './components/network/network'
+import CustomTabs from './components/custom-tabs/custom-tabs'
 import IcpService from '../../../data/services/icp-service'
 import { jsonParseBigint } from '../../../utils/json-parse-bigint'
 import Header from '../../components/header/header'
@@ -17,8 +17,14 @@ import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
 import TransactionInfo from '../../components/transaction-info/transaction-info'
 
+import GitHubIcon from '@mui/icons-material/GitHub';
+import XIcon from '@mui/icons-material/X'
+import TelegramIcon from '@mui/icons-material/Telegram'
+import { Facebook, Instagram } from '@mui/icons-material'
+import { TokenChart } from './components/token-chart/token-chart'
+
 type HashblocksInfo = {
-  txs: number
+  tx_count: number
   height: number
   eficiency: number
   week: number
@@ -33,10 +39,109 @@ type Hashblock = {
   fee: number
 }
 
+const items = [
+  {
+    icon: <Facebook />,
+    url: 'https://www.facebook.com/groups/198537324100124/'
+  },
+  {
+    icon: <XIcon />,
+    url: 'https://twitter.com/solana'
+  },
+  {
+    icon: <Instagram />,
+    url: 'https://www.instagram.com/solana/'
+  },
+]
+
 const Solana: React.FC = () => {
   const [actual, setActual] = useState('Solana')
   const [actualHashblock, setActualHashblock] = useState(null)
-  const [hashblocks, setHashblocks] = useState<HashblockProps[]>()
+  const [hashblocks, setHashblocks] = useState(
+    [
+      {
+        id: '1206070',
+        tx_count: 1211,
+        size: 140000,
+        height: 8982,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 120000
+      },
+      {
+        id: '1206069',
+        tx_count: 2510,
+        size: 140000,
+        height: 8981,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 420000
+      },
+      {
+        id: '1206068',
+        tx_count: 3245,
+        size: 140000,
+        height: 8980,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 720000
+      },
+      {
+        id: '1206067',
+        tx_count: 1827,
+        size: 140000,
+        height: 8979,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 1020000
+      },
+      {
+        id: '1206066',
+        tx_count: '2517',
+        size: 140000,
+        height: 8978,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 1320000
+      },
+      {
+        id: '1206065',
+        tx_count: 3225,
+        size: 140000,
+        height: 8977,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 1620000
+      },
+      {
+        id: '1206064',
+        tx_count: 1981,
+        size: 140000,
+        height: 8976,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 1920000
+      },
+      {
+        id: '1206063',
+        tx_count: 1258,
+        size: 140000,
+        height: 8975,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 2220000
+      },
+      {
+        id: '1206062',
+        tx_count: 1428,
+        size: 140000,
+        height: 8974,
+        value: 5.475,
+        fee: 0.134,
+        timestamp: Date.now() - 2520000
+      },
+    ]
+  )
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
   const [whaleOpened, setWhaleOpened] = useState(false)
@@ -48,7 +153,8 @@ const Solana: React.FC = () => {
       transactions: '2.020.749 transactions',
       transactionsValue: '2980937292746 SOL',
       address: '12300289033 addresses',
-      token: 'SOL USD'
+      token: 'SOL USD',
+      links: items
     }
   )
 
@@ -62,51 +168,6 @@ const Solana: React.FC = () => {
     }
     return false
   }
-
-  useEffect(() => {
-    const getHashblocks = async (): Promise<void> => {
-      const cache = localStorage.getItem('hashblocks')
-
-      if (cache && verifyCacheInterval(JSON.parse(cache))) {
-        setHashblocks(JSON.parse(cache).ok)
-      }
-      else {
-        let count = 0
-        const data: { ok: HashblockProps[], date: number } = { ok: [], date: 0 }
-        let lastIdAdded = ''
-
-        while (true) {
-          const response: any = await IcpService.getHashblocks(count)
-
-          if (response && response.length > 0) {
-            const json = await jsonParseBigint(response)
-            const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
-            const sorted: HashblockProps[] = jsonFormated.sort(compareTimestampDesc)
-
-            if (lastIdAdded == sorted[0].id) {
-              break
-            }
-
-            lastIdAdded = sorted[0].id
-
-            data.ok.push(...sorted)
-            count++
-          }
-          else {
-            break
-          }
-        }
-
-        if (data.ok.length > 0) {
-          data.date = Date.now()
-          setHashblocks(data.ok)
-          localStorage.setItem('hashblocks', JSON.stringify(data))
-        }
-      }
-    }
-
-    getHashblocks()
-  }, [])
 
   const handleGetInfo = async (type: string, value: string) => {
     setModalOpened(true)
@@ -173,9 +234,11 @@ const Solana: React.FC = () => {
         <Hashblocks coin={actual} data={hashblocks} onSelect={(hashblock: any) => handleHashblock(hashblock)} />
         <div className={styles.info}>
           <Network data={data} />
-          <CustomTabs
-            hashblocks={hashblocks}
-            labels={['by hashblocks', 'by time']} />
+          <div className={styles.custom}>
+            <CustomTabs
+              hashblocks={hashblocks}
+              labels={['Token Transfers', 'Fees', 'Active Addresses', 'Transcations', 'Current Epoch']} />
+          </div>
         </div>
       </div>
 
