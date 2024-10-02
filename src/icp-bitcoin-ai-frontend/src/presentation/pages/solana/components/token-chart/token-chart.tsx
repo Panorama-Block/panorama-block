@@ -86,7 +86,7 @@ export const TokenChart = () => {
               High
             </div>
             <div className="flex items-center gap-2 font-medium leading-none">
-              11,691.89
+              160.27
             </div>
           </div>
           <div className="grid gap-2">
@@ -94,7 +94,7 @@ export const TokenChart = () => {
               Low
             </div>
             <div className="flex items-center gap-2 font-medium leading-none">
-              11,691.89
+              142.48
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ export const TokenChart = () => {
               Prev close (Avr 28 Days)
             </div>
             <div className="flex items-center gap-2 font-medium leading-none">
-              11,512.41
+              143.96
             </div>
           </div>
           <div className="grid gap-2">
@@ -112,7 +112,7 @@ export const TokenChart = () => {
               Open
             </div>
             <div className="flex items-center gap-2 font-medium leading-none">
-              11,690.11
+              157.23
             </div>
           </div>
         </div>

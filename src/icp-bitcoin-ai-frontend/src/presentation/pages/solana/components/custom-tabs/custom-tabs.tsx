@@ -3,13 +3,15 @@ import styles from './custom-tabs-styles.module.scss'
 import { Box, Tab, Tabs } from '@mui/material'
 import { TabContext, TabPanel } from '@mui/lab'
 import { TokenChart } from '../token-chart/token-chart'
+import AmmTable from '../amm-table/amm-table'
 
 type Props = {
   labels: string[]
   hashblocks: any
+  table?: boolean
 }
 
-const CustomTabs: React.FC<Props> = ({ labels, hashblocks }: Props) => {
+const CustomTabs: React.FC<Props> = ({ labels, hashblocks, table }: Props) => {
   const [value, setValue] = React.useState('0')
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -65,6 +67,10 @@ const CustomTabs: React.FC<Props> = ({ labels, hashblocks }: Props) => {
           })
         } */}
       </TabContext>
+
+      {
+        table && <AmmTable title='Top AMMs by Volume' />
+      }
     </div >
   )
 }

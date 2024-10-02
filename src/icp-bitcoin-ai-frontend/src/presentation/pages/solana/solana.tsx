@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './solana-styles.module.scss'
+import { LucideArrowLeft, BrickWall, ArrowLeftRight, ArrowRight } from "lucide-react"
 import Sidebar from '../../components/sidebar/sidebar'
 import Hashblocks, { HashblockProps } from '../../components/hashblocks/hashblocks'
 import Network, { NetworkData } from './components/network/network'
@@ -23,6 +24,8 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 import { Facebook, Instagram } from '@mui/icons-material'
 import { TokenChart } from './components/token-chart/token-chart'
 import { useNavigate } from 'react-router-dom'
+import NftTable from './components/nft-table/nft-table'
+import { Card } from '@/components/ui/card'
 
 type HashblocksInfo = {
   tx_count: number
@@ -151,12 +154,15 @@ const Solana: React.FC = () => {
   const [info, setInfo] = useState<any>()
   const [data, setData] = useState<NetworkData>(
     {
-      description: "AI: Solana network shows high transactional activity with an increase in active addresses; however, there has been a slight decrease in transaction volume on exchanges, suggesting a possible accumulation of tokens in private wallets and reduced trading movement in the short term",
+      description: "Solana network shows high transactional activity with an increase in active addresses; however, there has been a slight decrease in transaction volume on exchanges, suggesting a possible accumulation of tokens in private wallets and reduced trading movement in the short term",
       transactions: '2.020.749 transactions',
       transactionsValue: '2980937292746 SOL',
+      avgTransactions: '418.861 transactions',
       address: '12300289033 addresses',
       token: 'SOL USD',
-      links: items
+      links: items,
+      close: 143.96,
+      open: 157.23
     }
   )
 
@@ -245,7 +251,114 @@ const Solana: React.FC = () => {
               labels={['Token Transfers', 'Fees', 'Active Addresses', 'Transcations', 'Current Epoch']} />
           </div>
         </div>
+
+        {/* <div className={`${styles.info} styles.wrapped`}>
+          <Network data={data} /> */}
+        <div className='flex flex flex-wrap'>
+          <div className={`${styles.custom} flex-1 max-w-[540px]`}>
+            <CustomTabs
+              hashblocks={hashblocks}
+              labels={['DEFI', 'TPS', 'AVG Ping Time', 'TVL']}
+              table={true} />
+          </div>
+
+          <Card className={`${styles.card}  max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
+            <div className='flex flex-col p-4 w-full'>
+              <h3 className='text-zinc-400'>Volume</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#753EFE] w-[80%] border-none'>
+                  <p className=' p-4 text-zinc-100 font-medium'>
+                    US$ 4.65B
+                  </p>
+                  <div className='flex items-center ml-auto mr-8 hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 center' />
+                  </div>
+                </Card>
+                <Card className='flex items-center justify-items-center ml-4 w-[60px] bg-[#2C7300] border-none'>
+                  <p className='text-zinc-100 m-auto text-xs'>+5.46%</p>
+                </Card>
+              </div>
+
+              <h3 className='mt-4 text-zinc-100'>Market Cap</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
+                  <p className=' p-4 text-zinc-900 font-medium'>
+                    $62.33B
+                  </p>
+                  <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className='mt-4 text-zinc-100'>Supply</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
+                  <p className=' p-4 text-zinc-900 font-medium'>
+                    263,762,293 SOL
+                  </p>
+                  <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className='mt-4 text-zinc-100'>Total Stake</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
+                  <p className=' p-4 text-zinc-900 font-medium'>
+                    263,762,293 SOL
+                  </p>
+                  <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className='mt-4 text-zinc-100'>Token Balances</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
+                  <p className=' p-4 text-zinc-900 font-medium'>
+                    263,762,293 SOL
+                  </p>
+                  <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className='mt-4 text-zinc-100'>Exchange Flow</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
+                  <p className=' p-4 text-zinc-900 font-medium'>
+                    263,762,293 SOL
+                  </p>
+                  <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className='mt-4 text-zinc-100'>Active Validators</h3>
+              <div className='flex'>
+                <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
+                  <p className=' p-4 text-zinc-900 font-medium'>
+                    263,762,293 SOL
+                  </p>
+                  <div className='flex items-center w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
+                    <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </Card>
+
+          <Card className={`${styles.card} max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
+            <NftTable title="Top NFTs" />
+          </Card>
+        </div>
       </div>
+      {/* </div> */}
 
       {
         modalOpened && <InfoModal data={info} onClose={() => handleClose()}>
