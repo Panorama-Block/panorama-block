@@ -36,11 +36,35 @@ const NftTable: React.FC<Props> = ({ title }: Props) => {
       collection: "Retardio Cousins",
       volume: "729.77 SOL",
       lastday: "-20.58%",
+    },
+    {
+      id: "5",
+      collection: "DeGod",
+      volume: "495.39 SOL",
+      lastday: "21.83%",
+    },
+    {
+      id: "6",
+      collection: "Famous Fox Federation",
+      volume: "440.07 SOL",
+      lastday: "67.51%",
+    },
+    {
+      id: "7",
+      collection: "y00t",
+      volume: "188.76 SOL",
+      lastday: "-19.24%",
+    },
+    {
+      id: "8",
+      collection: "Solcasino.io",
+      volume: "141.81 SOL",
+      lastday: "169.12%",
     }
   ]
 
   return (
-    <div className="flex flex-col mt-1 ml-8 mr-8  text-white w-200px">
+    <div className="flex flex-col mt-1 ml-4 mr-4  text-white w-200px">
       <div className="flex gap-3 ">
         <h3>{title}</h3>
       </div>

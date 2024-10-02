@@ -270,7 +270,7 @@ const Solana: React.FC = () => {
                   <p className=' p-4 text-zinc-100 font-medium'>
                     US$ 4.65B
                   </p>
-                  <div className='flex items-center ml-auto mr-8 hover:cursor-pointer'>
+                  <div className='flex items-center ml-auto mr-8 hover:cursor-pointer' onClick={() => navigate('/solana/volume')}>
                     <ArrowRight className='text-zinc-100 w-8 h-8 center' />
                   </div>
                 </Card>
