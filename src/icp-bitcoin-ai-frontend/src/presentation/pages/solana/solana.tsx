@@ -26,6 +26,7 @@ import { TokenChart } from './components/token-chart/token-chart'
 import { useNavigate } from 'react-router-dom'
 import NftTable from './components/nft-table/nft-table'
 import { Card } from '@/components/ui/card'
+import MemeTable from './components/meme-token-table/meme-token-table'
 
 type HashblocksInfo = {
   tx_count: number
@@ -248,7 +249,7 @@ const Solana: React.FC = () => {
           <div className={styles.custom}>
             <CustomTabs
               hashblocks={hashblocks}
-              labels={['Token Transfers', 'Fees', 'Active Addresses', 'Transcations', 'Current Epoch']} />
+              labels={['Token Transfers', 'Fees', 'Active Addresses', 'Transactions', 'Current Epoch']} />
           </div>
         </div>
 
@@ -268,7 +269,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#753EFE] w-[80%] border-none'>
                   <p className=' p-4 text-zinc-100 font-medium'>
-                    US$ 4.65B
+                    $4,042,716,784
                   </p>
                   <div className='flex items-center ml-auto mr-8 hover:cursor-pointer' onClick={() => navigate('/solana/volume')}>
                     <ArrowRight className='text-zinc-100 w-8 h-8 center' />
@@ -283,7 +284,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
                   <p className=' p-4 text-zinc-900 font-medium'>
-                    $62.33B
+                    $63,892,516,279
                   </p>
                   <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
                     <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
@@ -295,7 +296,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
                   <p className=' p-4 text-zinc-900 font-medium'>
-                    263,762,293 SOL
+                  392,545,171.92 SOL
                   </p>
                   <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
                     <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
@@ -355,6 +356,10 @@ const Solana: React.FC = () => {
 
           <Card className={`${styles.card} max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
             <NftTable title="Top NFTs" />
+          </Card>
+          
+          <Card className={`${styles.card} max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
+            <MemeTable title="Top Meme Coins" />
           </Card>
         </div>
       </div>

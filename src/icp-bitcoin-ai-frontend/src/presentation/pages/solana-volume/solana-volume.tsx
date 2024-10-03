@@ -10,44 +10,54 @@ import { Card } from "@/components/ui/card"
 import { TokenChart } from "../solana/components/token-chart/token-chart"
 import { VolumeChart } from "../solana/components/volume-chart/volume-chart"
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 const volumeData = [
-  { legend: "09/25", desktop: 212005700 },
-  { legend: "09/26", desktop: 220129378 },
   { legend: "09/27", desktop: 241029812 },
   { legend: "09/28", desktop: 200021827 },
   { legend: "09/29", desktop: 240178652 },
   { legend: "09/30", desktop: 220212348 },
   { legend: "10/01", desktop: 232791028 },
+  { legend: "10/02", desktop: 232791028 },
+  { legend: "10/03", desktop: 232791028 },
 ]
 
 const usersData = [
-  { legend: "09/25", desktop: 38000 },
-  { legend: "09/26", desktop: 39502 },
   { legend: "09/27", desktop: 47576 },
   { legend: "09/28", desktop: 57812 },
   { legend: "09/29", desktop: 62389 },
   { legend: "09/30", desktop: 45128 },
   { legend: "10/01", desktop: 48924 },
+  { legend: "10/02", desktop: 48924 },
+  { legend: "10/03", desktop: 48924 },
 ]
 
 const valueLockedData = [
-  { legend: "09/25", desktop: 221235281 },
-  { legend: "09/26", desktop: 225892452 },
   { legend: "09/27", desktop: 226128135 },
   { legend: "09/28", desktop: 228906126 },
   { legend: "09/29", desktop: 224081739 },
   { legend: "09/30", desktop: 223878126 },
   { legend: "10/01", desktop: 224509461 },
+  { legend: "10/02", desktop: 224509461 },
+  { legend: "10/03", desktop: 224509461 },
 ]
 
 const totalTransfersData = [
-  { legend: "09/25", desktop: 2712819 },
-  { legend: "09/26", desktop: 2829012 },
   { legend: "09/27", desktop: 3827916 },
   { legend: "09/28", desktop: 4890224 },
   { legend: "09/29", desktop: 4790825 },
   { legend: "09/30", desktop: 3658921 },
   { legend: "10/01", desktop: 3649872 },
+  { legend: "10/02", desktop: 3649872 },
+  { legend: "10/03", desktop: 3649872 },
 ]
 
 const SolanaVolume = () => {
@@ -128,6 +138,23 @@ const SolanaVolume = () => {
         <div className="mx-12 mt-4 mb-8 flex gap-3 text-zinc-100">
           <LucideArrowLeft className="hover:cursor-pointer" onClick={() => navigate(-1)} />
           <h2>Volume</h2>
+
+          <div className="flex-1">
+            <Select>
+              <SelectTrigger className="ml-auto w-[180px] mr-[120px] bg-zinc-900 border-none" defaultValue="raydium">
+                <SelectValue placeholder="Raydium" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-200">
+                <SelectGroup>
+                  <SelectItem value="orca">Orca</SelectItem>
+                  <SelectItem value="raydium">Raydium</SelectItem>
+                  <SelectItem value="blueberry">jupiter</SelectItem>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="lifinity">Lifinity</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className={`mx-16 grid grid-cols-2 gap-[40px] text-zinc-100`}>

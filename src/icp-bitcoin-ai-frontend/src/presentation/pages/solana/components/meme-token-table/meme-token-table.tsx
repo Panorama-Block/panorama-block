@@ -8,43 +8,63 @@ type Props = {
   title?: string
 }
 
-const AmmTable: React.FC<Props> = ({ title }: Props) => {
+const MemeTable: React.FC<Props> = ({ title }: Props) => {
   const navigate = useNavigate()
   const params = useParams()
 
   const data = [
     {
       id: "1",
-      collection: "Raydium",
-      url: "https://raydium.io/swap/",
-      volume: "$983,360,400",
-      lastday: "-11.71%",
+      collection: "POPCAT",
+      volume: "$ 928,782,188",
+      lastday: "-4.49%",
     },
     {
       id: "2",
-      collection: "Orca",
-      url: "https://www.orca.so/",
-      volume: "$482,799,420",
-      lastday: "35.49%",
+      collection: "Bonk",
+      volume: "$ 862,213,128",
+      lastday: "-7.96%",
     },
     {
       id: "3",
-      collection: "Jupiter",
-      url: "https://jup.ag/",
-      volume: "$1,134,782,800",
-      lastday: "13.33%",
+      collection: "cat in a dogs world",
+      volume: "$ 429,087,224",
+      lastday: "-6.07%",
     },
     {
       id: "4",
-      collection: "Lifinity",
-      url: "https://lifinity.io/pools",
-      volume: "$140,349,680",
-      lastday: "-17.9%",
+      collection: "BOOK OF MEME",
+      volume: "$ 326,351,873",
+      lastday: "-7.78%",
+    },
+    {
+      id: "5",
+      collection: "Moo Deng",
+      volume: "$ 183,064,264",
+      lastday: "-17.97%",
+    },
+    {
+      id: "6",
+      collection: "Ponke",
+      volume: "$ 152,283,630",
+      lastday: "-12.42%",
+    },
+    {
+      id: "7",
+      collection: "michi",
+      volume: "$ 96,741,152",
+      lastday: "-8.35%",
+    },
+    {
+      id: "8",
+      collection: "Mumu the Bull",
+      volume: "$ 93,304,422",
+      lastday: "-9.79%",
     }
   ]
 
   return (
-    <div className="flex flex-col mt-1 ml-8 mr-8 text-white w-200px">
+    <div className="flex flex-col mt-1 ml-4 mr-4  text-white w-200px">
       <div className="flex gap-3 ">
         <h3>{title}</h3>
       </div>
@@ -63,11 +83,7 @@ const AmmTable: React.FC<Props> = ({ title }: Props) => {
             {data.map((row, id) => (
               <TableRow key={row.id} className="border-none text-[#A0AEC0] hover:bg-[#f2f2f210]">
                 <TableCell className="text-zinc-200 font-medium">{id + 1}</TableCell>
-                <TableCell className="text-zinc-200 font-medium">
-                <a className="text-blue-400" href={row.url} target='__blank' key={`collection-${id}`}>
-                  {row.collection}
-                </a>
-                  </TableCell>
+                <TableCell className="text-zinc-200 font-medium">{row.collection}</TableCell>
                 <TableCell className="text-zinc-200 font-medium">{row.volume}</TableCell>
                 <TableCell className={`${row.lastday.includes('-') ? 'text-[red]' : 'text-[green]'} font-medium`}>{row.lastday}</TableCell>
               </TableRow>
@@ -79,4 +95,4 @@ const AmmTable: React.FC<Props> = ({ title }: Props) => {
   )
 }
 
-export default AmmTable
+export default MemeTable
