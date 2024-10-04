@@ -27,6 +27,7 @@ import { useNavigate } from 'react-router-dom'
 import NftTable from './components/nft-table/nft-table'
 import { Card } from '@/components/ui/card'
 import MemeTable from './components/meme-token-table/meme-token-table'
+import CustomTabs2 from './components/custom-tabs2/custom-tabs2'
 
 type HashblocksInfo = {
   tx_count: number
@@ -249,27 +250,27 @@ const Solana: React.FC = () => {
           <div className={styles.custom}>
             <CustomTabs
               hashblocks={hashblocks}
-              labels={['Token Transfers', 'Fees', 'Active Addresses', 'Transactions', 'Current Epoch']} />
+              labels={['Active Addresses', 'Fees', 'Transactions', 'Current Epoch']} />
           </div>
         </div>
 
         {/* <div className={`${styles.info} styles.wrapped`}>
           <Network data={data} /> */}
-        <div className='flex flex flex-wrap'>
-          <div className={`${styles.custom} flex-1 max-w-[540px]`}>
-            <CustomTabs
+        <div className='grid grid-cols-2'>
+          <div className={`${styles.custom} flex-1`}>
+            <CustomTabs2
               hashblocks={hashblocks}
-              labels={['DEFI', 'TPS', 'AVG Ping Time', 'TVL']}
-              table={true} />
+              labels={['TPS', 'AVG Ping Time', 'TVL']}
+            />
           </div>
 
-          <Card className={`${styles.card}  max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
+          <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
             <div className='flex flex-col p-4 w-full'>
               <h3 className='text-zinc-400'>Volume</h3>
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#753EFE] w-[80%] border-none'>
                   <p className=' p-4 text-zinc-100 font-medium'>
-                    $4,042,716,784
+                    $2,875,933,651
                   </p>
                   <div className='flex items-center ml-auto mr-8 hover:cursor-pointer' onClick={() => navigate('/solana/volume')}>
                     <ArrowRight className='text-zinc-100 w-8 h-8 center' />
@@ -284,7 +285,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
                   <p className=' p-4 text-zinc-900 font-medium'>
-                    $63,892,516,279
+                    $64,233,356,606
                   </p>
                   <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
                     <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
@@ -296,7 +297,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
                   <p className=' p-4 text-zinc-900 font-medium'>
-                  392,545,171.92 SOL
+                    585,827,435 SOL
                   </p>
                   <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
                     <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
@@ -308,7 +309,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
                   <p className=' p-4 text-zinc-900 font-medium'>
-                    263,762,293 SOL
+                    392,545,171.92 SOL
                   </p>
                   <div className='flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
                     <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
@@ -344,7 +345,7 @@ const Solana: React.FC = () => {
               <div className='flex'>
                 <Card className='mt-1 flex bg-[#D3D3D3]  w-[90%] border-none'>
                   <p className=' p-4 text-zinc-900 font-medium'>
-                    263,762,293 SOL
+                    1461
                   </p>
                   <div className='flex items-center w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer'>
                     <ArrowRight className='text-zinc-100 w-8 h-8 m-auto center' />
@@ -354,11 +355,11 @@ const Solana: React.FC = () => {
             </div>
           </Card>
 
-          <Card className={`${styles.card} max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
+          <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
             <NftTable title="Top NFTs" />
           </Card>
-          
-          <Card className={`${styles.card} max-w-[500px] flex-1 mx-10 flex my-10 pt-4`}>
+
+          <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
             <MemeTable title="Top Meme Coins" />
           </Card>
         </div>

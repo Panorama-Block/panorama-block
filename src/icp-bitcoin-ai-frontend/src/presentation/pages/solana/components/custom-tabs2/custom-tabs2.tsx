@@ -1,17 +1,18 @@
 import React from 'react'
-import styles from './custom-tabs-styles.module.scss'
+import styles from './custom-tabs2-styles.module.scss'
 import { Box, Tab, Tabs } from '@mui/material'
 import { TabContext, TabPanel } from '@mui/lab'
 import { TokenChart } from '../token-chart/token-chart'
-import { FeeChart } from '../fee-chart/fee-chart'
-import { WalletChart } from '../wallet-chart/wallet-chart'
+import AmmTable from '../amm-table/amm-table'
+import { TpsChart } from '../tps-chart/tps-chart'
+import { PingChart } from '../ping-chart/ping-chart'
 
 type Props = {
   labels: string[]
   hashblocks: any
 }
 
-const CustomTabs: React.FC<Props> = ({ labels }: Props) => {
+const CustomTabs2: React.FC<Props> = ({ labels }: Props) => {
   const [value, setValue] = React.useState('0')
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -35,11 +36,11 @@ const CustomTabs: React.FC<Props> = ({ labels }: Props) => {
         </Box>
 
         <TabPanel className={styles.panel} sx={{ display: value === '0' ? 'flex' : 'none', width: '100%', height: '100%' }} value='0' key={`panel - 0`}>
-          <WalletChart />
+          <TpsChart />
         </TabPanel>
 
         <TabPanel className={styles.panel} sx={{ display: value === '1' ? 'flex' : 'none', width: '100%', height: '100%' }} value='1' key={`panel - 1`}>
-          <FeeChart />
+          <PingChart />
         </TabPanel>
 
         <TabPanel className={styles.panel} sx={{ display: value === '2' ? 'flex' : 'none', width: '100%', height: '100%' }} value='2' key={`panel - 2`}>
@@ -67,8 +68,10 @@ const CustomTabs: React.FC<Props> = ({ labels }: Props) => {
           })
         } */}
       </TabContext>
+
+      <AmmTable title='Top AMMs by Volume' />
     </div >
   )
 }
 
-export default CustomTabs
+export default CustomTabs2

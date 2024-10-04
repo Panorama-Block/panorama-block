@@ -2,11 +2,13 @@
 "use client"
 
 import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, Legend, XAxis, YAxis } from "recharts"
 
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
@@ -24,7 +26,7 @@ const chartData = [
 
 const chartConfig = {
   desktop: {
-    label: "Price ",
+    label: "Transfers",
     color: "#753EFE",
   },
 } satisfies ChartConfig
@@ -68,7 +70,7 @@ export const TokenChart = () => {
           />
           <ChartTooltip
             cursor={false}
-            content={<ChartTooltipContent indicator="dot" hideLabel />}
+            content={<ChartTooltipContent className="w-[175px]" indicator="dot" hideLabel />}
           />
           <Area
             dataKey="desktop"
@@ -77,6 +79,7 @@ export const TokenChart = () => {
             fillOpacity={0.4}
             stroke="var(--color-desktop)"
           />
+          {/* <ChartLegend className="mt-4 text-zinc-300" content={<ChartLegendContent />} /> */}
         </AreaChart>
       </ChartContainer>
       <CardFooter>
