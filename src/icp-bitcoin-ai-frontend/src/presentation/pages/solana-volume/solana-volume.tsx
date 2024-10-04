@@ -132,7 +132,7 @@ const SolanaVolume = () => {
 
   return (
     <div className={styles.home}>
-      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
+      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} active='Dashboard' />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
         <div className="mx-12 mt-4 mb-8 flex gap-3 text-zinc-100">

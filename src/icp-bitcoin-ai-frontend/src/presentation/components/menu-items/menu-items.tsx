@@ -6,18 +6,19 @@ import { Button, Tooltip } from '@mui/material'
 type Item = {
   title: string
   icon: string
-  url?: string
+  url: string
   disabled?: boolean
 }
 
 type Props = {
   active?: string
+  panelActive?: string
   title?: string
   items: Item[]
   action?: (value: string) => void
 }
 
-const MenuItems: React.FC<Props> = ({ active, title, items, action }: Props) => {
+const MenuItems: React.FC<Props> = ({ active, panelActive, title, items, action }: Props) => {
   const navigate = useNavigate()
 
   return (
@@ -26,7 +27,7 @@ const MenuItems: React.FC<Props> = ({ active, title, items, action }: Props) => 
       {
         items && items.map((item: Item, index: number) => {
           return (
-            <div className={`${styles.item} ${active === item.title && styles.active || item.title === 'Dashboard' && styles.active2} ${item.disabled && styles.disabled}`} onClick={(() => { item.title === "Logout" ? navigate("/") : !item.disabled && action?.(item.title) })} key={index}>
+            <div className={`${styles.item} ${active === item.title && styles.active || item.title === panelActive && styles.active2} ${item.disabled && styles.disabled}`} onClick={(() => { item.title === "Logout" ? navigate("/") : !item.disabled && navigate(item.url) })} key={index}>
               <div className={styles.icon}>
                 <img src={item.icon} alt="" />
               </div>

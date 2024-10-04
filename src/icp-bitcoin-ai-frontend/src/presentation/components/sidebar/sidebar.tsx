@@ -7,24 +7,28 @@ type Props = {
   actual: string
   onChange: (coin: string) => void
   open: (page: string) => void
+  active?: string
 }
 
-const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
+const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => {
   const navigate = useNavigate()
   const [coins, setCoins] = useState([
     {
       title: 'Bitcoin',
-      icon: '/coins/bitcoin.png'
+      icon: '/coins/bitcoin.png',
+      url: '/bitcoin'
     },
     {
       title: 'Ethereum',
       icon: '/coins/eth.png',
-      disabled: true
+      disabled: true,
+      url: '/ethereum'
     },
     {
       title: 'ICP',
       icon: '/coins/icp.png',
-      disabled: true
+      disabled: true,
+      url: '/icp'
     },
     {
       title: 'Solana',
@@ -64,8 +68,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
     {
       title: 'Pano Ranking',
       icon: 'account/pano.png',
-      disabled: true,
-      url: '/home'
+      url: '/panoranking/solana'
     },
     {
       title: 'Logout',
@@ -99,7 +102,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
       <div className={styles.body}>
         <MenuItems active={actual} items={coins} action={(value) => { handleClick("coin", value) }} />
 
-        <MenuItems title="User Panel" items={pages} action={(value) => { handleClick("page", value) }} />
+        <MenuItems title="User Panel" items={pages} action={(value) => { handleClick("page", value) }} panelActive={active} />
       </div>
     </div>
   )
