@@ -150,8 +150,8 @@ const WhaleHuntingBitcoin: React.FC = () => {
                         <div className={styles.item}>
                           <span className={styles.label}>ID</span>
                           <Tooltip title={item.address} placement="top">
-                            <div className={`${styles.value} ${styles.id}`} onClick={() => handleGetInfo('address', item.address)}>
-                              <p>{customId(item.address)}</p>
+                            <div className={`${styles.value}`} onClick={() => handleGetInfo('address', item.address)}>
+                              <p>{item.address}</p>
                             </div>
                           </Tooltip>
                         </div>

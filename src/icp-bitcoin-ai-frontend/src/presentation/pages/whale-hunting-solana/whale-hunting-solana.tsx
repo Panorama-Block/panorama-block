@@ -150,7 +150,7 @@ const WhaleHuntingSolana: React.FC = () => {
                         <div className={styles.item}>
                           <span className={styles.label}>ID</span>
                           <Tooltip title={item.address} placement="top">
-                            <div className={`${styles.value} ${styles.id}`} onClick={() => { }}>
+                            <div className={`${styles.value}`} onClick={() => { }}>
                               <p>{item.address}</p>
                             </div>
                           </Tooltip>
