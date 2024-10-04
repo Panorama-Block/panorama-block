@@ -63,7 +63,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => 
     {
       title: 'Whale Hunting',
       icon: 'account/wallet.png',
-      url: '/home'
+      url: window.location.href.toLowerCase().includes('solana') ? '/whale-hunting/solana' : '/whale-hunting/bitcoin'
     },
     {
       title: 'Pano Ranking',

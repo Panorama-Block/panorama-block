@@ -6,7 +6,8 @@ import Solana from '../../presentation/pages/solana/solana'
 import HashblockSolana from '@/src/presentation/pages/hashblock-solana/hashblock-solana'
 import SolanaVolume from '@/src/presentation/pages/solana-volume/solana-volume'
 import PanorankingSolana from '@/src/presentation/pages/panoranking-solana/panoranking-solana'
-// import Login from '../../presentation/pages/login/login'
+import WhaleHuntingSolana from '@/src/presentation/pages/whale-hunting-solana/whale-hunting-solana'
+import WhaleHuntingBitcoin from '@/src/presentation/pages/whale-hunting-bitcoin/whale-hunting-bitcoin'
 
 const Router: React.FC = () => {
   return (
@@ -18,6 +19,8 @@ const Router: React.FC = () => {
         <Route path='/solana' element={<Solana />} />
         <Route path='/solana/:id' element={<HashblockSolana />} />
         <Route path='/panoranking/solana' element={<PanorankingSolana />} />
+        <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
+        <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
         <Route path='/solana/volume' element={<SolanaVolume />} />
       </Routes>
     </HashRouter>
