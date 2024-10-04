@@ -250,7 +250,7 @@ const Solana: React.FC = () => {
           <div className={styles.custom}>
             <CustomTabs
               hashblocks={hashblocks}
-              labels={['Active Addresses', 'Fees', 'Transactions', 'Current Epoch']} />
+              labels={['Active Addresses', 'Fees', 'Token Transfers', 'Transactions', 'Current Epoch']} />
           </div>
         </div>
 
