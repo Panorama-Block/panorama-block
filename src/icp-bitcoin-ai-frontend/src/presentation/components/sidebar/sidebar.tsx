@@ -45,8 +45,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => 
     {
       title: 'Portfolio',
       icon: 'account/portfolio.png',
-      disabled: true,
-      url: '/home'
+      url: '/portfolio/solana'
     },
     {
       title: 'Market',
