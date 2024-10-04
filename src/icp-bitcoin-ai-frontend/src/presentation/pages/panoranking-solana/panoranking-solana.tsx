@@ -393,8 +393,8 @@ const PanorankingSolana: React.FC = () => {
               <TableBody>
                 {data.map((row) => (
                   <TableRow key={row.id} className="border-zinc-700 text-[#A0AEC0] hover:bg-[#f2f2f210]">
-                    <TableCell className="font-medium min-w-20">{row.id}</TableCell>
-                    <TableCell className="font-medium flex items-center justify-items-center gap-4 min-w-20">
+                    <TableCell className="font-medium">{row.id}</TableCell>
+                    <TableCell className="font-medium flex items-center justify-items-center gap-4 min-w-[100px]">
                       <span>
                         <img className='w-[20px] h-[20px] rounded-full' src={row.logo} alt="" />
                       </span>
@@ -403,25 +403,25 @@ const PanorankingSolana: React.FC = () => {
                       </span>
                     </TableCell>
                     {
-                      filter == 'tvl' && <TableCell className="font-medium min-w-20">{row.tvl.value}</TableCell>
+                      filter == 'tvl' && <TableCell className="font-medium min-w-[100px]">{row.tvl.value}</TableCell>
                     }
                     {/* {
-                      filter == 'tvl' ? <TableCell className="font-medium min-w-20">{row.tvl.value}</TableCell>
+                      filter == 'tvl' ? <TableCell className="font-medium min-w-[100px]">{row.tvl.value}</TableCell>
                         :
-                        <TableCell className="font-medium min-w-20"></TableCell>
+                        <TableCell className="font-medium min-w-[100px]"></TableCell>
                     } */}
                     <TableCell className={
-                      `${row[filter].lastDay.includes('%') ? row[filter].lastDay.includes('-') ? 'text-[red]' : 'text-[green]' : ''} min-w-20 font-medium`
+                      `${row[filter].lastDay.includes('%') ? row[filter].lastDay.includes('-') ? 'text-[red]' : 'text-[green]' : ''} min-w-[100px] font-medium`
                     }>
                       {row[filter].lastDay}
                     </TableCell>
                     <TableCell className={
-                      `${row[filter].last7Days.includes('%') ? row[filter].last7Days.includes('-') ? 'text-[red]' : 'text-[green]' : ''} min-w-20 font-medium`
+                      `${row[filter].last7Days.includes('%') ? row[filter].last7Days.includes('-') ? 'text-[red]' : 'text-[green]' : ''} min-w-[100px] font-medium`
                     }>
                       {row[filter].last7Days}
                     </TableCell>
                     <TableCell className={
-                      `${row[filter].last30Days.includes('%') ? row[filter].last30Days.includes('-') ? 'text-[red]' : 'text-[green]' : ''} min-w-20 font-medium`
+                      `${row[filter].last30Days.includes('%') ? row[filter].last30Days.includes('-') ? 'text-[red]' : 'text-[green]' : ''} min-w-[100px] font-medium`
                     }>
                       {row[filter].last30Days}
                     </TableCell>

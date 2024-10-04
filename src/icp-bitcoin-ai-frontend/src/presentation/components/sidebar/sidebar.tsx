@@ -16,7 +16,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => 
     {
       title: 'Bitcoin',
       icon: '/coins/bitcoin.png',
-      url: '/bitcoin'
+      url: '/home'
     },
     {
       title: 'Ethereum',
@@ -40,7 +40,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => 
     {
       title: 'Dashboard',
       icon: 'account/dash.png',
-      url: '/home'
+      url: ''
     },
     {
       title: 'Portfolio',

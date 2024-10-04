@@ -152,7 +152,7 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
+      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} active='Dashboard' />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
         <Hashblocks coin={actual} data={hashblocks} onSelect={(hashblock: any) => handleHashblock(hashblock)} />
