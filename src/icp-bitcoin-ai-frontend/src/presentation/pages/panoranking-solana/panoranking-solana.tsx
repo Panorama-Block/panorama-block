@@ -358,7 +358,7 @@ const PanorankingSolana: React.FC = () => {
       <Sidebar active="Pano Ranking" actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
-        <div className="flex flex-col mt-8 ml-12 mr-12 text-white">
+        <div className="flex flex-col ml-12 mr-12 text-white">
           <div className="flex gap-3 ">
             <h1 className='text-xl ml-8 font-bold'>Pano Ranking</h1>
             <Tabs defaultValue="tvl" className="ml-auto mr-12">
