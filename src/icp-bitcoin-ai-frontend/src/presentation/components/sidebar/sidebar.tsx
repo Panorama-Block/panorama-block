@@ -40,7 +40,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => 
     {
       title: 'Dashboard',
       icon: 'account/dash.png',
-      url: ''
+      url: window.location.href.toLowerCase().includes('solana') ? '/solana' : '/home'
     },
     {
       title: 'Portfolio',
