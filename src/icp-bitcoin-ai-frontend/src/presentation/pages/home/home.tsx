@@ -8,11 +8,11 @@ import IcpService from '../../../data/services/icp-service'
 import { jsonParseBigint } from '../../../utils/json-parse-bigint'
 import Header from '../../components/header/header'
 import InfoModal from '../../components/info-modal/info-modal'
-import TransactionInfo from './components/transaction-info/transaction-info'
-import AddressInfo from './components/address-info/address-info'
+import TransactionInfo from '../../components/transaction-info/transaction-info'
+import AddressInfo from '../../components/address-info/address-info'
 import HashblockInfo from './components/hashblock-info/hashblock-info'
 import { Tooltip } from '@mui/material'
-import OpenChat from './components/open-chat/open-chat'
+import OpenChat from '../../components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
 import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
@@ -152,7 +152,7 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
+      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} active='Dashboard' />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
         <Hashblocks coin={actual} data={hashblocks} onSelect={(hashblock: any) => handleHashblock(hashblock)} />

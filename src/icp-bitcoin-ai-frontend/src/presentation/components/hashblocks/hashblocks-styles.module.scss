@@ -10,6 +10,10 @@
     padding-left: 40px;
   }
 
+  * {
+    box-sizing: content-box
+  }
+
   .hashblocks {
     display: flex;
     align-items: center;

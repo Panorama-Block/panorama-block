@@ -10,7 +10,8 @@
 
   .title {
     width: 80%;
-    font-size: 20px;
+    font-size: 16px;
+    color: #b6b6b6;
     margin: 0;
   }
 
@@ -59,10 +60,20 @@
     p {
       font-size: 16px;
     }
+
+    .user {
+      color: #d2d2d2;
+    }
   }
 
   .active {
     background: linear-gradient(111.84deg, rgba(38, 46, 87, 0.932) 65.3%, rgba(64, 84, 182, 0.7) 100%);
+
+  }
+
+  .active2 {
+    background: #272f83;
+    border-radius: 8px;
   }
 
   .disabled {

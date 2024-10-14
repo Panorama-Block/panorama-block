@@ -1,0 +1,178 @@
+.home {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    background-color: #060722;
+    padding-bottom: 20px;
+    display: flex;
+    overflow-y: auto;
+
+    .info {
+      display: flex;
+      // flex-direction: column;
+      // max-height: 50%;
+
+      .custom {
+        flex: 1;
+      }
+    }
+  }
+
+  .card {
+    border-radius: 12px;
+    padding: 20px;
+    background: linear-gradient(94.84deg, rgba(16, 27, 82, 0.9) 10%, rgb(6, 11, 38) 100%);
+    border: none;
+  }
+
+  .chat {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 30px;
+    transition: 0.3s;
+
+    background-color: #ffffff25;
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: .7;
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .home {
+    min-height: 100vh;
+
+    .container {
+      padding-bottom: 20px;
+    }
+
+    .chat {
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .tab {
+    padding: 20px;
+    color: white;
+    font-size: 14px;
+  }
+
+  .panel {
+    padding: 30px;
+    flex-direction: column;
+    gap: 20px;
+    // min-height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    // margin: 40px;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+      margin: 4px;
+
+      background-color: #d5d5d511;
+    }
+
+    &::-webkit-scrollbar-track {
+      border: solid 3px transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 10px 10px #d5d5d550;
+      border: solid 2px transparent;
+      border-radius: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      color: white;
+
+      .item {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: 8px;
+        font-size: 14px;
+
+        .label {
+          padding: 4px;
+        }
+
+        .value {
+          font-size: 14px;
+
+          padding: 8px;
+          background-color: #bebebe27;
+          border-radius: 6px;
+
+          p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+        .id {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .container {
+    min-height: 320px !important;
+
+    .tab {
+      padding: 20px;
+      font-size: 12px;
+    }
+
+    .panel {
+      .row {
+        font-size: 14px;
+        gap: 20px;
+
+        .item {
+          gap: 4px;
+          font-size: 12px;
+
+          .value {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
