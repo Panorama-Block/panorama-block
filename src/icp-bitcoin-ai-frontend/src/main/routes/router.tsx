@@ -2,7 +2,13 @@ import React from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Home from '../../presentation/pages/home/home'
 import Landing from '../../presentation/pages/landing/landing'
-// import Login from '../../presentation/pages/login/login'
+import Solana from '../../presentation/pages/solana/solana'
+import HashblockSolana from '@/src/presentation/pages/hashblock-solana/hashblock-solana'
+import SolanaVolume from '@/src/presentation/pages/solana-volume/solana-volume'
+import PanorankingSolana from '@/src/presentation/pages/panoranking-solana/panoranking-solana'
+import WhaleHuntingSolana from '@/src/presentation/pages/whale-hunting-solana/whale-hunting-solana'
+import WhaleHuntingBitcoin from '@/src/presentation/pages/whale-hunting-bitcoin/whale-hunting-bitcoin'
+import PortfolioSolana from '@/src/presentation/pages/portfolio-solana/portfolio-solana'
 
 const Router: React.FC = () => {
   return (
@@ -11,6 +17,13 @@ const Router: React.FC = () => {
         {/* <Route path='/' element={<Login />} /> */}
         <Route path='/' element={<Landing />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/solana' element={<Solana />} />
+        <Route path='/solana/:id' element={<HashblockSolana />} />
+        <Route path='/panoranking/solana' element={<PanorankingSolana />} />
+        <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
+        <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
+        <Route path='/portfolio/solana' element={<PortfolioSolana />} />
+        <Route path='/solana/volume' element={<SolanaVolume />} />
       </Routes>
     </HashRouter>
   )

@@ -4,7 +4,7 @@ import styles from './network-styles.module.scss'
 export type NetworkData = {
   description: string
   transactions: string
-  avgTransactions: string
+  avgTransactions?: string
   transactionsValue: string
   address: string
   token: string

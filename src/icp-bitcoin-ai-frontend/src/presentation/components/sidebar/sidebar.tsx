@@ -7,48 +7,67 @@ type Props = {
   actual: string
   onChange: (coin: string) => void
   open: (page: string) => void
+  active?: string
 }
 
-const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
+const Sidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) => {
   const navigate = useNavigate()
   const [coins, setCoins] = useState([
     {
       title: 'Bitcoin',
-      icon: '/coins/bitcoin.png'
+      icon: '/coins/bitcoin.png',
+      url: '/home'
     },
     {
       title: 'Ethereum',
       icon: '/coins/eth.png',
-      disabled: true
+      disabled: true,
+      url: '/ethereum'
     },
     {
       title: 'ICP',
       icon: '/coins/icp.png',
-      disabled: true
+      disabled: true,
+      url: '/icp'
     },
     {
       title: 'Solana',
       icon: '/coins/solana.png',
-      disabled: true
+      url: '/solana'
     }
   ])
   const [pages, setPages] = useState([
     {
-      title: 'Pano Ranking',
-      icon: 'account/trend.png',
+      title: 'Dashboard',
+      icon: 'account/dash.png',
+      url: window.location.href.toLowerCase().includes('solana') ? '/solana' : '/home'
+    },
+    {
+      title: 'Portfolio',
+      icon: 'account/portfolio.png',
+      url: '/portfolio/solana'
+    },
+    {
+      title: 'Market',
+      icon: 'account/market.png',
+      disabled: true,
+      url: '/home'
+    },
+    {
+      title: 'Transfers',
+      icon: 'account/transfers.png',
       disabled: true,
       url: '/home'
     },
     {
       title: 'Whale Hunting',
       icon: 'account/wallet.png',
-      url: '/home'
+      url: window.location.href.toLowerCase().includes('solana') ? '/whale-hunting/solana' : '/whale-hunting/bitcoin'
     },
     {
-      title: 'Profile',
-      icon: 'account/profile.png',
-      disabled: true,
-      url: '/home'
+      title: 'Pano Ranking',
+      icon: 'account/pano.png',
+      url: '/panoranking/solana'
     },
     {
       title: 'Logout',
@@ -60,6 +79,13 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
   const handleClick = (type: string, value: string) => {
     if (type === 'coin') {
       onChange(value)
+
+      if (value == 'Bitcoin') {
+        navigate(`/home`)
+      }
+      else {
+        navigate(`/${value.toLowerCase()}`)
+      }
     }
     else {
       open(value)
@@ -75,7 +101,7 @@ const Sidebar: React.FC<Props> = ({ actual, onChange, open }: Props) => {
       <div className={styles.body}>
         <MenuItems active={actual} items={coins} action={(value) => { handleClick("coin", value) }} />
 
-        <MenuItems title="ACCOUNT PAGES" items={pages} action={(value) => { handleClick("page", value) }} />
+        <MenuItems title="User Panel" items={pages} action={(value) => { handleClick("page", value) }} panelActive={active} />
       </div>
     </div>
   )
