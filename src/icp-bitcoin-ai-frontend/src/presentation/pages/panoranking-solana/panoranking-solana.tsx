@@ -12,13 +12,13 @@ import { Tooltip } from '@mui/material'
 import HashblockInfo from './components/hashblock-info/hashblock-info'
 
 import styles from './panoranking-solana-styles.module.scss'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/src/components/ui/table'
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/src/components/ui/tabs"
 
 const data = [
   {

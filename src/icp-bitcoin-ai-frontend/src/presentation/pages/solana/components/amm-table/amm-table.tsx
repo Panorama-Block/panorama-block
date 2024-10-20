@@ -1,8 +1,8 @@
 import React from "react"
 import { LucideArrowLeft, BrickWall, ArrowLeftRight } from "lucide-react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Card } from "@/components/ui/card"
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Card } from "@/src/components/ui/card"
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/src/components/ui/table"
 
 type Props = {
   title?: string
@@ -64,10 +64,10 @@ const AmmTable: React.FC<Props> = ({ title }: Props) => {
               <TableRow key={row.id} className="border-none text-[#A0AEC0] hover:bg-[#f2f2f210]">
                 <TableCell className="text-zinc-200 font-medium">{id + 1}</TableCell>
                 <TableCell className="text-zinc-200 font-medium">
-                <a className="text-blue-400" href={row.url} target='__blank' key={`collection-${id}`}>
-                  {row.collection}
-                </a>
-                  </TableCell>
+                  <a className="text-blue-400" href={row.url} target='__blank' key={`collection-${id}`}>
+                    {row.collection}
+                  </a>
+                </TableCell>
                 <TableCell className="text-zinc-200 font-medium">{row.volume}</TableCell>
                 <TableCell className={`${row.lastday.includes('-') ? 'text-[red]' : 'text-[green]'} font-medium`}>{row.lastday}</TableCell>
               </TableRow>

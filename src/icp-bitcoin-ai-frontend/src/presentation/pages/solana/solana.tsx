@@ -25,7 +25,7 @@ import { Facebook, Instagram } from '@mui/icons-material'
 import { TokenChart } from './components/token-chart/token-chart'
 import { useNavigate } from 'react-router-dom'
 import NftTable from './components/nft-table/nft-table'
-import { Card } from '@/components/ui/card'
+import { Card } from '@/src/components/ui/card'
 import MemeTable from './components/meme-token-table/meme-token-table'
 import CustomTabs2 from './components/custom-tabs2/custom-tabs2'
 

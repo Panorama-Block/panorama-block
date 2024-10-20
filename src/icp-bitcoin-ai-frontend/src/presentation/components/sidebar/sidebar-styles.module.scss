@@ -5,6 +5,7 @@
   width: 300px;
   min-width: 200px;
   max-width: 20%;
+  overflow-y: auto;
 
   background: linear-gradient(95.84deg, rgba(6, 11, 38, 1) 65%, rgb(16, 27, 82) 100%);
 
@@ -13,7 +14,6 @@
     align-items: center;
     justify-content: center;
     height: 70px;
-    margin-bottom: 16px;
 
     img {
       width: 140px;
