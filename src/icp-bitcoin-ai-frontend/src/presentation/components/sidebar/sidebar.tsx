@@ -43,35 +43,16 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
     }
   ])
 
-  const [stack, setStack] = useState([
-    {
-      title: 'Bitcoin',
-      icon: '/coins/bitcoin.png',
-      url: '/home'
-    },
-    {
-      title: 'Ethereum',
-      icon: '/coins/eth.png',
-      disabled: true,
-      url: '/ethereum'
-    },
-    {
-      title: 'ICP',
-      icon: '/coins/icp.png',
-      disabled: true,
-      url: '/icp'
-    },
-    {
-      title: 'Solana',
-      icon: '/coins/solana.png',
-      url: '/solana'
-    }
-  ])
   const [pages, setPages] = useState([
     {
       title: 'Dashboard',
       icon: 'account/dash.png',
       url: window.location.href.toLowerCase().includes('solana') ? '/solana' : '/home'
+    },
+    {
+      title: 'Stacks',
+      icon: 'account/stacks.svg',
+      url: '/stacks/bitcoin'
     },
     {
       title: 'Portfolio',

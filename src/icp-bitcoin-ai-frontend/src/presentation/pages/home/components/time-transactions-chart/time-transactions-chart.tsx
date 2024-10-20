@@ -14,6 +14,7 @@ import styles from './time-transactions-chart-styles.module.scss'
 import { Skeleton } from '@mui/material'
 
 import { dayInterval, hoursInterval } from '../../../../../utils/time'
+import { valueShort } from '@/src/utils/value-short'
 
 type Props = {
   data: any
@@ -107,7 +108,11 @@ const TimeTransactionsChart: React.FC<Props> = ({ data }: Props) => {
             >
               <CartesianGrid stroke="#56577A" strokeDasharray="0 0" />
               <XAxis dataKey="name" stroke="#A0AEC0" fontSize={14} />
-              <YAxis stroke="#A0AEC0" fontSize={14} />
+              <YAxis
+                stroke="#A0AEC0"
+                fontSize={14}
+                tickFormatter={(value) => valueShort(value)}
+              />
               <Legend fontSize={10} margin={{ bottom: 60 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="transactions" barSize={30} fill="#4022BE" />
