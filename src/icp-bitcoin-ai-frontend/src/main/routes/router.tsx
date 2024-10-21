@@ -9,6 +9,7 @@ import PanorankingSolana from '@/src/presentation/pages/panoranking-solana/panor
 import WhaleHuntingSolana from '@/src/presentation/pages/whale-hunting-solana/whale-hunting-solana'
 import WhaleHuntingBitcoin from '@/src/presentation/pages/whale-hunting-bitcoin/whale-hunting-bitcoin'
 import PortfolioSolana from '@/src/presentation/pages/portfolio-solana/portfolio-solana'
+import StacksBitcoin from '@/src/presentation/pages/stacks-bitcoin/stacks-bitcoin'
 
 const Router: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const Router: React.FC = () => {
         <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
         <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
         <Route path='/portfolio/solana' element={<PortfolioSolana />} />
+        <Route path='/stacks/bitcoin' element={<StacksBitcoin />} />
         <Route path='/solana/volume' element={<SolanaVolume />} />
       </Routes>
     </HashRouter>

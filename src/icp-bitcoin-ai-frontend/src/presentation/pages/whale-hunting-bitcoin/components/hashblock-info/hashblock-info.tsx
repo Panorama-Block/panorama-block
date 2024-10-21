@@ -1,8 +1,8 @@
 import React from "react"
 import { LucideArrowLeft, BrickWall, ArrowLeftRight } from "lucide-react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Card } from "@/components/ui/card"
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Card } from "@/src/components/ui/card"
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/src/components/ui/table"
 
 
 const HashblockInfo: React.FC = () => {

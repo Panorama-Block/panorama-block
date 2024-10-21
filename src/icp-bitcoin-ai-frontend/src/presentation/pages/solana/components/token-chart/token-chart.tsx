@@ -11,8 +11,8 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-import { CardFooter } from "@/components/ui/card"
+} from "@/src/components/ui/chart"
+import { CardFooter } from "@/src/components/ui/card"
 import { TrendingUp } from "lucide-react"
 
 export const description = "An interactive bar chart"
