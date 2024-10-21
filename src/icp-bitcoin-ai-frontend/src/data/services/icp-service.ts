@@ -15,7 +15,7 @@ const IcpService = {
   },
   getHashblocksCached: () => {
     try {
-      const response = { ok: data.hashblocks }
+      const response = data.hashblocks
       return response
     }
     catch (error) {

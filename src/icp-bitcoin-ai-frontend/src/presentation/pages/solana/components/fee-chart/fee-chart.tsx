@@ -12,8 +12,8 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+} from "@/src/components/ui/chart"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
 import { TrendingUp } from "lucide-react"
 import { valueShort } from "@/src/utils/value-short"
 

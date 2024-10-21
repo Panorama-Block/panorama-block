@@ -6,7 +6,7 @@ import { NetworkData } from "../solana/components/network/network"
 import IcpService from "@/src/data/services/icp-service"
 import styles from './solana-volume-styles.module.scss'
 import { LucideArrowLeft } from "lucide-react"
-import { Card } from "@/components/ui/card"
+import { Card } from "@/src/components/ui/card"
 import { TokenChart } from "../solana/components/token-chart/token-chart"
 import { VolumeChart } from "../solana/components/volume-chart/volume-chart"
 
@@ -18,7 +18,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/src/components/ui/select"
 
 const volumeData = [
   { legend: "09/27", desktop: 241029812 },
