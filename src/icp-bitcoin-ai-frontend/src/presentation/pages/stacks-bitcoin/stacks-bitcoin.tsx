@@ -21,6 +21,13 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/src/components/ui/tabs"
+import PoxSpendingTable from './components/pox-spending-table/pox-spending-table'
+import PoxMinersTable from './components/pox-miners-table/pox-miners-table'
+import PoxTable from './components/pox-table/pox-table'
+import VRFKeyTable from './components/vrf-key-table/vrf-key-table'
+import OpsTable from './components/ops-table/ops-table'
+import { Card } from '@/src/components/ui/card'
+import { SpendingChart } from './components/spending-chart/spending-chart'
 
 const data = [
   {
@@ -414,6 +421,31 @@ const StacksBitcoin: React.FC = () => {
       <Sidebar active="Stacks" actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
+
+        <div className="flex flex-col mb-4 mx-12 text-white">
+          <PoxSpendingTable title='Pox Spending' data={stacksData.poxSpending} />
+        </div>
+
+        <div className="flex flex-col mb-4 mx-12 text-white">
+          <PoxTable title='Pox Explorer' data={stacksData.pox} />
+        </div>
+
+        <div className="flex flex-col mb-4 mx-12 text-white">
+          <PoxMinersTable title='Pox Miners' data={stacksData.poxMiners} />
+        </div>
+
+        <div className="flex flex-col mb-4 mx-12 text-white">
+          <VRFKeyTable title='VRF Key' data={stacksData.VRFKey} />
+        </div>
+
+        <div className="flex flex-col mb-4 mx-12 text-white">
+          <OpsTable title='Ops' data={stacksData.ops} />
+        </div>
+
+        <div className="flex flex-col mb-6 mx-16 text-white">
+          <SpendingChart data={stacksData.poxSubCycles} key="height" legend="Height" title="Stacking Cycles" range={[0, 4]} />
+        </div>
+
         <div className="flex flex-col ml-12 mr-12 text-white">
           <div className="flex gap-3 ">
             <h1 className='text-xl ml-8 font-bold'>Ranking</h1>
@@ -516,7 +548,7 @@ const StacksBitcoin: React.FC = () => {
           <WhaleHunting onSelect={(id: string) => handleGetInfo('address', id)} onClose={() => setWhaleOpened(false)} />
         )
       }
-    </div>
+    </div >
   )
 }
 
