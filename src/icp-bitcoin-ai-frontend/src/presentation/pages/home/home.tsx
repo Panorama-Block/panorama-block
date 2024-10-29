@@ -61,14 +61,14 @@ const Home: React.FC = () => {
         let lastIdAdded = ''
 
         while (true) {
-          const response: any = await IcpService.getHashblocksCached()
-          // const response: any = await IcpService.getHashblocks(count)
+          // const response: any = await IcpService.getHashblocksCached()
+          const response: any = await IcpService.getHashblocks(count)
 
           if (response && response.length > 0) {
             const json = await jsonParseBigint(response)
-            // const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
-            // const sorted: HashblockProps[] = jsonFormated.sort(compareTimestampDesc)
-            const sorted: HashblockProps[] = json.sort(compareTimestampDesc)
+            const jsonFormated = json.map((hashblock: any) => ({ ...hashblock, timestamp: hashblock['timestamp'] * 1000 }))
+            const sorted: HashblockProps[] = jsonFormated.sort(compareTimestampDesc)
+            // const sorted: HashblockProps[] = json.sort(compareTimestampDesc)
 
             if (lastIdAdded == sorted[0].id) {
               break
