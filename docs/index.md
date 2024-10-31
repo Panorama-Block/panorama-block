@@ -38,6 +38,9 @@ The following diagram represents the architecture used in the Panorama Block sys
     - **Frontend:** User interface layer allowing interaction with the system.
   
 #### **Data Flow**
+
+![System Architecture](./images/panoramablock-architecture.png)
+
 The following steps describe the data flow within the system:
 
 1. **Data Collection:**
