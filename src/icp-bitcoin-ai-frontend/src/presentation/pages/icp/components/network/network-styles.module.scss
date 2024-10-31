@@ -1,0 +1,114 @@
+.network {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: fit-content;
+  max-width: 360px;
+  margin: 40px;
+  margin-right: 0;
+  padding: 20px;
+  border-radius: 14px;
+  color: white;
+  background: linear-gradient(94.84deg, rgba(16, 27, 82, 0.9) 10%, rgba(6, 11, 38, 1) 100%);
+
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: 14px;
+    color: #A0AEC0;
+  }
+
+  .divider {
+    margin: 12px 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, #E0E1E228 0, #E0E1E228 10%, #E0E1E2 25%, #E0E1E2 75%, #E0E1E228 90%, #E0E1E228 100%);
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #A0AEC0;
+
+      .label {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .value {
+        font-size: 14px;
+      }
+
+      .textField {
+        max-width: 160px;
+        height: 40px;
+        background: #0F123B;
+        border-radius: 10px;
+        font-size: 14px;
+        border: solid 1px #56577A;
+
+        * {
+          color: #A0AEC0;
+        }
+      }
+
+      .button {
+        height: 40px;
+        color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .network {
+    max-width: 240px;
+    margin: 20px;
+    margin-right: 0;
+    padding: 20px;
+
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .description {
+      font-size: 10px;
+      line-height: 150%;
+      color: #A0AEC0;
+    }
+
+    .divider {
+      margin: 1px 0;
+      width: 100%;
+      height: 1px;
+    }
+
+    .info {
+      gap: 8px;
+
+      .row {
+        .label {
+          font-size: 10px;
+        }
+
+        .value {
+          font-size: 10px;
+        }
+
+        .textField {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
