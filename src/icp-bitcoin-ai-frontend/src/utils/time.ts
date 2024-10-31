@@ -7,6 +7,16 @@ export const dayInterval = (date1: any, date2: any) => {
   return daysDifference
 }
 
+export const getLastDay = (date: any) => {
+  const lastDay = new Date(date.getTime() - 86400000)
+  return lastDay
+}
+
+export const getLastWeek = (date: any) => {
+  const lastWeek = new Date(date.getTime() - 86400000 * 7)
+  return lastWeek
+}
+
 export const hoursInterval = (date1: any, date2: any) => {
   date1 = new Date(date1)
   date2 = new Date(date2)

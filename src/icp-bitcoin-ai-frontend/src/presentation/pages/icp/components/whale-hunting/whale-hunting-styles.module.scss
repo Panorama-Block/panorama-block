@@ -1,0 +1,103 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .tab {
+    padding: 20px;
+    color: white;
+    font-size: 14px;
+  }
+
+  .panel {
+    padding: 30px;
+    flex-direction: column;
+    gap: 20px;
+    // min-height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    // margin: 40px;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+      margin: 4px;
+
+      background-color: #d5d5d511;
+    }
+
+    &::-webkit-scrollbar-track {
+      border: solid 3px transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 10px 10px #d5d5d550;
+      border: solid 2px transparent;
+      border-radius: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      color: white;
+
+      .item {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: 8px;
+        font-size: 14px;
+
+        .label {
+          padding: 4px;
+        }
+
+        .value {
+          font-size: 14px;
+
+          padding: 8px;
+          background-color: #bebebe27;
+          border-radius: 6px;
+
+          p {
+            max-width: 20ch;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+        .id {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .container {
+    min-height: 320px !important;
+
+    .tab {
+      padding: 20px;
+      font-size: 12px;
+    }
+  
+    .panel {  
+      .row {
+        font-size: 14px;
+        gap: 20px;
+  
+        .item {
+          gap: 4px;
+          font-size: 12px;
+  
+          .value {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }  
+}
