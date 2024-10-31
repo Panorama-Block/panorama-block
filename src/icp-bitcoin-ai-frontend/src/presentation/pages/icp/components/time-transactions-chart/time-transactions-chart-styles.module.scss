@@ -1,0 +1,61 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .tooltip {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    font-size: 14px;
+    color: #404040;
+    background-color: white;
+
+    .label {
+      font-weight: bold;
+    }
+  }
+
+  .legend {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .chart {
+    .title {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    max-height: 90%;
+    width: 100%;
+
+    * tspan {
+      font-size: 10px;
+    }
+
+    .tooltip {
+      gap: 8px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .legend {
+      margin-top: 10px;
+      font-size: 10px;
+    }
+
+    span {
+      font-size: 10px;
+    }
+  }
+}

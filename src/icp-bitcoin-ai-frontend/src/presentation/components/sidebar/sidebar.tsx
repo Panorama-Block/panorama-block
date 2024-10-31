@@ -33,7 +33,6 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
     {
       title: 'ICP',
       icon: '/coins/icp.png',
-      disabled: true,
       url: '/icp'
     },
     {
