@@ -28,6 +28,7 @@ import VRFKeyTable from './components/vrf-key-table/vrf-key-table'
 import OpsTable from './components/ops-table/ops-table'
 import { Card } from '@/src/components/ui/card'
 import { SpendingChart } from './components/spending-chart/spending-chart'
+import StacksService from '@/src/data/services/stacks-service'
 
 const data = [
   {
@@ -369,6 +370,10 @@ const StacksBitcoin: React.FC = () => {
   const [whaleOpened, setWhaleOpened] = useState(false)
   const [info, setInfo] = useState<any>()
   const [filter, setFilter] = useState<FilterENUM>(FilterENUM.tvl)
+  const [blocks, setBlocks] = useState<any>()
+  const [nfts, setNfts] = useState<any>()
+  const [nftHoldings, setNftHoldings] = useState<any>()
+  const [nftsHistory, setNftsHistory] = useState<any>()
 
   const handleGetInfo = async (type: string, value: string) => {
     setModalOpened(true)
@@ -415,6 +420,54 @@ const StacksBitcoin: React.FC = () => {
       setWhaleOpened(true)
     }
   }
+
+  useEffect(() => {
+    const getBlocks = async () => {
+
+      const response: any = await StacksService.getBlocks()
+      if (response) {
+        setBlocks(response)
+      }
+    }
+
+    getBlocks()
+  }, [])
+
+  useEffect(() => {
+    const getNfts = async () => {
+
+      const response: any = await StacksService.getNfts()
+      if (response) {
+        setNfts(response)
+      }
+    }
+
+    getNfts()
+  }, [])
+
+  useEffect(() => {
+    const getNftHoldings = async () => {
+
+      const response: any = await StacksService.getNftHoldings()
+      if (response) {
+        setNftHoldings(response)
+      }
+    }
+
+    getNftHoldings()
+  }, [])
+
+  useEffect(() => {
+    const getNftsHistory = async () => {
+
+      const response: any = await StacksService.getNftsHistory()
+      if (response) {
+        setNftsHistory(response)
+      }
+    }
+
+    getNftsHistory()
+  }, [])
 
   return (
     <div className={styles.home}>
