@@ -71,11 +71,6 @@ These insights are displayed in an **interactive on-chain dashboard**, allowing 
 #### **Introduction**
 The integration of **TLSNotary** ensures the integrity and authenticity of data collected from blockchain nodes, verifying that the data has been collected from a trusted node and subsequently committed to the blockchain.
 
-#### **System Architecture Overview**
-The diagram below represents the architecture used in the PanoramaBlock system, showing how TLSNotary is integrated with the data collection and verification process.
-
-![System Architecture](./images/arch-diagram.png)
-
 #### **Components:**
 
 - **Blockchain Node (X Node):**
@@ -99,6 +94,10 @@ The diagram below represents the architecture used in the PanoramaBlock system, 
     - **Frontend:** User interface for interaction with the system.
 
 #### **Data Flow**
+
+![image](https://github.com/user-attachments/assets/e5618add-454d-4159-8bac-c5ac6616ba95)
+
+
 1. **Data Collection:** Data is collected from the blockchain node using a secure TLS connection.
 2. **Data Processing:** The prover processes the collected data within TLSNotary.
 3. **Data Verification:** The verifier ensures data authenticity using MPC-TLS before forwarding it to the ICP Core.
