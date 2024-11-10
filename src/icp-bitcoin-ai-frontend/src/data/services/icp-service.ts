@@ -104,10 +104,8 @@ const IcpService = {
     }
     return data
   },
-  getBlocksHeight: async (date: Range) => {
-    const response = await axios.get(`
-https://ic-api.internetcomputer.org/api/v3/metrics/block-height?start=${date.start}&end=${date.end}&step=60`)
-
+  getCKBtcHeight: async (date: Range) => {
+    const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/bitcoin/main-chain-height?start=${date.start}&end=${date.end}&step=600`)
     let data = []
     if (response.data) {
       data = response.data.block_height.map((item: any) => ({
@@ -115,7 +113,42 @@ https://ic-api.internetcomputer.org/api/v3/metrics/block-height?start=${date.sta
         blocks: item[1]
       }))
     }
+    return data
+  },
+  getCKBtcSuply: async (date: Range) => {
+    const response = await axios.get(`https://icrc-api.internetcomputer.org/api/v1/ledgers/mxzaz-hqaaa-aaaar-qaada-cai/total-supply?start=${date.start}&end=${date.end}&step=600`)
+    let data = []
+    if (response.data) {
+      data = response.data.data.map((item: any) => ({
+        timestamp: item[0],
+        totalSuply: item[1]
+      }))
+    }
     console.log(data)
+    return data
+  },
+  getCKBtcCanisters: async () => {
+    const response = await axios.get(`https://icrc-api.internetcomputer.org/api/v1/ledgers/mxzaz-hqaaa-aaaar-qaada-cai/canisters`)
+    let data = []
+    if (response.data) {
+      data = response.data.data
+    }
+    return data
+  },
+  getCKBtcTransactions: async (limit: number) => {
+    const response = await axios.get(`https://icrc-api.internetcomputer.org/api/v1/ledgers/mxzaz-hqaaa-aaaar-qaada-cai/transactions?limit=${limit}`)
+    let data = []
+    if (response.data) {
+      data = response.data.data
+    }
+    return data
+  },
+  getCKBtcNumberTransactions: async (date: Range) => {
+    const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/bitcoin/number-of-utxos?start=${date.start}&end=${date.end}&step=600`)
+    let data = []
+    if (response.data) {
+      data = response.data.data
+    }
     return data
   },
   getStable: async (date: Range) => {
