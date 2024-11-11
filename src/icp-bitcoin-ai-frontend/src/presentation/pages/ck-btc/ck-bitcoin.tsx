@@ -13,6 +13,8 @@ import { Tooltip } from '@mui/material'
 import styles from './ck-bitcoin-styles.module.scss'
 import CanistersTable from './components/ canisters-table/canisters-table'
 import TranscationsTable from './components/transactions-table/transactions-table'
+import { getLastWeek } from '@/src/utils/time'
+import { CkAreaChart } from './components/ck-area-chart/ck-area-chart'
 
 const CkBitcoin: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
@@ -22,6 +24,10 @@ const CkBitcoin: React.FC = () => {
   const [info, setInfo] = useState<any>()
   const [canisters, setCanisters] = useState()
   const [transactions, setTransactions] = useState()
+  const [totalSuply, setTotalSuply] = useState()
+  const [numberTransactions, setNumberTransactions] = useState()
+  const [height, setHeight] = useState()
+  const [memory, setMemory] = useState()
 
   const handleGetInfo = async (type: string, value: string) => {
     setModalOpened(true)
@@ -71,7 +77,7 @@ const CkBitcoin: React.FC = () => {
 
   useEffect(() => {
     const getCanisters = async () => {
-      const response = await IcpService.getCKBtcCanisters()
+      const response = await IcpService.getCkBTCCanisters()
       setCanisters(response)
     }
 
@@ -79,19 +85,124 @@ const CkBitcoin: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    const now = new Date()
+    const lastWeek = getLastWeek(now)
+
+    const date = {
+      start: Math.floor((+lastWeek) / 1000),
+      end: Math.floor((+now) / 1000)
+    }
+
+    const getTotalSuply = async () => {
+      const response = await IcpService.getCkBTCSuply(date)
+      setTotalSuply(response)
+    }
+
+    getTotalSuply()
+  }, [])
+
+  useEffect(() => {
     const getTransactions = async () => {
-      const response = await IcpService.getCKBtcTransactions(24)
+      const response = await IcpService.getCkBTCTransactions(24)
       setTransactions(response)
     }
 
     getTransactions()
   }, [])
 
+  useEffect(() => {
+    const now = new Date()
+    const lastWeek = getLastWeek(now)
+
+    const date = {
+      start: Math.floor((+lastWeek) / 1000),
+      end: Math.floor((+now) / 1000)
+    }
+
+    const getNumberTransactions = async () => {
+      const response = await IcpService.getCkBTCNumberTransactions(date)
+      setNumberTransactions(response)
+    }
+
+    getNumberTransactions()
+  }, [])
+
+  useEffect(() => {
+    const now = new Date()
+    const lastWeek = getLastWeek(now)
+
+    const date = {
+      start: Math.floor((+lastWeek) / 1000),
+      end: Math.floor((+now) / 1000)
+    }
+
+    const getBlocksHeight = async () => {
+      const response = await IcpService.getCkBTCHeight(date)
+      setHeight(response)
+    }
+
+    getBlocksHeight()
+  }, [])
+
+  useEffect(() => {
+    const now = new Date()
+    const lastWeek = getLastWeek(now)
+
+    const date = {
+      start: Math.floor((+lastWeek) / 1000),
+      end: Math.floor((+now) / 1000)
+    }
+
+    const getMemory = async () => {
+      const response = await IcpService.getCkBTCStable(date)
+      setMemory(response)
+    }
+
+    getMemory()
+  }, [])
+
+
   return (
     <div className={styles.home}>
       <Sidebar active="Stacks" actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
       <div className={styles.container}>
         <Header onSubmit={handleGetInfo} />
+
+        {
+          totalSuply && <div className="flex flex-col mb-8 mx-12 text-white">
+            <div className="flex gap-3 my-4">
+              <h3 className="ml-8 text-lg font-bold">ckBTC Total Suply</h3>
+            </div>
+            <CkAreaChart data={totalSuply} dataKey="total_suply" legend="Total Suply" title="" range={[20000000000, 25000000000]} />
+          </div>
+        }
+
+        {
+          numberTransactions && <div className="flex flex-col mb-8 mx-12 text-white">
+            <div className="flex gap-3 my-4">
+              <h3 className="ml-8 text-lg font-bold">ckBTC UTXos</h3>
+            </div>
+            <CkAreaChart data={numberTransactions} dataKey="number_of_utxos" legend="Unspent Transaction Outputs" title="" range={[182000000, 188000000]} />
+          </div>
+        }
+
+        {
+          memory && <div className="flex flex-col mb-8 mx-12 text-white">
+            <div className="flex gap-3 my-4">
+              <h3 className="ml-8 text-lg font-bold">ckBTC Stable Memory Usage</h3>
+            </div>
+            <CkAreaChart data={memory} dataKey="memory" legend="Stable Memory" title="" range={[868000, 870000]} />
+          </div>
+        }
+
+        {
+          height && <div className="flex flex-col mb-8 mx-12 text-white">
+            <div className="flex gap-3 my-4">
+              <h3 className="ml-8 text-lg font-bold">ckBTC Block Height</h3>
+            </div>
+            <CkAreaChart data={height} dataKey="height" legend="Block Height" title="" range={[868000, 870000]} />
+          </div>
+        }
 
         {
           canisters && <div className="flex flex-col mb-4 mx-12 text-white">

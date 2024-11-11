@@ -99,7 +99,7 @@ const Icp: React.FC = () => {
     }
 
     const getMemory = async (): Promise<void> => {
-      const response = await IcpService.getStable(date)
+      const response = await IcpService.getCkBTCStable(date)
 
       setStableMemory(response)
     }
@@ -161,7 +161,7 @@ const Icp: React.FC = () => {
 
     const getBlocksHeight = async () => {
 
-      const response: any = await IcpService.getBlocksHeight(date)
+      const response: any = await IcpService.getCkBTCHeight(date)
       if (response) {
         setBlocksHeight(response)
       }
