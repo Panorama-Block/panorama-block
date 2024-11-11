@@ -14,7 +14,7 @@ import styles from './ck-bitcoin-styles.module.scss'
 import CanistersTable from './components/ canisters-table/canisters-table'
 import TranscationsTable from './components/transactions-table/transactions-table'
 
-const CKBitcoin: React.FC = () => {
+const CkBitcoin: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
@@ -158,4 +158,4 @@ const CKBitcoin: React.FC = () => {
   )
 }
 
-export default CKBitcoin
+export default CkBitcoin
