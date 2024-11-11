@@ -155,6 +155,7 @@ const CkBitcoin: React.FC = () => {
 
     const getMemory = async () => {
       const response = await IcpService.getCkBTCStable(date)
+      console.log(response)
       setMemory(response)
     }
 
@@ -191,7 +192,7 @@ const CkBitcoin: React.FC = () => {
             <div className="flex gap-3 my-4">
               <h3 className="ml-8 text-lg font-bold">ckBTC Stable Memory Usage</h3>
             </div>
-            <CkAreaChart data={memory} dataKey="memory" legend="Stable Memory" title="" range={[868000, 870000]} />
+            <CkAreaChart data={memory} dataKey="memory" legend="Stable Memory" title="" range={[106503159296, 106803159296]} />
           </div>
         }
 
