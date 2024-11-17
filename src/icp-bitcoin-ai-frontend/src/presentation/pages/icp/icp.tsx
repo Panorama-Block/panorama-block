@@ -27,14 +27,15 @@ const Icp: React.FC = () => {
   const [data, setData] = useState(
     {
       description: "The Internet Computer is a public blockchain network enabled by new science from first principles. It is millions of times more powerful and can replace clouds and traditional IT. The network - created by ICP, or Internet Computer Protocol - is orchestrated by permissionless decentralized governance and is hosted on sovereign hardware devices run by independent parties. Its purpose is to extend the public internet with native cloud computing functionality.",
-      avgTransactions: '59.267 BTC',
-      transactionsValue: '414.869 BTC',
-      address: "9918",
-      block_height: "3968007981",
-      transactions: "15466893",
-      fee: "145904990000",
-      burned: "41569312762767",
-      circulating_supply: "47318724386468124",
+      activeUsers: '',
+      avgTransactions: '',
+      transactionsValue: '',
+      address: "",
+      block_height: "",
+      transactions: "",
+      fee: "",
+      burned: "",
+      circulating_supply: "",
       token: 'ICP USD'
     }
   )
@@ -63,7 +64,7 @@ const Icp: React.FC = () => {
       if (response) {
         setData({
           ...data,
-          address: response.daily_active_users,
+          address: response.unique_accounts_per_day,
           fee: response.icp_burned_fees,
           burned: response.icp_burned_total,
           transactions: response.total_transactions
