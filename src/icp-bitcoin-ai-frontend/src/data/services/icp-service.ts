@@ -79,6 +79,39 @@ const IcpService = {
     }
     return data
   },
+  getSupply: async (date: Range) => {
+    const response = await axios.get(`https://ledger-api.internetcomputer.org/supply/circulating/series?step=0&end=${date.end}&start=${date.start}&network=mainnet&format=json`)
+
+    let data = []
+    if (response.data) {
+      data = response.data.map((item: any) => ({
+        timestamp: item[0],
+        supply: item[1]
+      }))
+    }
+
+    return data
+  },
+  getTVL: async (date: Range) => {
+    const response = await axios.get(`https://ledger-api.internetcomputer.org/metrics/transaction-volume?step=3600&start=${date.start}&end=${date.end}`)
+
+    console.log(response.data.data)
+
+    return response.data.data
+  },
+  getBurned: async (date: Range) => {
+    const response = await axios.get(`https://ledger-api.internetcomputer.org/icp-burned/series?step=7200&start=${date.start}&end=${date.end}&format=json`)
+
+    let data = []
+    if (response.data) {
+      data = response.data.map((item: any) => ({
+        timestamp: item[0],
+        burned: item[1]
+      }))
+    }
+
+    return data
+  },
   getCyclesRate: async (date: Range) => {
     const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/metrics/cycle-burn-rate?start=${date.start}&end=${date.end}&format=json`)
 
@@ -89,7 +122,18 @@ const IcpService = {
         cycles: item[1]
       }))
     }
-    console.log(data)
+    return data
+  },
+  getBlocksHeight: async (date: Range) => {
+    const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/metrics/block-height?format=json&step=7200&start=${date.start}&end=${date.end}`)
+
+    let data = []
+    if (response.data) {
+      data = response.data.block_height.map((item: any) => ({
+        timestamp: item[0],
+        height: item[1]
+      }))
+    }
     return data
   },
   getQueryTransactions: async (date: Range) => {
@@ -124,7 +168,6 @@ const IcpService = {
         total_suply: item[1]
       }))
     }
-    console.log(data)
     return data
   },
   getCkBTCCanisters: async () => {
@@ -145,7 +188,6 @@ const IcpService = {
   },
   getCkBTCNumberTransactions: async (date: Range) => {
     const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/bitcoin/number-of-utxos?start=${date.start}&end=${date.end}&step=600`)
-    console.log(response)
     let data = []
     if (response.data) {
       data = response.data.bitcoin_number_of_utxos.map((item: any) => ({
