@@ -28,7 +28,7 @@ const Router: React.FC = () => {
         <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
         <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
         <Route path='/portfolio/solana' element={<PortfolioSolana />} />
-        <Route path='/stacks/bitcoin' element={<StacksBitcoin />} />
+        <Route path='/stacks' element={<StacksBitcoin />} />
         <Route path='/solana/volume' element={<SolanaVolume />} />
       </Routes>
     </HashRouter>
