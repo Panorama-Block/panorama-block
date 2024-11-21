@@ -79,6 +79,39 @@ const IcpService = {
     }
     return data
   },
+  getSupply: async (date: Range) => {
+    const response = await axios.get(`https://ledger-api.internetcomputer.org/supply/circulating/series?step=0&end=${date.end}&start=${date.start}&network=mainnet&format=json`)
+
+    let data = []
+    if (response.data) {
+      data = response.data.map((item: any) => ({
+        timestamp: item[0],
+        supply: item[1]
+      }))
+    }
+
+    return data
+  },
+  getTVL: async (date: Range) => {
+    const response = await axios.get(`https://ledger-api.internetcomputer.org/metrics/transaction-volume?step=3600&start=${date.start}&end=${date.end}`)
+
+    console.log(response.data.data)
+
+    return response.data.data
+  },
+  getBurned: async (date: Range) => {
+    const response = await axios.get(`https://ledger-api.internetcomputer.org/icp-burned/series?step=7200&start=${date.start}&end=${date.end}&format=json`)
+
+    let data = []
+    if (response.data) {
+      data = response.data.map((item: any) => ({
+        timestamp: item[0],
+        burned: item[1]
+      }))
+    }
+
+    return data
+  },
   getCyclesRate: async (date: Range) => {
     const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/metrics/cycle-burn-rate?start=${date.start}&end=${date.end}&format=json`)
 
@@ -89,7 +122,18 @@ const IcpService = {
         cycles: item[1]
       }))
     }
-    console.log(data)
+    return data
+  },
+  getBlocksHeight: async (date: Range) => {
+    const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/metrics/block-height?format=json&step=7200&start=${date.start}&end=${date.end}`)
+
+    let data = []
+    if (response.data) {
+      data = response.data.block_height.map((item: any) => ({
+        timestamp: item[0],
+        height: item[1]
+      }))
+    }
     return data
   },
   getQueryTransactions: async (date: Range) => {
@@ -104,21 +148,56 @@ const IcpService = {
     }
     return data
   },
-  getBlocksHeight: async (date: Range) => {
-    const response = await axios.get(`
-https://ic-api.internetcomputer.org/api/v3/metrics/block-height?start=${date.start}&end=${date.end}&step=60`)
-
+  getCkBTCHeight: async (date: Range) => {
+    const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/bitcoin/main-chain-height?start=${date.start}&end=${date.end}&step=600`)
     let data = []
     if (response.data) {
-      data = response.data.block_height.map((item: any) => ({
+      data = response.data.bitcoin_main_chain_height.map((item: any) => ({
         timestamp: item[0],
-        blocks: item[1]
+        height: item[1]
       }))
     }
-    console.log(data)
     return data
   },
-  getStable: async (date: Range) => {
+  getCkBTCSuply: async (date: Range) => {
+    const response = await axios.get(`https://icrc-api.internetcomputer.org/api/v1/ledgers/mxzaz-hqaaa-aaaar-qaada-cai/total-supply?start=${date.start}&end=${date.end}&step=600`)
+    let data = []
+    if (response.data) {
+      data = response.data.data.map((item: any) => ({
+        timestamp: item[0],
+        total_suply: item[1]
+      }))
+    }
+    return data
+  },
+  getCkBTCCanisters: async () => {
+    const response = await axios.get(`https://icrc-api.internetcomputer.org/api/v1/ledgers/mxzaz-hqaaa-aaaar-qaada-cai/canisters`)
+    let data = []
+    if (response.data) {
+      data = response.data.data
+    }
+    return data
+  },
+  getCkBTCTransactions: async (limit: number) => {
+    const response = await axios.get(`https://icrc-api.internetcomputer.org/api/v1/ledgers/mxzaz-hqaaa-aaaar-qaada-cai/transactions?limit=${limit}`)
+    let data = []
+    if (response.data) {
+      data = response.data.data
+    }
+    return data
+  },
+  getCkBTCNumberTransactions: async (date: Range) => {
+    const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/bitcoin/number-of-utxos?start=${date.start}&end=${date.end}&step=600`)
+    let data = []
+    if (response.data) {
+      data = response.data.bitcoin_number_of_utxos.map((item: any) => ({
+        timestamp: item[0],
+        number_of_utxos: Math.floor(item[1])
+      }))
+    }
+    return data
+  },
+  getCkBTCStable: async (date: Range) => {
     const response = await axios.get(`https://ic-api.internetcomputer.org/api/v3/bitcoin/stable-memory-size-in-bytes?end=${date.end}&start=${date.start}&network=mainnet&format=json`)
 
     let data = []

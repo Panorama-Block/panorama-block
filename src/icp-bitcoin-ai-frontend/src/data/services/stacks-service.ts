@@ -130,6 +130,51 @@ const StacksService = {
       return error
     }
   },
+  getPoxCycles: async (limit: number, offset: number = 0) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/pox/cycles?limit=${limit}&offset=${offset}`)
+      return response
+    }
+    catch (error) {
+      return error
+    }
+  },
+  getPoxNumberCycles: async (cycles: number) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/pox/cycles/${cycles}`)
+      return response
+    }
+    catch (error) {
+      return error
+    }
+  },
+  getPoxCyclesSigners: async (cycles: number, limit: number, offset: number = 0) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/pox/cycles/${cycles}/signers?limit=${limit}&offset=${offset}`)
+      return response
+    }
+    catch (error) {
+      return error
+    }
+  },
+  getPoxCyclesSignersByKey: async (cycles: number, signerKey: string) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/pox/cycles/${cycles}/signers/${signerKey}`)
+      return response
+    }
+    catch (error) {
+      return error
+    }
+  },
+  getPoxCyclesStackers: async (cycles: number, signerKey: string, limit: number, offset: number = 0) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/pox/cycles/${cycles}/signers/${signerKey}/stackers?limit=${limit}&offset=${offset}`)
+      return response
+    }
+    catch (error) {
+      return error
+    }
+  },
 }
 
 export default StacksService

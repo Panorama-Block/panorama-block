@@ -49,11 +49,6 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
       url: window.location.href.toLowerCase().includes('solana') ? '/solana' : '/home'
     },
     {
-      title: 'Stacks',
-      icon: 'account/stacks.svg',
-      url: '/stacks/bitcoin'
-    },
-    {
       title: 'Portfolio',
       icon: 'account/portfolio.png',
       url: '/portfolio/solana'
@@ -145,9 +140,11 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
           </Collapsible>
         </SidebarMenu> */}
 
-        <MenuItems active={actual} items={coins} action={(value) => { handleClick("coin", value) }} />
+        {/* <MenuItems active={actual} items={coins} action={(value) => { handleClick("coin", value) }} /> */}
 
-        <MenuItems title="User Panel" items={pages} action={(value) => { handleClick("page", value) }} panelActive={active} />
+        <div className="mt-4">
+          <MenuItems items={pages} action={(value) => { handleClick("page", value) }} panelActive={active} />
+        </div>
       </div>
     </div>
   )
