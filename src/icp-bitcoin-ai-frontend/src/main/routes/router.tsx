@@ -11,6 +11,7 @@ import WhaleHuntingBitcoin from '@/src/presentation/pages/whale-hunting-bitcoin/
 import PortfolioSolana from '@/src/presentation/pages/portfolio-solana/portfolio-solana'
 import StacksBitcoin from '@/src/presentation/pages/stacks-bitcoin/stacks-bitcoin'
 import Icp from '@/src/presentation/pages/icp/icp'
+import CkBitcoin from '@/src/presentation/pages/ck-btc/ck-bitcoin'
 
 const Router: React.FC = () => {
   return (
@@ -21,12 +22,13 @@ const Router: React.FC = () => {
         <Route path='/home' element={<Home />} />
         <Route path='/solana' element={<Solana />} />
         <Route path='/icp' element={<Icp />} />
+        <Route path='/ck-bitcoin' element={<CkBitcoin />} />
         <Route path='/solana/:id' element={<HashblockSolana />} />
         <Route path='/panoranking/solana' element={<PanorankingSolana />} />
         <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
         <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
         <Route path='/portfolio/solana' element={<PortfolioSolana />} />
-        <Route path='/stacks/bitcoin' element={<StacksBitcoin />} />
+        <Route path='/stacks' element={<StacksBitcoin />} />
         <Route path='/solana/volume' element={<SolanaVolume />} />
       </Routes>
     </HashRouter>

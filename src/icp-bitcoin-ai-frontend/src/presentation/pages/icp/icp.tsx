@@ -13,10 +13,7 @@ import { Tooltip } from '@mui/material'
 import OpenChat from '../../components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
 import { getLastWeek, hoursInterval, minutesInterval } from '../../../utils/time'
-import { compareTimestampDesc } from '../../../utils/sort'
-import { CanistersChart } from './components/canisters-chart/canisters-chart'
-import { CyclesRateChart } from './components/cycles-rate-chart/cycles-rate-chart'
-import { BlocksHeightChart } from './components/blocks-height-chart/blocks-height-chart'
+import { ICPAreaChart } from './components/icp-area-chart/icp-area-chart'
 
 const Icp: React.FC = () => {
   const [actual, setActual] = useState('ICP')
@@ -30,20 +27,21 @@ const Icp: React.FC = () => {
   const [data, setData] = useState(
     {
       description: "The Internet Computer is a public blockchain network enabled by new science from first principles. It is millions of times more powerful and can replace clouds and traditional IT. The network - created by ICP, or Internet Computer Protocol - is orchestrated by permissionless decentralized governance and is hosted on sovereign hardware devices run by independent parties. Its purpose is to extend the public internet with native cloud computing functionality.",
-      avgTransactions: '59.267 BTC',
-      transactionsValue: '414.869 BTC',
-      address: "9918",
-      block_height: "3968007981",
-      transactions: "15466893",
-      fee: "145904990000",
-      burned: "41569312762767",
-      circulating_supply: "47318724386468124",
+      activeUsers: '',
+      avgTransactions: '',
+      transactionsValue: '',
+      address: "",
+      block_height: "",
+      transactions: "",
+      fee: "",
+      burned: "",
+      circulating_supply: "",
       token: 'ICP USD'
     }
   )
-  const [chain, setChain] = useState<any>([])
-  const [bitcoinTransactions, setBitcoinTranscations] = useState<any>([])
-  const [stableMemory, setStableMemory] = useState<any>([])
+  const [tvl, setTVL] = useState<any>([])
+  const [burned, setBurned] = useState<any>([])
+  const [supply, setSupply] = useState<any>([])
   const [canisters, setCanisters] = useState<any>([])
   const [transactions, setTransactions] = useState<any>([])
   const [cyclesRate, setCyclesRate] = useState<any>([])
@@ -66,7 +64,7 @@ const Icp: React.FC = () => {
       if (response) {
         setData({
           ...data,
-          address: response.daily_active_users,
+          address: response.unique_accounts_per_day,
           fee: response.icp_burned_fees,
           burned: response.icp_burned_total,
           transactions: response.total_transactions
@@ -86,27 +84,30 @@ const Icp: React.FC = () => {
       end: Math.floor((+now) / 1000)
     }
 
-    const getMainChain = async (): Promise<void> => {
-      const response = await IcpService.getMainChain(date)
+    const getTVL = async (): Promise<void> => {
+      const response = await IcpService.getTVL(date)
 
-      setChain(response)
+      console.log("tvl")
+      console.log(response)
+
+      setTVL(response)
     }
 
-    const getBitcoinTransactions = async (): Promise<void> => {
-      const response = await IcpService.getBitcoinTransactions(date)
+    const getBurned = async (): Promise<void> => {
+      const response = await IcpService.getBurned(date)
 
-      setBitcoinTranscations(response)
+      setBurned(response)
     }
 
-    const getMemory = async (): Promise<void> => {
-      const response = await IcpService.getStable(date)
+    const getSupply = async (): Promise<void> => {
+      const response = await IcpService.getSupply(date)
 
-      setStableMemory(response)
+      setSupply(response)
     }
 
-    getMainChain()
-    getBitcoinTransactions()
-    getMemory()
+    getTVL()
+    getBurned()
+    getSupply()
   }, [])
 
   useEffect(() => {
@@ -164,6 +165,7 @@ const Icp: React.FC = () => {
       const response: any = await IcpService.getBlocksHeight(date)
       if (response) {
         setBlocksHeight(response)
+        // console.log(response)
       }
     }
 
@@ -225,9 +227,9 @@ const Icp: React.FC = () => {
           <Network data={data} />
           <div className={styles.custom}>
             {
-              chain && <CustomTabs
-                data={{ bitcoinChain: chain, bitcoinTxs: bitcoinTransactions, bitcoinStableMemory: stableMemory }}
-                labels={['Chain Height (7 days)', 'Bitcoin Transactions (7 days)', 'Stable Memory (7 days)']} />
+              tvl && <CustomTabs
+                data={{ tvl: tvl, burned: burned, supply: supply }}
+                labels={['TVL (7 days)', 'Total Supply (7 days)', 'Total Burned (7 days)']} />
             }
           </div>
         </div>
@@ -237,7 +239,7 @@ const Icp: React.FC = () => {
         </div>
         {
           canisters && <div className="flex flex-col mb-8 mx-[20px] text-white xl:mx-[40px]">
-            <CanistersChart data={canisters} key="canisters" legend="Canisters" title="" range={[0, 4]} />
+            <ICPAreaChart data={canisters} dataKey="canisters" legend="Canisters" title="" />
           </div>
         }
 
@@ -247,7 +249,7 @@ const Icp: React.FC = () => {
         </div>
         {
           cyclesRate && <div className="flex flex-col mb-8 mx-[20px] text-white xl:mx-[40px]">
-            <CyclesRateChart data={cyclesRate} key="cycles" legend="Cycles" title="" />
+            <ICPAreaChart data={cyclesRate} dataKey="cycles" legend="Cycles" title="" />
           </div>
         }
 
@@ -256,7 +258,7 @@ const Icp: React.FC = () => {
         </div>
         {
           blocksHeight && <div className="flex flex-col mb-8 mx-[20px] text-white xl:mx-[40px]">
-            <BlocksHeightChart data={blocksHeight} key="blocks" legend="Blocks" title="" />
+            <ICPAreaChart data={blocksHeight} dataKey="height" legend="Blocks" title="" />
           </div>
         }
       </div>

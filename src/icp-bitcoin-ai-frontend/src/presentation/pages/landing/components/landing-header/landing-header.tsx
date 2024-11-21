@@ -11,6 +11,7 @@ const navItems: Item[] = [
   { title: "Home", url: "/#home" },
   { title: "About", url: "#about" },
   { title: "Docs", url: "https://docs.panoramablock.com/" },
+  { title: "Blog", url: "https://panoramablock.medium.com/" },
 ];
 
 type Props = {

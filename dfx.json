@@ -5,21 +5,6 @@
       "main": "src/icp-bitcoin-ai-api/src/index.ts",
       "candid_gen": "automatic"
 		},
-    "hashblock": {
-      "candid": "src/icp-bitcoin-ai-rust/hashblock/hashblock.did",
-      "package": "hashblock",
-      "type": "rust"
-    },
-    "core": {
-      "candid": "src/icp-bitcoin-ai-rust/core/core.did",
-      "package": "core",
-      "type": "rust"
-    },
-    "db": {
-      "candid": "src/icp-bitcoin-ai-rust/db/db.did",
-      "package": "db",
-      "type": "rust"
-    },
     "icp-bitcoin-ai-frontend": {
       "dependencies": [
         "icp-bitcoin-ai-api",

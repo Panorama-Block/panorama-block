@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
-import styles from './blocks-height-chart-styles.module.scss'
+import styles from './icp-area-chart-styles.module.scss'
 
 import {
   ChartConfig,
@@ -15,23 +15,20 @@ import {
 } from "@/src/components/ui/chart"
 import { valueShort } from "@/src/utils/value-short"
 
-type Data = {
-  "blocks": number,
-}[]
-
 type Props = {
   title: string
   legend: string
-  data: Data
-  key: string
+  data: any
+  dataKey: string
   range?: number[]
+  noBackground?: Boolean
 }
 
-export const BlocksHeightChart: React.FC<Props> = ({ title, data, legend, key, range }: Props) => {
+export const ICPAreaChart: React.FC<Props> = ({ title, data, legend, dataKey, range, noBackground }: Props) => {
 
   const chartConfig = {
-    "blocks": {
-      label: 'Blocks Height',
+    [dataKey]: {
+      label: legend,
       color: "#753EFE",
     },
     // "net_stack": {
@@ -41,9 +38,9 @@ export const BlocksHeightChart: React.FC<Props> = ({ title, data, legend, key, r
   } satisfies ChartConfig
 
   return (
-    <div className={`${styles.chart} w-full px-10 bg-zinc-900 rounded-[12px]`}>
+    <div className={`${styles.chart} ${noBackground && styles.none} w-full px-10 bg-zinc-900 rounded-[12px]`}>
       <h2 className="pt-4 pb-8 text-zinc-100 font-medium">{title}</h2>
-      <ChartContainer config={chartConfig} className="max-h-[320px] w-full">
+      <ChartContainer config={chartConfig} className="min-h-[240px] max-h-[320px] w-full">
         <AreaChart
           data={data}
           accessibilityLayer
@@ -61,13 +58,13 @@ export const BlocksHeightChart: React.FC<Props> = ({ title, data, legend, key, r
 
             tickLine={false}
             axisLine={false}
-          // tickFormatter={(value) => value.slice(0, 3)}
+            tickFormatter={(value) => value.slice(0, 3)}
           />
           <YAxis
             tickMargin={12}
             tick={{ stroke: 'white', fontWeight: 200 }}
             tickFormatter={(value) => valueShort(value)}
-            domain={[3880000000, 3980000000]}
+            domain={range}
           />
 
           {/* <Bar
@@ -81,12 +78,11 @@ export const BlocksHeightChart: React.FC<Props> = ({ title, data, legend, key, r
           /> */}
 
           <Area
-            dataKey="blocks"
+            dataKey={dataKey}
             type="natural"
-            fill="var(--color-blocks)"
+            fill={`var(--color-${dataKey}`}
             fillOpacity={0.4}
             stroke="#753EFE"
-          // stackId="c"
           />
           {/* <Area
             dataKey="net_stack"
@@ -98,7 +94,7 @@ export const BlocksHeightChart: React.FC<Props> = ({ title, data, legend, key, r
           /> */}
           <ChartTooltip
             cursor={false}
-            content={<ChartTooltipContent className="w-[175px]" indicator="dot" hideLabel />}
+            content={<ChartTooltipContent className="w-[260px]" indicator="dot" hideLabel />}
           />
 
           {/* <ChartLegend className="mt-4 mb-2 text-zinc-300" content={<ChartLegendContent  />} /> */}

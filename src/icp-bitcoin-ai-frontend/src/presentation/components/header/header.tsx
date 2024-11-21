@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react'
 import styles from './header-styles.module.scss'
 import { Button, TextField } from '@mui/material'
+import SelectNetwork from '../select-network/select-network'
 
 type Props = {
   onSubmit: (type: string, value: string) => void
@@ -55,6 +56,10 @@ const Header: React.FC<Props> = ({ onSubmit }: Props) => {
         />
         <Button className={styles.button} type='submit'>Get transaction info</Button>
       </form>
+
+      <div className="ml-auto">
+        <SelectNetwork />
+      </div>
     </div>
   )
 }
