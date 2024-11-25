@@ -27,21 +27,23 @@ const Landing: React.FC = () => {
 
   // Função para conectar com o Internet Identity
   const handleConnectWallet = async () => {
-    const authClient = await AuthClient.create()
+    // const authClient = await AuthClient.create()
 
-    await authClient.login({
-      identityProvider: import.meta.env.II_CANISTER_ID, // Certifique-se de definir esta variável de ambiente
-      onSuccess: async () => {
-        const identity = authClient.getIdentity()
+    // await authClient.login({
+    //   identityProvider: import.meta.env.II_CANISTER_ID, // Certifique-se de definir esta variável de ambiente
+    //   onSuccess: async () => {
+    //     const identity = authClient.getIdentity()
 
-        const host = import.meta.env.VITE_HOST ?? undefined;
-        const agent = new HttpAgent({ host, identity })
-        const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID, {
-          agent,
-        })
-        navigate("/home")
-      },
-    })
+    //     const host = import.meta.env.VITE_HOST ?? undefined;
+    //     const agent = new HttpAgent({ host, identity })
+    //     const actor = createActor(import.meta.env.VITE_MEMPOOL_CANISTER_ID, {
+    //       agent,
+    //     })
+    //     navigate("/home")
+    //   },
+    // })
+
+    navigate("/home")
   }
 
   useEffect(() => {
