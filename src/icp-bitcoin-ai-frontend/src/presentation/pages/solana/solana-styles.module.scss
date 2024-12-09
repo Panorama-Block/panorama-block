@@ -1,33 +1,7 @@
 .home {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
-
-  .container {
+  .info {
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow: hidden;
-    background-color: #060722;
-    padding-bottom: 20px;
-    display: flex;
-    overflow-y: auto;
-
-    .info {
-      display: flex;
-      // flex-direction: column;
-      // max-height: 50%;
-
-      .custom {
-        flex: 1;
-      }
-    }
-
-    .card {
-      background: linear-gradient(94.84deg, rgba(16, 27, 82, 0.9) 10%, rgb(6, 11, 38) 100%);
-      border: none;
-    }
+    max-height: 60%;
   }
 
   .chat {
