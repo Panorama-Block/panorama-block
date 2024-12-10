@@ -91,7 +91,7 @@ const HashblockInfo: React.FC = () => {
         <h2> HASHBLOCK: {params.id}</h2>
       </div>
 
-      <div className="grid mx-12 mt-12 grid-cols-4 gap-16 w-80%">
+      <div className="mx-12 grid mt-12 grid-cols-4 gap-8 w-80%">
         <Card className="flex h-[85px] p-3 bg-[#121D5275] border-zinc-950 rounded-[14px]">
           <div className="flex flex-col">
             <h3 className="text-[#A0AEC0] text-sm font-medium">Transactions</h3>

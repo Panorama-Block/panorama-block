@@ -252,140 +252,137 @@ const Solana: React.FC = () => {
       }}
     >
       <div className={styles.home}>
-        <div className={styles.container}>
-          <Hashblocks
-            coin={actual}
-            data={hashblocks}
-            onSelect={(hashblock: any) => handleHashblock(hashblock)}
-          />
-          <div className={styles.info}>
-            <Network data={data} />
-            <div className={styles.custom}>
-              <CustomTabs
-                hashblocks={hashblocks}
-                labels={[
-                  "Active Addresses",
-                  "Fees",
-                  "Token Transfers",
-                  "Transactions",
-                  "Current Epoch",
-                ]}
-              />
-            </div>
-          </div>
-
-          {/* <div className={`${styles.info} styles.wrapped`}>
-          <Network data={data} /> */}
-          <div className="grid grid-cols-2">
-            <div className={`${styles.custom} flex-1`}>
-              <CustomTabs2
-                hashblocks={hashblocks}
-                labels={["TPS", "AVG Ping Time", "TVL"]}
-              />
-            </div>
-
-            <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
-              <div className="flex flex-col p-4 w-full">
-                <h3 className="text-zinc-400">Volume</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#753EFE] w-[80%] border-none">
-                    <p className=" p-4 text-zinc-100 font-medium">
-                      $2,875,933,651
-                    </p>
-                    <div
-                      className="flex items-center ml-auto mr-8 hover:cursor-pointer"
-                      onClick={() => navigate("/solana/volume")}
-                    >
-                      <ArrowRight className="text-zinc-100 w-8 h-8 center" />
-                    </div>
-                  </Card>
-                  <Card className="flex items-center justify-items-center ml-4 w-[60px] bg-[#2C7300] border-none">
-                    <p className="text-zinc-100 m-auto text-xs">+5.46%</p>
-                  </Card>
-                </div>
-
-                <h3 className="mt-4 text-zinc-100">Market Cap</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
-                    <p className=" p-4 text-zinc-900 font-medium">
-                      $64,233,356,606
-                    </p>
-                    <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
-                      <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
-                    </div>
-                  </Card>
-                </div>
-
-                <h3 className="mt-4 text-zinc-100">Supply</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
-                    <p className=" p-4 text-zinc-900 font-medium">
-                      585,827,435 SOL
-                    </p>
-                    <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
-                      <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
-                    </div>
-                  </Card>
-                </div>
-
-                <h3 className="mt-4 text-zinc-100">Total Stake</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
-                    <p className=" p-4 text-zinc-900 font-medium">
-                      392,545,171.92 SOL
-                    </p>
-                    <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
-                      <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
-                    </div>
-                  </Card>
-                </div>
-
-                <h3 className="mt-4 text-zinc-100">Token Balances</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
-                    <p className=" p-4 text-zinc-900 font-medium">
-                      263,762,293 SOL
-                    </p>
-                    <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
-                      <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
-                    </div>
-                  </Card>
-                </div>
-
-                <h3 className="mt-4 text-zinc-100">Exchange Flow</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
-                    <p className=" p-4 text-zinc-900 font-medium">
-                      263,762,293 SOL
-                    </p>
-                    <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
-                      <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
-                    </div>
-                  </Card>
-                </div>
-
-                <h3 className="mt-4 text-zinc-100">Active Validators</h3>
-                <div className="flex">
-                  <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
-                    <p className=" p-4 text-zinc-900 font-medium">1461</p>
-                    <div className="flex items-center w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
-                      <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
-                    </div>
-                  </Card>
-                </div>
-              </div>
-            </Card>
-
-            <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
-              <NftTable title="Top NFTs" />
-            </Card>
-
-            <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
-              <MemeTable title="Top Meme Coins" />
-            </Card>
+        <Hashblocks
+          coin={actual}
+          data={hashblocks}
+          onSelect={(hashblock: any) => handleHashblock(hashblock)}
+        />
+        <div className={styles.info}>
+          <Network data={data} />
+          <div className={styles.custom}>
+            <CustomTabs
+              hashblocks={hashblocks}
+              labels={[
+                "Active Addresses",
+                "Fees",
+                "Token Transfers",
+                "Transactions",
+                "Current Epoch",
+              ]}
+            />
           </div>
         </div>
-        {/* </div> */}
+
+        {/* <div className={`${styles.info} styles.wrapped`}>
+          <Network data={data} /> */}
+        <div className="grid grid-cols-2">
+          <div className={`${styles.custom} flex-1`}>
+            <CustomTabs2
+              hashblocks={hashblocks}
+              labels={["TPS", "AVG Ping Time", "TVL"]}
+            />
+          </div>
+
+          <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
+            <div className="flex flex-col p-4 w-full">
+              <h3 className="text-zinc-400">Volume</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#753EFE] w-[80%] border-none">
+                  <p className=" p-4 text-zinc-100 font-medium">
+                    $2,875,933,651
+                  </p>
+                  <div
+                    className="flex items-center ml-auto mr-8 hover:cursor-pointer"
+                    onClick={() => navigate("/solana/volume")}
+                  >
+                    <ArrowRight className="text-zinc-100 w-8 h-8 center" />
+                  </div>
+                </Card>
+                <Card className="flex items-center justify-items-center ml-4 w-[60px] bg-[#2C7300] border-none">
+                  <p className="text-zinc-100 m-auto text-xs">+5.46%</p>
+                </Card>
+              </div>
+
+              <h3 className="mt-4 text-zinc-100">Market Cap</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
+                  <p className=" p-4 text-zinc-900 font-medium">
+                    $64,233,356,606
+                  </p>
+                  <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
+                    <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className="mt-4 text-zinc-100">Supply</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
+                  <p className=" p-4 text-zinc-900 font-medium">
+                    585,827,435 SOL
+                  </p>
+                  <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
+                    <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className="mt-4 text-zinc-100">Total Stake</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
+                  <p className=" p-4 text-zinc-900 font-medium">
+                    392,545,171.92 SOL
+                  </p>
+                  <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
+                    <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className="mt-4 text-zinc-100">Token Balances</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
+                  <p className=" p-4 text-zinc-900 font-medium">
+                    263,762,293 SOL
+                  </p>
+                  <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
+                    <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className="mt-4 text-zinc-100">Exchange Flow</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
+                  <p className=" p-4 text-zinc-900 font-medium">
+                    263,762,293 SOL
+                  </p>
+                  <div className="flex items-center  w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
+                    <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
+                  </div>
+                </Card>
+              </div>
+
+              <h3 className="mt-4 text-zinc-100">Active Validators</h3>
+              <div className="flex">
+                <Card className="mt-1 flex bg-[#D3D3D3]  w-[90%] border-none">
+                  <p className=" p-4 text-zinc-900 font-medium">1461</p>
+                  <div className="flex items-center w-[38px] h-[38px] bg-[#753EFE] m-auto mr-8 rounded-md hover:cursor-pointer">
+                    <ArrowRight className="text-zinc-100 w-8 h-8 m-auto center" />
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </Card>
+
+          <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
+            <NftTable title="Top NFTs" />
+          </Card>
+
+          <Card className={`${styles.card} flex-1 mx-10 flex my-10 pt-4`}>
+            <MemeTable title="Top Meme Coins" />
+          </Card>
+        </div>
 
         {modalOpened && (
           <InfoModal data={info} onClose={() => handleClose()}>
