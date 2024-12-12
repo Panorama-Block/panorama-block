@@ -19,6 +19,8 @@ import { InfoBox } from '../../components/info-box/info-box'
 import { ChartByTime } from '../../components/chart-by-time/chart-by-time'
 import { InfoList } from '../../components/info-list/info-list'
 import Layout from '../../components/layout/Layout';
+import { QuickTransfer } from '@/src/presentation/components/quick-transfer/quick-transfer'
+import { Wallet } from '@/src/presentation/components/wallet/wallet'
 
 const XRP: React.FC = () => {
     const [actual, setActual] = useState('Bitcoin')
@@ -236,9 +238,14 @@ const XRP: React.FC = () => {
                         </div>
 
                         <ChartByTime data={chartData} />
+
+                        <Wallet />
                     </div>
 
-                    <InfoList transactions={transactions} />
+                    <div className="flex flex-col gap-4">
+                        <InfoList transactions={transactions} />
+                        <QuickTransfer />
+                    </div>
                 </div>
 
                 {
