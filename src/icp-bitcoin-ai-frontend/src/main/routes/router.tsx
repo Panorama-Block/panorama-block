@@ -13,13 +13,14 @@ import StacksBitcoin from '@/src/presentation/pages/stacks-bitcoin/stacks-bitcoi
 import Icp from '@/src/presentation/pages/icp/icp'
 import CkBitcoin from '@/src/presentation/pages/ck-btc/ck-bitcoin'
 import XRP from '@/src/presentation/pages/xrp/xrp'
+import NewLanding from '@/src/presentation/pages/new-landing/new-landing'
 
 const Router: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
         {/* <Route path='/' element={<Login />} /> */}
-        <Route path='/' element={<Landing />} />
+        <Route path='/' element={<NewLanding />} />
         <Route path='/home' element={<Home />} />
         <Route path='/solana' element={<Solana />} />
         <Route path='/icp' element={<Icp />} />
