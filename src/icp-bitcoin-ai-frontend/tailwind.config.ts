@@ -17,9 +17,12 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'neuton': ['Neuton', 'serif'],
+			},
 			colors: {
 				'navy': {
-					900: '#1a2744',
+					900: '#0A2463',
 				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
