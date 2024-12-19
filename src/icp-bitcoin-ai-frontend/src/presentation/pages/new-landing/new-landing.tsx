@@ -1,4 +1,6 @@
 import { Button } from '@/src/components/ui/button'
+import { SearchCode } from 'lucide-react'
+import { Store, TrendingUp, CircleDollarSign, Grid, Users } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 const NewLanding = () => {
@@ -13,6 +15,14 @@ const NewLanding = () => {
     'Decentralized Analytics',
     'Web3 Hottest Trends'
   ]
+  const partners = [
+    { name: 'ICP', image: '/partners/icp.png' },
+    { name: 'Inteli', image: '/partners/inteli.webp' },
+    { name: 'LMU', image: '/partners/lmu.png' },
+    { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
+    { name: 'UCLA Economics', image: '/partners/ucla.webp' }
+  ]
+
   const [currentWord, setCurrentWord] = useState(0)
 
   const cities = [
@@ -40,10 +50,10 @@ const NewLanding = () => {
           </div>
 
           <div className="flex gap-12">
-            <a href="#about" className="text-gray-400 text-lg hover:text-gray-600">About</a>
-            <a href="#companies" className="text-gray-400 text-lg hover:text-gray-600">Companies</a>
-            <a href="#team" className="text-gray-400 text-lg hover:text-gray-600">Team</a>
-            <a href="#contact" className="text-gray-400 t-lg fover:text-gray-600">Contact</a>
+            <a href="#about" className="text-gray-300 text-lg hover:text-gray-600">About</a>
+            <a href="#companies" className="text-gray-300 text-lg hover:text-gray-600">Companies</a>
+            <a href="#team" className="text-gray-300 text-lg hover:text-gray-600">Team</a>
+            <a href="#contact" className="text-gray-300 t-lg fover:text-gray-600">Contact</a>
           </div>
         </nav>
       </header>
@@ -52,7 +62,7 @@ const NewLanding = () => {
         <div className="absolute inset-0 bg-[url('/bg.jpg')] bg-cover bg-center opacity-50" />
 
         <div className="relative flex items-center justify-center h-full">
-          <h1 className="text-6xl font-neuton text-zinc-400 w-[1200px] mx-auto">
+          <h1 className="text-6xl font-neuton text-zinc-300 w-[1200px] mx-auto">
             <span className='flex font-neuton flex-col gap-5 text-center'>
               Panoramic view of{' '}
               <span className="inline-block h-[1.2em]">
@@ -64,7 +74,7 @@ const NewLanding = () => {
                 </span>
               </span>
 
-              <Button variant="outline" className="mx-auto mt-10 w-[200px] text-gray-200 bg-gray-500">Launch Beta App</Button>
+              <Button variant="outline" className="mx-auto mt-10 w-[200px] text-gray-50 bg-gray-500">Launch Beta App</Button>
             </span>
           </h1>
         </div>
@@ -114,12 +124,13 @@ const NewLanding = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-gray-800">
+      <section className="py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-3 gap-8">
-            <div className="p-8 bg-gray-900 rounded-lg flex flex-col items-center text-center">
-              <div className="w-24 h-24 mb-6">
-                <img src="/icons/stablecoin.svg" alt="Stablecoin icon" className="w-full h-full" />
+            <div className="p-8 bg-gray-800/50 rounded-lg flex flex-col items-center text-center">
+              <div className="w-14 h-14 mb-6 text-gray-400 relative">
+                <SearchCode className="w-full h-full" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl rounded-full" />
               </div>
               <h3 className="text-2xl font-neuton text-gray-200 mb-4">Actionable Data Across Multiple Chains</h3>
               <p className="text-gray-400">
@@ -127,9 +138,10 @@ const NewLanding = () => {
               </p>
             </div>
 
-            <div className="p-8 bg-gray-900 rounded-lg flex flex-col items-center text-center">
-              <div className="w-24 h-24 mb-6">
-                <img src="/icons/pools.svg" alt="Pools icon" className="w-full h-full" />
+            <div className="p-8 bg-gray-800/50 rounded-lg flex flex-col items-center text-center">
+              <div className="w-14 h-14 mb-6 text-gray-400 relative">
+                <Store className="w-full h-full" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 blur-xl rounded-full" />
               </div>
               <h3 className="text-2xl font-neuton text-gray-200 mb-4">Decentralized Marketplace for AI Agent Creation</h3>
               <p className="text-gray-400">
@@ -137,9 +149,10 @@ const NewLanding = () => {
               </p>
             </div>
 
-            <div className="p-8 bg-gray-900 rounded-lg flex flex-col items-center text-center">
-              <div className="w-24 h-24 mb-6">
-                <img src="/icons/governance.svg" alt="Governance icon" className="w-full h-full" />
+            <div className="p-8 bg-gray-800/50 rounded-lg flex flex-col items-center text-center">
+              <div className="w-14 h-14 mb-6 text-gray-400 relative">
+                <TrendingUp className="w-full h-full" />
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 blur-xl rounded-full" />
               </div>
               <h3 className="text-2xl font-neuton text-gray-200 mb-4">Pano Ranking: DeFi Strategy Hub</h3>
               <p className="text-gray-400">
@@ -149,6 +162,56 @@ const NewLanding = () => {
           </div>
         </div>
       </section>
+
+      <section className="py-16 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 mb-8">
+          <h2 className="text-4xl font-neuton text-navy-900 text-center mb-12">
+            Nossos Parceiros
+          </h2>
+        </div>
+
+        <div className="absolute flex h-[300px] w-screen relative overflow-hidden">
+          <div className="flex gap-40 animate-scroll">
+            {[...partners].map((partner, index) => (
+              <div key={`${partner.name}-${index}`} className="flex">
+                <img src={partner.image} alt={partner.name} className="w-60 h-60 object-contain" />
+              </div>
+            ))}
+          </div>
+          <div className="absolute flex gap-40 animate-scroll-2" aria-hidden={true}>
+            {[...partners].map((partner, index) => (
+              <div key={`${partner.name}-second-${index}`} className="flex">
+                <img src={partner.image} alt={partner.name} className="w-60 h-60 object-contain" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+            autoPlay: true,
+            interval: 2000,
+          }}
+          className="w-full max-w-5xl mx-auto"
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {partners.map((partner) => (
+              <CarouselItem key={partner.name} className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/4">
+                <div className="p-1">
+                  <img
+                    src={partner.image}
+                    alt={partner.name}
+                    className="h-24 w-auto mx-auto object-contain transition-all duration-300"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
+        </Carousel> */}
     </div>
   )
 }
