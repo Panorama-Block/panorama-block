@@ -105,6 +105,17 @@ const NewLanding = () => {
     }
   }, [])
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const offsetTop = element.offsetTop
+      window.scrollTo({
+        top: offsetTop, // 100px de offset para considerar o header fixo
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <div className="relative">
       <header className="absolute w-full z-10 p-4">
@@ -115,11 +126,38 @@ const NewLanding = () => {
           </div>
 
           <div className="flex gap-12">
-            <a href="#about" className="text-gray-300 text-lg hover:text-gray-600">About</a>
-            <a href="#companies" className="text-gray-300 text-lg hover:text-gray-600">Companies</a>
-            <a href="#team" className="text-gray-300 text-lg hover:text-gray-600">Team</a>
-            <a href="https://panoramablock.medium.com/" target="_blank" className="text-gray-300 t-lg fover:text-gray-600">Blog</a>
-            <a href="https://docs.panoramablock.com" target="_blank" className="text-gray-300 t-lg fover:text-gray-600">Docs</a>
+            <button
+              onClick={() => scrollToSection('about')}
+              className="text-gray-300 text-lg hover:text-gray-600"
+            >
+              About
+            </button>
+            {/* <button
+              onClick={() => scrollToSection('companies')}
+              className="text-gray-300 text-lg hover:text-gray-600"
+            >
+              Companies
+            </button> */}
+            <button
+              onClick={() => scrollToSection('team')}
+              className="text-gray-300 text-lg hover:text-gray-600"
+            >
+              Team
+            </button>
+            <a
+              href="https://panoramablock.medium.com/"
+              target="_blank"
+              className="text-gray-300 text-lg hover:text-gray-600"
+            >
+              Blog
+            </a>
+            <a
+              href="https://docs.panoramablock.com"
+              target="_blank"
+              className="text-gray-300 text-lg hover:text-gray-600"
+            >
+              Docs
+            </a>
           </div>
         </nav>
       </header>
@@ -146,7 +184,7 @@ const NewLanding = () => {
         </div>
       </div>
 
-      <section className="py-24 bg-white">
+      <section id="about" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 gap-12 items-center">
             <div>
@@ -184,7 +222,7 @@ const NewLanding = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-gray-900">
+      <section id="products" className="py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-3 gap-8">
             <div className="p-8 bg-gray-800/50 rounded-lg flex flex-col items-center text-center">
@@ -248,7 +286,7 @@ const NewLanding = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-gray-900" id="team">
+      <section id="team" className="py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-4xl font-neuton text-zinc-200 text-center mb-16">
             Our Team
