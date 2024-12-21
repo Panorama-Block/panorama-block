@@ -157,15 +157,71 @@ const XRP: React.FC = () => {
         }
     }
 
-    const chartData = [
-        { date: "8/04", value: 0 },
-        { date: "9/04", value: 10000 },
-        { date: "10/04", value: 20000, currentState: true },
-        { date: "11/04", value: 15000 },
-        { date: "12/04", value: 32000 },
-        { date: "13/04", value: 8000 },
-        { date: "14/04", value: 22000 },
+    const hashblocksData = [
+        { date: "00:00", value: 15000, transactions: 1200 },
+        { date: "03:00", value: 12000, transactions: 980 },
+        { date: "06:00", value: 8000, transactions: 750 },
+        { date: "09:00", value: 25000, transactions: 2100 },
+        { date: "12:00", value: 30000, transactions: 2800 },
+        { date: "15:00", value: 28000, transactions: 2600 },
+        { date: "18:00", value: 22000, transactions: 1900 },
+        { date: "21:00", value: 18000, transactions: 1500 },
     ]
+
+    const liquidityData = [
+        { date: "00:00", value: 2500000, transactions: 850000 },
+        { date: "03:00", value: 1800000, transactions: 920000 },
+        { date: "06:00", value: 3200000, transactions: 780000 },
+        { date: "09:00", value: 4500000, transactions: 1200000 },
+        { date: "12:00", value: 2900000, transactions: 950000 },
+        { date: "15:00", value: 5200000, transactions: 1500000 },
+        { date: "18:00", value: 3800000, transactions: 1100000 },
+        { date: "21:00", value: 2200000, transactions: 830000 },
+    ]
+
+    const walletActivityData = [
+        { date: "00:00", value: 1200, transactions: 450 },
+        { date: "03:00", value: 1350, transactions: 520 },
+        { date: "06:00", value: 1500, transactions: 580 },
+        { date: "09:00", value: 1800, transactions: 750 },
+        { date: "12:00", value: 2100, transactions: 920 },
+        { date: "15:00", value: 2400, transactions: 1100 },
+        { date: "18:00", value: 2200, transactions: 980 },
+        { date: "21:00", value: 1900, transactions: 850 },
+    ];
+
+    const whalePriceData = [
+        { date: "00:00", value: 125000, transactions: 0.62 },
+        { date: "03:00", value: 245000, transactions: 0.65 },
+        { date: "06:00", value: 890000, transactions: 0.71 },
+        { date: "09:00", value: 560000, transactions: 0.68 },
+        { date: "12:00", value: 1250000, transactions: 0.75 },
+        { date: "15:00", value: 980000, transactions: 0.73 },
+        { date: "18:00", value: 450000, transactions: 0.69 },
+        { date: "21:00", value: 670000, transactions: 0.70 },
+    ];
+
+    const stakingSupplyData = [
+        { date: "00:00", value: 45000000, transactions: 100000000 },
+        { date: "03:00", value: 46500000, transactions: 99800000 },
+        { date: "06:00", value: 48000000, transactions: 99500000 },
+        { date: "09:00", value: 47800000, transactions: 99200000 },
+        { date: "12:00", value: 49500000, transactions: 98900000 },
+        { date: "15:00", value: 51000000, transactions: 98600000 },
+        { date: "18:00", value: 52500000, transactions: 98300000 },
+        { date: "21:00", value: 53000000, transactions: 98000000 },
+    ];
+
+    const networkPerformanceData = [
+        { date: "00:00", value: 3.5, transactions: 850 },
+        { date: "03:00", value: 3.2, transactions: 1200 },
+        { date: "06:00", value: 4.1, transactions: 2100 },
+        { date: "09:00", value: 4.8, transactions: 2800 },
+        { date: "12:00", value: 5.2, transactions: 3200 },
+        { date: "15:00", value: 4.5, transactions: 2600 },
+        { date: "18:00", value: 3.8, transactions: 1900 },
+        { date: "21:00", value: 3.4, transactions: 1500 },
+    ];
 
     const transactions = [
         {
@@ -237,9 +293,115 @@ const XRP: React.FC = () => {
 
                         </div>
 
-                        <ChartByTime data={chartData} />
+                        <ChartByTime
+                            data={hashblocksData}
+                            title="Hashblocks"
+                            description="Block transactions by time"
+                            valueLabel="Block Size"
+                            transactionsLabel="Transactions"
+                            valueColor="#3B82F6"
+                            transactionsColor="#1D4ED8"
+                            valueFormatter={(value) => `${value} KB`}
+                            transactionsFormatter={(value) => `${value} txs`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="1H"
+                        />
 
-                        <Wallet />
+                        <ChartByTime
+                            data={liquidityData}
+                            title="Whale Activity vs Network Liquidity"
+                            description="Large transfers in relation to network liquidity"
+                            valueLabel="Whale Transfers"
+                            transactionsLabel="Network Liquidity"
+                            valueColor="#3B82F6"
+                            transactionsColor="#10B981"
+                            valueFormatter={(value) => `$${(value / 1000000).toFixed(1)}M`}
+                            transactionsFormatter={(value) => `$${(value / 1000000).toFixed(1)}M`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={walletActivityData}
+                            title="Recurring Activity vs. Wallet Growth"
+                            description="Track consistent wallet activity and network growth patterns"
+                            valueLabel="Active Wallets"
+                            transactionsLabel="Recurring Transactions"
+                            valueColor="#8B5CF6"
+                            transactionsColor="#EC4899"
+                            valueFormatter={(value) => `${value.toLocaleString()} wallets`}
+                            transactionsFormatter={(value) => `${value.toLocaleString()} txs`}
+                            periods={[
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                                { value: "30D", label: "30D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={whalePriceData}
+                            title="Whale Activity vs. XRP Price"
+                            description="Track whale wallet transactions in relation to price movements"
+                            valueLabel="Whale Transfers"
+                            transactionsLabel="XRP Price"
+                            valueColor="#F59E0B"
+                            transactionsColor="#10B981"
+                            valueFormatter={(value) => `$${(value / 1000).toFixed(1)}K`}
+                            transactionsFormatter={(value) => `$${value.toFixed(3)}`}
+                            periods={[
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                                { value: "30D", label: "30D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={stakingSupplyData}
+                            title="Staking vs. Available Supply"
+                            description="Track XRP staking in relation to circulating supply"
+                            valueLabel="Total Staked"
+                            transactionsLabel="Available Supply"
+                            valueColor="#6366F1"
+                            transactionsColor="#EF4444"
+                            valueFormatter={(value) => `${(value / 1000000).toFixed(1)}M XRP`}
+                            transactionsFormatter={(value) => `${(value / 1000000).toFixed(1)}M XRP`}
+                            periods={[
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                                { value: "30D", label: "30D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={networkPerformanceData}
+                            title="Ledger Performance vs. Network Load"
+                            description="Monitor ledger speeds and network congestion"
+                            valueLabel="Ledger Speed"
+                            transactionsLabel="Network Traffic"
+                            valueColor="#14B8A6"
+                            transactionsColor="#F97316"
+                            valueFormatter={(value) => `${value.toFixed(1)}s`}
+                            transactionsFormatter={(value) => `${value.toLocaleString()} tps`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="1H"
+                        />
+
+                        {/* <Wallet /> */}
                     </div>
 
                     <div className="flex flex-col gap-4">

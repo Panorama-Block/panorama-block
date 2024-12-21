@@ -50,7 +50,7 @@ const NewLanding = () => {
     {
       name: 'Alex Nascimento',
       role: 'Founder',
-      image: '/team/alex.png',
+      image: '/team/alex.jpeg',
       linkedin: 'https://linkedin.com/in/nascimentoalex'
     },
     {
@@ -62,7 +62,7 @@ const NewLanding = () => {
     {
       name: 'Hugo Noyma',
       role: 'Blockchain Engineer',
-      image: '/team/hugo.jpg',
+      image: '/team/hugo.jpeg',
       linkedin: 'https://linkedin.com/in/hugo-noyma'
     },
     {
@@ -74,7 +74,7 @@ const NewLanding = () => {
     {
       name: 'Maria Helena',
       role: 'Research & Compliance',
-      image: '/team/maria.jpg',
+      image: '/team/maria.jpeg',
       linkedin: 'https://linkedin.com/in/mariahelenarocha'
     },
     {
@@ -92,10 +92,11 @@ const NewLanding = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-    }, 2000)
+      setCurrentWord((prev) => (prev + 1) % words.length);
+    }, 2000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -110,7 +111,7 @@ const NewLanding = () => {
     if (element) {
       const offsetTop = element.offsetTop
       window.scrollTo({
-        top: offsetTop, // 100px de offset para considerar o header fixo
+        top: offsetTop,
         behavior: 'smooth'
       })
     }
@@ -132,12 +133,6 @@ const NewLanding = () => {
             >
               About
             </button>
-            {/* <button
-              onClick={() => scrollToSection('companies')}
-              className="text-gray-300 text-lg hover:text-gray-600"
-            >
-              Companies
-            </button> */}
             <button
               onClick={() => scrollToSection('team')}
               className="text-gray-300 text-lg hover:text-gray-600"
