@@ -50,9 +50,9 @@ const networks = [
     },
     {
         id: 6,
-        title: 'XRP',
-        icon: '/coins/xrp.png',
-        url: '/xrp'
+        title: 'XRPL',
+        icon: '/coins/xrpl.png',
+        url: '/xrpl'
     }
 ]
 
@@ -67,7 +67,7 @@ const SelectNetwork = () => {
     }
 
     const changeNetwork = (network: any) => {
-        if(network.items) {
+        if (network.items) {
             setActualNetwork(network.items)
         }
         else {

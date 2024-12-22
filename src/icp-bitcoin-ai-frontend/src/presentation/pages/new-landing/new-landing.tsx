@@ -1,5 +1,5 @@
 import { Button } from '@/src/components/ui/button'
-import { ArrowUp, ChevronUp, SearchCode } from 'lucide-react'
+import { ChevronUp, SearchCode } from 'lucide-react'
 import { Store, TrendingUp, Linkedin, Github, Twitter } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
@@ -181,7 +181,9 @@ const NewLanding = () => {
                 </span>
               </span>
 
-              <Button variant="outline" className="mx-auto mt-10 w-[200px] text-gray-50 bg-gray-500">Launch Beta App</Button>
+              <a href="/#home">
+                <Button variant="outline" className="mx-auto mt-10 w-[200px] text-gray-50 bg-gray-500">Launch Beta App</Button>
+              </a>
             </span>
           </h1>
         </div>

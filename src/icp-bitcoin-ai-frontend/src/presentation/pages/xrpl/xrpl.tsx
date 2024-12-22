@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from '../../components/sidebar/sidebar'
-import styles from './xrp-styles.module.scss'
+import styles from './xrpl-styles.module.scss'
 import Hashblocks, { HashblockProps } from '../../components/hashblocks/hashblocks'
 import Network, { NetworkData } from '../../components/network/network'
-import CustomTabs from '../../components/custom-tabs/custom-tabs'
 import IcpService from '../../../data/services/icp-service'
 import { jsonParseBigint } from '../../../utils/json-parse-bigint'
-import Header from '../../components/header/header'
 import InfoModal from '../../components/info-modal/info-modal'
 import TransactionInfo from '../../components/transaction-info/transaction-info'
 import AddressInfo from '../../components/address-info/address-info'
@@ -20,9 +17,8 @@ import { ChartByTime } from '../../components/chart-by-time/chart-by-time'
 import { InfoList } from '../../components/info-list/info-list'
 import Layout from '../../components/layout/Layout';
 import { QuickTransfer } from '@/src/presentation/components/quick-transfer/quick-transfer'
-import { Wallet } from '@/src/presentation/components/wallet/wallet'
 
-const XRP: React.FC = () => {
+const XRPL: React.FC = () => {
     const [actual, setActual] = useState('Bitcoin')
     const [actualHashblock, setActualHashblock] = useState(null)
     const [hashblocks, setHashblocks] = useState<HashblockProps[]>()
@@ -441,4 +437,4 @@ const XRP: React.FC = () => {
     )
 }
 
-export default XRP
+export default XRPL
