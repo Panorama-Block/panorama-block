@@ -1,3 +1,4 @@
+import { cn } from "@/src/components/lib/utils"
 import { Card } from "@/src/components/ui/card"
 
 interface Transaction {
@@ -11,11 +12,12 @@ interface Transaction {
 
 interface InfoListProps {
   transactions: Transaction[]
+  className?: string
 }
 
-export function InfoList({ transactions }: InfoListProps) {
+export function InfoList({ transactions, className }: InfoListProps) {
   return (
-    <Card className="p-6">
+    <Card className={cn("p-6", className)}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-medium">Transactions</h3>
         <a href="#" className="text-sm text-blue-500 hover:underline">

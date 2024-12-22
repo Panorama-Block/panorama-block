@@ -291,6 +291,7 @@ const XRPL: React.FC = () => {
 
                         <ChartByTime
                             data={hashblocksData}
+                            className={styles.chartByTime}
                             title="Hashblocks"
                             description="Block transactions by time"
                             valueLabel="Block Size"
@@ -309,6 +310,7 @@ const XRPL: React.FC = () => {
 
                         <ChartByTime
                             data={liquidityData}
+                            className={styles.chartByTime}
                             title="Whale Activity vs Network Liquidity"
                             description="Large transfers in relation to network liquidity"
                             valueLabel="Whale Transfers"
@@ -327,6 +329,7 @@ const XRPL: React.FC = () => {
 
                         <ChartByTime
                             data={walletActivityData}
+                            className={styles.chartByTime}
                             title="Recurring Activity vs. Wallet Growth"
                             description="Track consistent wallet activity and network growth patterns"
                             valueLabel="Active Wallets"
@@ -338,13 +341,13 @@ const XRPL: React.FC = () => {
                             periods={[
                                 { value: "24H", label: "24H" },
                                 { value: "7D", label: "7D" },
-                                { value: "30D", label: "30D" },
                             ]}
                             defaultPeriod="24H"
                         />
 
                         <ChartByTime
                             data={whalePriceData}
+                            className={styles.chartByTime}
                             title="Whale Activity vs. XRP Price"
                             description="Track whale wallet transactions in relation to price movements"
                             valueLabel="Whale Transfers"
@@ -363,6 +366,7 @@ const XRPL: React.FC = () => {
 
                         <ChartByTime
                             data={stakingSupplyData}
+                            className={styles.chartByTime}
                             title="Staking vs. Available Supply"
                             description="Track XRP staking in relation to circulating supply"
                             valueLabel="Total Staked"
@@ -381,6 +385,7 @@ const XRPL: React.FC = () => {
 
                         <ChartByTime
                             data={networkPerformanceData}
+                            className={styles.chartByTime}
                             title="Ledger Performance vs. Network Load"
                             description="Monitor ledger speeds and network congestion"
                             valueLabel="Ledger Speed"
@@ -401,7 +406,7 @@ const XRPL: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <InfoList transactions={transactions} />
+                        <InfoList className={styles.infoList} transactions={transactions} />
                         <QuickTransfer />
                     </div>
                 </div>

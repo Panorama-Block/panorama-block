@@ -18,18 +18,18 @@ export function InfoBox({
   className,
 }: InfoBoxProps) {
   const isPositive = percentageChange && percentageChange > 0
-  const formattedValue = typeof value === 'number' 
+  const formattedValue = typeof value === 'number'
     ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
     : value
 
   return (
-    <Card className={cn("p-6", className)}>
+    <Card className={cn("p-6 border-none", className)}>
       <div className="space-y-2 max-h-[200px]">
-        <h3 className="text-lg font-medium text-muted-foreground">
+        <h3 className="text-lg font-medium text-zinc-300">
           {title}
         </h3>
         <div className="flex items-baseline justify-between">
-          <p className="text-3xl font-semibold">
+          <p className="text-3xl font-semibold text-zinc-200">
             {formattedValue}
           </p>
           {percentageChange !== undefined && (
@@ -47,7 +47,7 @@ export function InfoBox({
           )}
         </div>
         {subtitle && (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-zinc-300">
             {subtitle}
           </p>
         )}

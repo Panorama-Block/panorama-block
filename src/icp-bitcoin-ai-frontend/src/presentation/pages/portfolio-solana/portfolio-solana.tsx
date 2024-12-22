@@ -10,6 +10,7 @@ import AddressInfo from '../../components/address-info/address-info'
 import { Tooltip } from '@mui/material'
 
 import styles from './portfolio-solana-styles.module.scss'
+import Layout from '../../components/layout/Layout'
 
 const PortfolioSolana: React.FC = () => {
   const [actual, setActual] = useState('Solana')
@@ -67,9 +68,16 @@ const PortfolioSolana: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <Sidebar active="Portfolio" actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
-      <div className={styles.container}>
-        <Header onSubmit={handleGetInfo} />
+      <Layout
+        sidebar={{
+          actual: actual,
+          onChange: (coin) => setActual(coin),
+          open: (page: string) => handleOpen(page)
+        }}
+        header={{
+          onSubmit: handleGetInfo
+        }}
+      >
         <div className="flex flex-col ml-12 mr-12 text-white">
           <div className="flex gap-3 ">
             <h1 className='text-xl ml-8 font-bold'>Portfolio</h1>
@@ -79,7 +87,7 @@ const PortfolioSolana: React.FC = () => {
             <img src='/portfolio/background.png' />
           </div>
         </div >
-      </div>
+      </Layout>
 
       {
         modalOpened && <InfoModal data={info} onClose={() => handleClose()}>

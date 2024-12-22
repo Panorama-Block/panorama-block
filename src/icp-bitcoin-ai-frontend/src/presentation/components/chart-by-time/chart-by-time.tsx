@@ -54,8 +54,8 @@ export function ChartByTime({
   description = "Network activity by time of day",
   valueLabel = "Transaction Value",
   transactionsLabel = "Number of Transactions",
-  valueColor = "#8884d8",
-  transactionsColor = "#82ca9d",
+  valueColor = "#60A5FA",
+  transactionsColor = "#34D399",
   valueFormatter = formatCurrency,
   transactionsFormatter = formatTransactions,
   periods = [
@@ -66,19 +66,23 @@ export function ChartByTime({
   defaultPeriod = "24H"
 }: ChartByTimeProps) {
   return (
-    <Card className={className}>
+    <Card className={`${className} border-[#1a2657]`}>
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-medium">{title}</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-lg font-medium text-gray-200">{title}</h3>
+            <p className="text-sm text-gray-400">
               {description}
             </p>
           </div>
           <Tabs defaultValue={defaultPeriod} className="mx-8">
-            <TabsList>
+            <TabsList className="bg-[#101b52]/50">
               {periods.map((period) => (
-                <TabsTrigger key={period.value} value={period.value}>
+                <TabsTrigger
+                  key={period.value}
+                  value={period.value}
+                  className="text-gray-400 data-[state=active]:bg-[#1a2657] data-[state=active]:text-white"
+                >
                   {period.label}
                 </TabsTrigger>
               ))}
@@ -93,30 +97,32 @@ export function ChartByTime({
             >
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={valueColor} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={valueColor} stopOpacity={0} />
+                  <stop offset="5%" stopColor={valueColor} stopOpacity={0.15} />
+                  <stop offset="95%" stopColor={valueColor} stopOpacity={0.01} />
                 </linearGradient>
                 <linearGradient id="colorTransactions" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={transactionsColor} stopOpacity={0.3} />
-                  <stop offset="95%" stopColor={transactionsColor} stopOpacity={0} />
+                  <stop offset="5%" stopColor={transactionsColor} stopOpacity={0.15} />
+                  <stop offset="95%" stopColor={transactionsColor} stopOpacity={0.01} />
                 </linearGradient>
               </defs>
               <CartesianGrid
                 strokeDasharray="3 3"
                 horizontal={true}
                 vertical={false}
-                stroke="#333"
+                stroke="#1a2657"
               />
               <XAxis
                 dataKey="date"
-                stroke="#888"
+                stroke="#d2d2d2"
                 fontSize={12}
+                tickMargin={20}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 yAxisId="left"
-                stroke="#888"
+                stroke="#d2d2d2"
+                tickMargin={10}
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
@@ -125,7 +131,8 @@ export function ChartByTime({
               <YAxis
                 yAxisId="right"
                 orientation="right"
-                stroke="#888"
+                stroke="#d2d2d2"
+                tickMargin={10}
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
@@ -136,29 +143,29 @@ export function ChartByTime({
                   if (active && payload && payload.length) {
                     const data = payload[0].payload as ChartData
                     return (
-                      <div className="rounded-lg border bg-background p-2 shadow-sm">
+                      <div className="rounded-lg border border-[#1a2657] bg-[#101b52] p-2 shadow-xl">
                         <div className="grid gap-2">
                           <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                            <span className="text-[0.70rem] uppercase text-gray-400">
                               Time
                             </span>
-                            <span className="font-bold text-muted-foreground">
+                            <span className="font-bold text-gray-200">
                               {data.date}
                             </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                            <span className="text-[0.70rem] uppercase text-gray-400">
                               Value
                             </span>
-                            <span className="font-bold text-muted-foreground">
+                            <span className="font-bold text-gray-200">
                               {valueFormatter(data.value)}
                             </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                            <span className="text-[0.70rem] uppercase text-gray-400">
                               Transactions
                             </span>
-                            <span className="font-bold text-muted-foreground">
+                            <span className="font-bold text-gray-200">
                               {transactionsFormatter(data.transactions)}
                             </span>
                           </div>
@@ -190,7 +197,7 @@ export function ChartByTime({
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="mt-4 flex items-center gap-4 text-sm text-gray-400">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full" style={{ backgroundColor: valueColor }} />
             <span>{valueLabel}</span>
