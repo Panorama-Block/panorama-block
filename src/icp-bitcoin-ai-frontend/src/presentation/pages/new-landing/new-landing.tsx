@@ -30,9 +30,17 @@ const NewLanding = () => {
     { name: 'Inteli', image: '/partners/inteli.webp' },
     { name: 'LMU', image: '/partners/lmu.png' },
     { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
-    { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
-    { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
-    { name: 'UCLA Economics', image: '/partners/ucla.webp' }
+    { name: 'Coinstore', image: '/partners/coinstore.webp' },
+    { name: 'Definity', image: '/partners/definity.jpg' },
+    { name: 'Blockchain Expo', image: '/partners/blockchain-expo.webp' },
+    { name: 'Hiro', image: '/partners/hiro.png' },
+    { name: 'Stacks', image: '/partners/stacks.jpg' },
+    { name: 'ICP Latam', image: '/partners/icp-latam.png' },
+    { name: 'ICP México', image: '/partners/icp-mexico.jpg' },
+    { name: 'Labitconf', image: '/partners/labitconf.png' },
+    { name: 'Superteam', image: '/partners/superteam.png' },
+    { name: 'Tokenize', image: '/partners/tokenize.webp' },
+    { name: 'Ibiza', image: '/partners/ibiza.jpg' }
   ]
 
   const [currentWord, setCurrentWord] = useState(0)
@@ -129,27 +137,27 @@ const NewLanding = () => {
           <div className="flex gap-12">
             <button
               onClick={() => scrollToSection('about')}
-              className="text-gray-300 text-lg hover:text-gray-600"
+              className="text-gray-300 text-lg hover:text-gray-100"
             >
               About
             </button>
             <button
               onClick={() => scrollToSection('team')}
-              className="text-gray-300 text-lg hover:text-gray-600"
+              className="text-gray-300 text-lg hover:text-gray-100"
             >
               Team
             </button>
             <a
               href="https://panoramablock.medium.com/"
               target="_blank"
-              className="text-gray-300 text-lg hover:text-gray-600"
+              className="text-gray-300 text-lg hover:text-gray-100"
             >
               Blog
             </a>
             <a
               href="https://docs.panoramablock.com"
               target="_blank"
-              className="text-gray-300 text-lg hover:text-gray-600"
+              className="text-gray-300 text-lg hover:text-gray-100"
             >
               Docs
             </a>
@@ -183,11 +191,11 @@ const NewLanding = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-neuton text-navy-900 mb-8">
+              <h2 className="text-5xl w-full font-neuton text-navy-900 mb-8">
                 Rooted in Academia, Evolved by AI
               </h2>
 
-              <div className="space-y-6 text-gray-600">
+              <div className="space-y-6 text-gray-600 text-lg">
                 <p>
                   Panorama Block was built on a strong academic foundation, with a focus on research and collaboration with top-tier talent. Our partnerships with UCLA’s Economics Department and leading Brazilian universities and think tanks drive the development of decentralized data analytics and AI/ML tools, fully aligned with our mission to advance AI technologies, simplify user experiences, democratize data access, and provide action-oriented intelligence that empower participants and investment decisions, supporting the growth of a data-powered, agentic economy.
                 </p>
@@ -259,22 +267,22 @@ const NewLanding = () => {
       <section className="py-16 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 mb-8">
           <h2 className="text-4xl font-neuton text-navy-900 text-center mb-12">
-            Our Partners
+            Proudly Collaborating with
           </h2>
         </div>
 
-        <div className="absolute flex h-[300px] w-screen relative overflow-hidden">
-          <div className="flex gap-40 animate-scroll">
+        <div className="absolute flex h-[300px] w-[4000px] relative overflow-hidden">
+          <div className="absolute flex gap-20 animate-scroll">
             {[...partners].map((partner, index) => (
               <div key={`${partner.name}-${index}`} className="flex">
-                <img src={partner.image} alt={partner.name} className="w-60 h-60 object-contain" />
+                <img src={partner.image} alt={partner.name} className="w-80 h-80 object-contain" />
               </div>
             ))}
           </div>
-          <div className="absolute flex gap-40 animate-scroll-2" aria-hidden={true}>
+          <div className="absolute flex gap-20 animate-scroll-2" aria-hidden={true}>
             {[...partners].map((partner, index) => (
               <div key={`${partner.name}-second-${index}`} className="flex">
-                <img src={partner.image} alt={partner.name} className="w-60 h-60 object-contain" />
+                <img src={partner.image} alt={partner.name} className="w-80 h-80 object-contain" />
               </div>
             ))}
           </div>
