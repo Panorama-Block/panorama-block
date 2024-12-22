@@ -407,7 +407,6 @@ const XRPL: React.FC = () => {
 
                     <div className="flex flex-col gap-4">
                         <InfoList className={styles.infoList} transactions={transactions} />
-                        <QuickTransfer />
                     </div>
                 </div>
 
