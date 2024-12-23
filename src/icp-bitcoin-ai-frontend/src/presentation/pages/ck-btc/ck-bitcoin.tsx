@@ -15,6 +15,7 @@ import CanistersTable from './components/ canisters-table/canisters-table'
 import TranscationsTable from './components/transactions-table/transactions-table'
 import { getLastWeek } from '@/src/utils/time'
 import { CkAreaChart } from './components/ck-area-chart/ck-area-chart'
+import Layout from '../../components/layout/Layout'
 
 const CkBitcoin: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
@@ -164,11 +165,11 @@ const CkBitcoin: React.FC = () => {
 
 
   return (
-    <div className={styles.home}>
-      <Sidebar active="Stacks" actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
-      <div className={styles.container}>
-        <Header onSubmit={handleGetInfo} />
-
+    <Layout
+      sidebar={{ actual, onChange: setActual, open: handleOpen }}
+      header={{ onSubmit: handleGetInfo }}
+    >
+      <div className={styles.home}>
         {
           totalSuply && <div className="flex flex-col mb-8 mx-12 text-white">
             <div className="flex gap-3 my-4">
@@ -237,36 +238,35 @@ const CkBitcoin: React.FC = () => {
           <SpendingChart data={stacksData.poxSubCycles} key="height" legend="Height" title="Stacking Cycles" range={[0, 4]} />
         </div> */}
 
-      </div>
+        {
+          modalOpened && <InfoModal data={info} onClose={() => handleClose()}>
+            {
+              info?.type === 'address' ? <AddressInfo title="Address Information" data={info?.['ok']} />
+                // : <TransactionInfo title="Transaction Information" data={info?.['ok'] && info?.['ok'][0] !== 'Invalid hex string' && JSON.parse(info?.['ok'][0])} />
+                : <TransactionInfo title="Transaction Information" data={info?.['ok']} />
+            }
+          </InfoModal>
+        }
 
-      {
-        modalOpened && <InfoModal data={info} onClose={() => handleClose()}>
-          {
-            info?.type === 'address' ? <AddressInfo title="Address Information" data={info?.['ok']} />
-              // : <TransactionInfo title="Transaction Information" data={info?.['ok'] && info?.['ok'][0] !== 'Invalid hex string' && JSON.parse(info?.['ok'][0])} />
-              : <TransactionInfo title="Transaction Information" data={info?.['ok']} />
-          }
-        </InfoModal>
-      }
+        {
+          chatOpened ? (
+            <OpenChat onClose={() => setChatOpened(false)} />
+          )
+            :
+            <div className={styles.chat} onClick={() => setChatOpened(true)}>
+              <Tooltip title="Community" placement="left" >
+                <img src="openchat.svg" alt="" />
+              </Tooltip>
+            </div>
+        }
 
-      {
-        chatOpened ? (
-          <OpenChat onClose={() => setChatOpened(false)} />
-        )
-          :
-          <div className={styles.chat} onClick={() => setChatOpened(true)}>
-            <Tooltip title="Community" placement="left" >
-              <img src="openchat.svg" alt="" />
-            </Tooltip>
-          </div>
-      }
-
-      {
-        whaleOpened && (
-          <WhaleHunting onSelect={(id: string) => handleGetInfo('address', id)} onClose={() => setWhaleOpened(false)} />
-        )
-      }
-    </div >
+        {
+          whaleOpened && (
+            <WhaleHunting onSelect={(id: string) => handleGetInfo('address', id)} onClose={() => setWhaleOpened(false)} />
+          )
+        }
+      </div >
+    </Layout>
   )
 }
 

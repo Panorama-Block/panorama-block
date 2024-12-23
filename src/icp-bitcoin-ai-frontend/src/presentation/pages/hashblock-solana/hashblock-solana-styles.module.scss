@@ -1,29 +1,19 @@
 .home {
   display: flex;
-  width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
+  // width: 100vw;
+  // height: 100vh;
+  // max-height: 100vh;
 
-  .container {
+  .info {
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow: hidden;
-    background-color: #060722;
-    padding-bottom: 20px;
-    display: flex;
-    overflow-y: auto;
+    // flex-direction: column;
+    // max-height: 50%;
 
-    .info {
-      display: flex;
-      // flex-direction: column;
-      // max-height: 50%;
-
-      .custom {
-        flex: 1;
-      }
+    .custom {
+      flex: 1;
     }
   }
+
 
   .chat {
     position: fixed;

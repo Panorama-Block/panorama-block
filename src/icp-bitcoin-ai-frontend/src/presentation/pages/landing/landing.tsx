@@ -21,7 +21,7 @@ const Landing: React.FC = () => {
   const navigate = useNavigate()
 
   const handleScroll = () => {
-    const position = window.pageYOffset
+    const position = window.scrollY
     setScrollPosition(position)
   }
 

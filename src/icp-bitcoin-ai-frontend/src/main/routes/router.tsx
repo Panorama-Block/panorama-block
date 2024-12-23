@@ -12,13 +12,15 @@ import PortfolioSolana from '@/src/presentation/pages/portfolio-solana/portfolio
 import StacksBitcoin from '@/src/presentation/pages/stacks-bitcoin/stacks-bitcoin'
 import Icp from '@/src/presentation/pages/icp/icp'
 import CkBitcoin from '@/src/presentation/pages/ck-btc/ck-bitcoin'
+import NewLanding from '@/src/presentation/pages/new-landing/new-landing'
+import XRPL from '@/src/presentation/pages/xrpl/xrpl'
 
 const Router: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
         {/* <Route path='/' element={<Login />} /> */}
-        <Route path='/' element={<Landing />} />
+        <Route path='/' element={<NewLanding />} />
         <Route path='/home' element={<Home />} />
         <Route path='/solana' element={<Solana />} />
         <Route path='/icp' element={<Icp />} />
@@ -30,6 +32,7 @@ const Router: React.FC = () => {
         <Route path='/portfolio/solana' element={<PortfolioSolana />} />
         <Route path='/stacks' element={<StacksBitcoin />} />
         <Route path='/solana/volume' element={<SolanaVolume />} />
+        <Route path='/xrpl' element={<XRPL />} />
       </Routes>
     </HashRouter>
   )

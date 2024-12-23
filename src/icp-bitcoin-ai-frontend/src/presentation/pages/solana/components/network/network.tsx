@@ -70,7 +70,7 @@ const Network: React.FC<Props> = ({ data }: Props) => {
         </div>
       </div>
 
-      <div className={`${styles.column} ${styles.market}`}>
+      {/* <div className={`${styles.column} ${styles.market}`}>
         <div className={styles.row}>
           <div>
             <h3 className={styles.label}>
@@ -87,8 +87,6 @@ const Network: React.FC<Props> = ({ data }: Props) => {
           </div>
         </div>
 
-        {/* <div className={styles.divider}></div> */}
-
         <div className={styles.row}>
           <div>
             <h3 className={styles.label}>
@@ -104,7 +102,7 @@ const Network: React.FC<Props> = ({ data }: Props) => {
             <p>{new Date().toLocaleDateString('en-US')}</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -19,6 +19,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/src/components/ui/tabs"
+import Layout from '../../components/layout/Layout'
 
 const data = [
   {
@@ -355,9 +356,16 @@ const PanorankingSolana: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <Sidebar active="Pano Ranking" actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} />
-      <div className={styles.container}>
-        <Header onSubmit={handleGetInfo} />
+      <Layout
+        sidebar={{
+          actual: actual,
+          onChange: (coin: string) => setActual(coin),
+          open: (page: string) => handleOpen(page)
+        }}
+        header={{
+          onSubmit: handleGetInfo
+        }}
+      >
         <div className="flex flex-col ml-12 mr-12 text-white">
           <div className="flex gap-3 ">
             <h1 className='text-xl ml-8 font-bold'>Pano Ranking</h1>
@@ -430,8 +438,8 @@ const PanorankingSolana: React.FC = () => {
               </TableBody>
             </Table>
           </div>
-        </div >
-      </div>
+        </div>
+      </Layout>
 
       {
         modalOpened && <InfoModal data={info} onClose={() => handleClose()}>

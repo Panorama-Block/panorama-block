@@ -16,6 +16,7 @@ import OpenChat from '../../components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
 import { hoursInterval, minutesInterval } from '../../../utils/time'
 import { compareTimestampDesc } from '../../../utils/sort'
+import Layout from '../../components/layout/Layout'
 
 const Home: React.FC = () => {
   const [actual, setActual] = useState('Bitcoin')
@@ -153,51 +154,53 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className={styles.home}>
-      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} active='Dashboard' />
-      <div className={styles.container}>
-        <Header onSubmit={handleGetInfo} />
+    <Layout
+      sidebar={{ actual, onChange: setActual, open: handleOpen }}
+      header={{ onSubmit: handleGetInfo }}
+    >
+      <div className={styles.home}>
         <Hashblocks coin={actual} data={hashblocks} onSelect={(hashblock: any) => handleHashblock(hashblock)} />
+        
         <div className={styles.info}>
           <Network data={data} />
           <CustomTabs
             hashblocks={hashblocks}
             labels={['by hashblocks', 'by time']} />
         </div>
+
+        {
+          modalOpened && <InfoModal data={info} onClose={() => handleClose()}>
+            {
+              info?.type === 'address' ? <AddressInfo title="Address Information" data={info?.['ok']} />
+                // : <TransactionInfo title="Transaction Information" data={info?.['ok'] && info?.['ok'][0] !== 'Invalid hex string' && JSON.parse(info?.['ok'][0])} />
+                : <TransactionInfo title="Transaction Information" data={info?.['ok']} />
+            }
+          </InfoModal>
+        }
+
+        {
+          hashblockOpened && actualHashblock && <HashblockInfo data={actualHashblock} onClose={() => handleHashblock()} />
+        }
+
+        {
+          chatOpened ? (
+            <OpenChat onClose={() => setChatOpened(false)} />
+          )
+            :
+            <div className={styles.chat} onClick={() => setChatOpened(true)}>
+              <Tooltip title="Community" placement="left" >
+                <img src="openchat.svg" alt="" />
+              </Tooltip>
+            </div>
+        }
+
+        {
+          whaleOpened && (
+            <WhaleHunting onSelect={(id: string) => handleGetInfo('address', id)} onClose={() => setWhaleOpened(false)} />
+          )
+        }
       </div>
-
-      {
-        modalOpened && <InfoModal data={info} onClose={() => handleClose()}>
-          {
-            info?.type === 'address' ? <AddressInfo title="Address Information" data={info?.['ok']} />
-              // : <TransactionInfo title="Transaction Information" data={info?.['ok'] && info?.['ok'][0] !== 'Invalid hex string' && JSON.parse(info?.['ok'][0])} />
-              : <TransactionInfo title="Transaction Information" data={info?.['ok']} />
-          }
-        </InfoModal>
-      }
-
-      {
-        hashblockOpened && actualHashblock && <HashblockInfo data={actualHashblock} onClose={() => handleHashblock()} />
-      }
-
-      {
-        chatOpened ? (
-          <OpenChat onClose={() => setChatOpened(false)} />
-        )
-          :
-          <div className={styles.chat} onClick={() => setChatOpened(true)}>
-            <Tooltip title="Community" placement="left" >
-              <img src="openchat.svg" alt="" />
-            </Tooltip>
-          </div>
-      }
-
-      {
-        whaleOpened && (
-          <WhaleHunting onSelect={(id: string) => handleGetInfo('address', id)} onClose={() => setWhaleOpened(false)} />
-        )
-      }
-    </div>
+    </Layout>
   )
 }
 
