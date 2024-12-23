@@ -14,6 +14,7 @@ import OpenChat from '../../components/open-chat/open-chat'
 import WhaleHunting from './components/whale-hunting/whale-hunting'
 import { getLastWeek, hoursInterval, minutesInterval } from '../../../utils/time'
 import { ICPAreaChart } from './components/icp-area-chart/icp-area-chart'
+import Layout from '../../components/layout/Layout'
 
 const Icp: React.FC = () => {
   const [actual, setActual] = useState('ICP')
@@ -219,10 +220,12 @@ const Icp: React.FC = () => {
   }
 
   return (
+    <Layout 
+      sidebar={{ actual: actual, onChange: (coin: string) => setActual(coin), open: (page: string) => handleOpen(page) }}
+      header={{ onSubmit: handleGetInfo }}
+    >
     <div className={styles.home}>
-      <Sidebar actual={actual} onChange={(coin) => setActual(coin)} open={(page: string) => handleOpen(page)} active='Dashboard' />
       <div className={styles.container}>
-        <Header onSubmit={handleGetInfo} />
         <div className={styles.info}>
           <Network data={data} />
           <div className={styles.custom}>
@@ -291,6 +294,7 @@ const Icp: React.FC = () => {
         )
       }
     </div>
+    </Layout>
   )
 }
 

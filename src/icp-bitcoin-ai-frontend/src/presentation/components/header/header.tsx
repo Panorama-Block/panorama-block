@@ -5,7 +5,7 @@ import SelectNetwork from '../select-network/select-network'
 
 type Props = {
   onSubmit: (type: string, value: string) => void
-}
+} 
 
 const Header: React.FC<Props> = ({ onSubmit }: Props) => {
   const [values, setValues] = useState({
