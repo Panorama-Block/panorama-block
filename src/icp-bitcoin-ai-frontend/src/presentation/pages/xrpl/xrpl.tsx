@@ -16,7 +16,7 @@ import { InfoBox } from '../../components/info-box/info-box'
 import { ChartByTime } from '../../components/chart-by-time/chart-by-time'
 import { InfoList } from '../../components/info-list/info-list'
 import Layout from '../../components/layout/Layout';
-import { QuickTransfer } from '@/src/presentation/components/quick-transfer/quick-transfer'
+import xrplService from '../../../data/services/xrpl-service'
 
 const XRPL: React.FC = () => {
     const [actual, setActual] = useState('Bitcoin')
@@ -37,6 +37,96 @@ const XRPL: React.FC = () => {
             token: 'XRP USD'
         }
     )
+    const [networkStats, setNetworkStats] = useState({
+        totalTransactions: "1,234,567",
+        avgTransactionValue: "2,500",
+        activeAccounts: "156,789",
+        transactionGrowth: 12.5,
+        valueGrowth: 8.3,
+        accountsGrowth: 5.2
+    })
+
+    const [ledgers, setLedgers] = useState<any[]>([])
+    const [ledgerData, setLedgerData] = useState<any[]>([])
+    const [ledgerMetrics, setLedgerMetrics] = useState<any[]>([])
+    const [transactionMetrics, setTransactionMetrics] = useState<any[]>([])
+    const [ledgerCloseMetrics, setLedgerCloseMetrics] = useState<any[]>([])
+    const [circulationMetrics, setCirculationMetrics] = useState<any[]>([])
+    const [objectTypeMetrics, setObjectTypeMetrics] = useState<any[]>([])
+    const [ledgerSizeMetrics, setLedgerSizeMetrics] = useState<any[]>([])
+    const [feeMetrics, setFeeMetrics] = useState<any[]>([])
+    const [stateDurationMetrics, setStateDurationMetrics] = useState<any[]>([])
+    const [txHistory, setTxHistory] = useState<any[]>([])
+    const [nftOffers, setNftOffers] = useState<any[]>([])
+    const [nftSellOffers, setNftSellOffers] = useState<any[]>([])
+
+    useEffect(() => {
+        const offers = xrplService.getNFTBuyOffers()
+        setNftOffers(offers)
+    }, [])
+
+
+    useEffect(() => {
+        const offers = xrplService.getNFTSellOffers()
+        setNftSellOffers(offers)
+    }, [])
+
+    useEffect(() => {
+        const history = xrplService.getTransactionHistory()
+        const formattedHistory = history.map((tx: any) => ({
+            id: tx.hash,
+            name: `${tx.type}`,
+            date: new Date(tx.date).toLocaleString(),
+            amount: `${tx.amount} XRP`,
+            description: tx.description || 'Transaction'
+        }))
+        setTxHistory(formattedHistory)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getLedgerMetrics()
+        setLedgerMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getTransactionMetrics()
+        setTransactionMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getLedgerCloseMetrics()
+        setLedgerCloseMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getCirculationMetrics()
+        setCirculationMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getStateDurationMetrics()
+        setStateDurationMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getObjectTypeDistribution()
+        setObjectTypeMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getLedgerSizeMetrics()
+        setLedgerSizeMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getFeeMetrics()
+        setFeeMetrics(metrics)
+    }, [])
+
+    useEffect(() => {
+        const metrics = xrplService.getStateDurationMetrics()
+        setStateDurationMetrics(metrics)
+    }, [])
 
     const verifyCacheInterval = (cache: any) => {
         if (cache.date) {
@@ -219,41 +309,6 @@ const XRPL: React.FC = () => {
         { date: "21:00", value: 3.4, transactions: 1500 },
     ];
 
-    const transactions = [
-        {
-            id: 1,
-            name: "Netflix",
-            date: "Apr 05 2023 at 21:46",
-            amount: "-$15.49",
-            positive: false,
-            logo: "https://via.placeholder.com/40",
-        },
-        {
-            id: 2,
-            name: "Spotify",
-            date: "Mar 14 2023 at 08:10",
-            amount: "+$135.49",
-            positive: true,
-            logo: "https://via.placeholder.com/40",
-        },
-        {
-            id: 3,
-            name: "Figma",
-            date: "Feb 20 2023 at 19:24",
-            amount: "-$75.00",
-            positive: false,
-            logo: "https://via.placeholder.com/40",
-        },
-        {
-            id: 4,
-            name: "Shopify",
-            date: "Jan 07 2023 at 06:58",
-            amount: "+$934.29",
-            positive: true,
-            logo: "https://via.placeholder.com/40",
-        },
-    ];
-
     return (
         <Layout
             sidebar={{ actual, onChange: (coin: string) => setActual(coin), open: (page: string) => handleOpen(page) }}
@@ -264,30 +319,200 @@ const XRPL: React.FC = () => {
                     <div className="flex flex-col col-span-2 gap-4">
                         <div className="grid grid-cols-3 gap-4">
                             <InfoBox
-                                title="XRP"
-                                value={data.transactionsValue}
-                                subtitle="Transactions Value (7 days)"
-                                percentageChange={0}
-                                className={styles.infoBox}
+                                title="24h Transactions"
+                                value={networkStats.totalTransactions}
+                                subtitle="Total transactions in last 24 hours"
+                                percentageChange={networkStats.transactionGrowth}
+                                className="bg-[#0B1437] border-[#1a2555]"
                             />
 
                             <InfoBox
-                                title="XRP"
-                                value={data.transactionsValue}
-                                subtitle="Transactions Value (7 days)"
-                                percentageChange={0}
-                                className={styles.infoBox}
+                                title="Average TX Value"
+                                value={`${networkStats.avgTransactionValue} XRP`}
+                                subtitle="Average transaction value in XRP"
+                                percentageChange={networkStats.valueGrowth}
+                                className="bg-[#0B1437] border-[#1a2555]"
                             />
 
                             <InfoBox
-                                title="XRP"
-                                value={data.transactionsValue}
-                                subtitle="Transactions Value (7 days)"
-                                percentageChange={0}
-                                className={styles.infoBox}
+                                title="Active Accounts"
+                                value={networkStats.activeAccounts}
+                                subtitle="Active accounts in last 24 hours"
+                                percentageChange={networkStats.accountsGrowth}
+                                className="bg-[#0B1437] border-[#1a2555]"
                             />
 
                         </div>
+
+
+                        <ChartByTime
+                            data={ledgerMetrics}
+                            className={styles.chartByTime}
+                            title="Ledger Index & Hash"
+                            description="Track ledger sequence numbers and hash values over time"
+                            valueLabel="Ledger Index"
+                            transactionsLabel="Hash Value"
+                            valueColor="#6366F1"
+                            transactionsColor="#8B5CF6"
+                            valueFormatter={(value) => `#${value.toLocaleString()}`}
+                            transactionsFormatter={(value) => `0x${value.toString(16)}`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                            ]}
+                            defaultPeriod="1H"
+                        />
+
+                        <ChartByTime
+                            data={transactionMetrics}
+                            className={styles.chartByTime}
+                            title="Transaction Activity"
+                            description="Number of transactions and volume per ledger"
+                            valueLabel="Transaction Count"
+                            transactionsLabel="Volume (XRP)"
+                            valueColor="#10B981"
+                            transactionsColor="#6366F1"
+                            valueFormatter={(value) => `${value} txs`}
+                            transactionsFormatter={(value) => `${(value / 1000).toFixed(1)}k XRP`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={ledgerCloseMetrics}
+                            className={styles.chartByTime}
+                            title="Ledger Close Time & Consensus"
+                            description="Track ledger closing speed and validator participation"
+                            valueLabel="Close Time"
+                            transactionsLabel="Validators"
+                            valueColor="#14B8A6"
+                            transactionsColor="#F97316"
+                            valueFormatter={(value) => `${value.toFixed(2)}s`}
+                            transactionsFormatter={(value) => `${value} nodes`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                            ]}
+                            defaultPeriod="1H"
+                        />
+
+                        <ChartByTime
+                            data={circulationMetrics}
+                            className={styles.chartByTime}
+                            title="XRP Supply Distribution"
+                            description="Track total and locked XRP supply over time"
+                            valueLabel="Total Supply"
+                            transactionsLabel="Locked Supply"
+                            valueColor="#3B82F6"
+                            transactionsColor="#EF4444"
+                            valueFormatter={(value) => `${(value / 1000000).toFixed(2)}M XRP`}
+                            transactionsFormatter={(value) => `${(value / 1000000).toFixed(2)}M XRP`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={stateDurationMetrics}
+                            className={styles.chartByTime}
+                            title="Server State Performance"
+                            description="Track server state durations and transition frequency"
+                            valueLabel="Full State Time"
+                            transactionsLabel="State Transitions"
+                            valueColor="#10B981"
+                            transactionsColor="#F97316"
+                            valueFormatter={(value) => `${value.toFixed(1)}%`}
+                            transactionsFormatter={(value) => `${value} changes`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={objectTypeMetrics}
+                            className={styles.chartByTime}
+                            title="Ledger Object Distribution"
+                            description="Distribution of different object types in the XRP Ledger"
+                            valueLabel="Total Objects"
+                            transactionsLabel="Active Objects"
+                            valueColor="#8B5CF6"
+                            transactionsColor="#EC4899"
+                            valueFormatter={(value) => `${(value / 1000).toFixed(1)}K objects`}
+                            transactionsFormatter={(value) => `${(value / 1000).toFixed(1)}K active`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={ledgerSizeMetrics}
+                            className={styles.chartByTime}
+                            title="Ledger Size Growth"
+                            description="Track the total size of the XRP Ledger and transaction volume"
+                            valueLabel="Ledger Size"
+                            transactionsLabel="Transactions"
+                            valueColor="#3B82F6"
+                            transactionsColor="#10B981"
+                            valueFormatter={(value) => `${(value / 1024).toFixed(2)} GB`}
+                            transactionsFormatter={(value) => `${(value / 1000).toFixed(1)}K txs`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                                { value: "30D", label: "30D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
+
+                        <ChartByTime
+                            data={feeMetrics}
+                            className={styles.chartByTime}
+                            title="Network Fee Dynamics"
+                            description="Track transaction costs and network load factors"
+                            valueLabel="Transaction Fee"
+                            transactionsLabel="Queue State"
+                            valueColor="#F59E0B"
+                            transactionsColor="#6366F1"
+                            valueFormatter={(value) => `${value} drops`}
+                            transactionsFormatter={(value) => `${(value / 256).toFixed(2)}x base`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="1H"
+                        />
+
+                        <ChartByTime
+                            data={stateDurationMetrics}
+                            className={styles.chartByTime}
+                            title="Server State Performance"
+                            description="Track server state durations and transition frequency"
+                            valueLabel="Full State Time"
+                            transactionsLabel="State Transitions"
+                            valueColor="#10B981"
+                            transactionsColor="#F97316"
+                            valueFormatter={(value) => `${value.toFixed(1)}%`}
+                            transactionsFormatter={(value) => `${value} changes`}
+                            periods={[
+                                { value: "1H", label: "1H" },
+                                { value: "24H", label: "24H" },
+                                { value: "7D", label: "7D" },
+                            ]}
+                            defaultPeriod="24H"
+                        />
 
                         <ChartByTime
                             data={hashblocksData}
@@ -401,12 +626,27 @@ const XRPL: React.FC = () => {
                             ]}
                             defaultPeriod="1H"
                         />
-
-                        {/* <Wallet /> */}
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <InfoList className={styles.infoList} transactions={transactions} />
+                        <InfoList
+                            className={styles.infoList}
+                            title="Transactions"
+                            transactions={txHistory}
+                            showLogo={false}
+                        />
+                        <InfoList
+                            className={styles.infoList}
+                            title="NFT Buy Offers"
+                            transactions={nftOffers}
+                            showLogo={false}
+                        />
+                        <InfoList
+                            className={styles.infoList}
+                            title="NFT Sell Offers"
+                            transactions={nftSellOffers}
+                            showLogo={false}
+                        />
                     </div>
                 </div>
 

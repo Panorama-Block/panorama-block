@@ -6261,5 +6261,98 @@
                 "message": "This is a clio server. clio only serves validated data. If you want to talk to rippled, include 'ledger_index':'current' in your request"
             }
         ]
+    },
+    "fee": {
+        "forwarded": true,
+        "result": {
+            "state": {
+                "build_version": "2.3.0",
+                "complete_ledgers": "92509370-92949797",
+                "initial_sync_duration_us": "299689743",
+                "io_latency_ms": 1,
+                "jq_trans_overflow": "0",
+                "last_close": {
+                    "converge_time": 3006,
+                    "proposers": 35
+                },
+                "load_base": 256,
+                "load_factor": 256,
+                "load_factor_fee_escalation": 256,
+                "load_factor_fee_queue": 256,
+                "load_factor_fee_reference": 256,
+                "load_factor_server": 256,
+                "network_id": 0,
+                "peer_disconnects": "102814",
+                "peer_disconnects_resources": "1745",
+                "peers": 217,
+                "ports": [
+                    {
+                        "port": "2459",
+                        "protocol": [
+                            "peer"
+                        ]
+                    },
+                    {
+                        "port": "51233",
+                        "protocol": [
+                            "ws2",
+                            "wss2"
+                        ]
+                    },
+                    {
+                        "port": "50051",
+                        "protocol": [
+                            "grpc"
+                        ]
+                    }
+                ],
+                "pubkey_node": "n9LgDqbXbUUznxHFLf86GLSQsU7vbitckYxJZ9CRDVeo6Z7gQcuQ",
+                "server_domain": "ripple.com",
+                "server_state": "full",
+                "server_state_duration_us": "965230994758",
+                "state_accounting": {
+                    "connected": {
+                        "duration_us": "74754157",
+                        "transitions": "3"
+                    },
+                    "disconnected": {
+                        "duration_us": "219810237",
+                        "transitions": "2"
+                    },
+                    "full": {
+                        "duration_us": "1759410358804",
+                        "transitions": "7"
+                    },
+                    "syncing": {
+                        "duration_us": "10688821",
+                        "transitions": "7"
+                    },
+                    "tracking": {
+                        "duration_us": "59465618",
+                        "transitions": "8"
+                    }
+                },
+                "time": "2024-Dec-22 20:10:31.101008 UTC",
+                "uptime": 1759775,
+                "validated_ledger": {
+                    "base_fee": 10,
+                    "close_time": 788213430,
+                    "hash": "3C7AE9452BFF2CD8D4452DE8F604203F1955D10357FFE804FD14BB0490BFBAB6",
+                    "reserve_base": 1000000,
+                    "reserve_inc": 200000,
+                    "seq": 92949797
+                },
+                "validation_quorum": 28
+            },
+            "status": "success"
+        },
+        "status": "success",
+        "type": "response",
+        "warnings": [
+            {
+                "id": 2001,
+                "message": "This is a clio server. clio only serves validated data. If you want to talk to rippled, include 'ledger_index':'current' in your request"
+            }
+        ]
     }
 }
