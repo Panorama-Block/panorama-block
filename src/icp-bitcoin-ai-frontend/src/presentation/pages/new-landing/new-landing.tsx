@@ -50,7 +50,7 @@ const NewLanding = () => {
   const cities = [
     { name: 'Los Angeles', x: 182, y: 205 },
     { name: 'São Paulo', x: 451, y: 478 },
-    { name: 'Porto Rico', x: 360, y: 280 },
+    { name: 'Puerto Rico', x: 360, y: 280 },
   ]
 
   const [hoveredCity, setHoveredCity] = useState<string | null>(null)
