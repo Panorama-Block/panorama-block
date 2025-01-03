@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 const resources = [
   { name: 'Resources', href: '#', isTitle: true },
   { name: 'Docs', href: 'https://docs.panoramablock.com' },
+  { name: 'Blog', href: 'https://panoramablock.medium.com/' },
   { name: 'Github', href: 'https://github.com/Panorama-Block' },
   { name: 'LinkedIn', href: 'https://linkedin.com/company/panoramablock' },
   { name: 'X', href: 'https://x.com/panoramablock' },
@@ -30,8 +31,9 @@ const NewLanding = () => {
     { name: 'Inteli', image: '/partners/inteli.webp' },
     { name: 'LMU', image: '/partners/lmu.png' },
     { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
+    { name: 'UCLA Economics', image: '/partners/ucla.png' },
     { name: 'Coinstore', image: '/partners/coinstore.webp' },
-    { name: 'Definity', image: '/partners/definity.jpg' },
+    { name: 'Dfinity', image: '/partners/dfinity.png' },
     { name: 'Blockchain Expo', image: '/partners/blockchain-expo.webp' },
     { name: 'Hiro', image: '/partners/hiro.png' },
     { name: 'Stacks', image: '/partners/stacks.jpg' },
@@ -58,37 +60,37 @@ const NewLanding = () => {
     {
       name: 'Alex Nascimento',
       role: 'Founder',
-      image: '/team/alex.jpeg',
+      image: '/team/alex_w&b.jpeg',
       linkedin: 'https://linkedin.com/in/nascimentoalex'
     },
     {
       name: 'Gustavo Torrecilha',
       role: 'VP',
-      image: '/team/gustavo.jpg',
+      image: '/team/gustavo_w&b.jpg',
       linkedin: 'https://linkedin.com/in/gustavo-torrecilha'
     },
     {
       name: 'Hugo Noyma',
       role: 'Blockchain Engineer',
-      image: '/team/hugo.jpeg',
+      image: '/team/hugo_w&b.jpg',
       linkedin: 'https://linkedin.com/in/hugo-noyma'
     },
     {
       name: 'Felipe Saadi',
       role: 'Full-stack developer',
-      image: '/team/felipe.jpg',
+      image: '/team/felipe_w&b.jpg',
       linkedin: 'https://linkedin.com/in/felipe-saadi'
     },
     {
       name: 'Maria Helena',
       role: 'Research & Compliance',
-      image: '/team/maria.jpeg',
+      image: '/team/maria_w&b.jpg',
       linkedin: 'https://linkedin.com/in/mariahelenarocha'
     },
     {
       name: 'André Costa',
       role: 'Blockchain Engineer',
-      image: '/team/andre.jpg',
+      image: '/team/andre_w&b.jpg',
       linkedin: 'https://www.linkedin.com/in/andre-mestriner-costa/'
     }
   ]
@@ -151,7 +153,7 @@ const NewLanding = () => {
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-
+            
             <div className="hidden md:flex gap-12">
               <button
                 onClick={() => scrollToSection('about')}
@@ -165,13 +167,12 @@ const NewLanding = () => {
               >
                 Team
               </button>
-              <a
-                href="https://panoramablock.medium.com/"
-                target="_blank"
+              <button
+                onClick={() => scrollToSection('resources')}
                 className="text-gray-300 text-lg hover:text-gray-100"
               >
-                Blog
-              </a>
+                Resources
+              </button>
               <a
                 href="https://docs.panoramablock.com"
                 target="_blank"
@@ -182,7 +183,6 @@ const NewLanding = () => {
             </div>
           </div>
 
-          {/* Mobile menu */}
           <div
             className={`fixed inset-0 bg-gray-900 transition-transform duration-300 ease-in-out md:hidden ${
               isMenuOpen ? 'translate-x-0' : 'translate-x-full'
@@ -207,23 +207,19 @@ const NewLanding = () => {
               >
                 Team
               </button>
-              <a
-                href="https://panoramablock.medium.com/"
-                target="_blank"
-                className="text-gray-300 text-xl hover:text-gray-100"
-                onClick={closeMenu}
-              >
-                Blog
-              </a>
-              <a
-                href="https://docs.panoramablock.com"
-                target="_blank"
-                className="text-gray-300 text-xl hover:text-gray-100"
-                onClick={closeMenu}
-              >
-                Docs
-              </a>
-            </div>
+            <button
+              onClick={() => scrollToSection('resources')}
+              className="text-gray-300 text-lg hover:text-gray-100"
+            >
+              Resources
+            </button>
+            <a
+              href="https://docs.panoramablock.com"
+              target="_blank"
+              className="text-gray-300 text-lg hover:text-gray-100"
+            >
+              Docs
+            </a>
           </div>
         </nav>
       </header>
@@ -232,7 +228,7 @@ const NewLanding = () => {
         <div className="absolute inset-0 bg-[url('/bg.jpg')] bg-cover bg-center opacity-50 w-full" />
 
         <div className="relative flex items-center justify-center h-full">
-          <h1 className="text-4xl md:text-6xl font-neuton text-zinc-300 w-full md:w-[1200px] mx-auto px-4 md:px-0">
+          <h1 className="text-5xl md:text-6xl font-neuton text-zinc-300 w-full md:w-[1200px] mx-auto px-4 md:px-0">
             <span className='flex font-neuton flex-col gap-5 text-center'>
               Panoramic view of{' '}
               <span className="inline-block h-[1.2em]">
@@ -256,11 +252,11 @@ const NewLanding = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-5xl w-full font-neuton text-navy-900 mb-8">
+              <h2 className="text-6xl w-full font-neuton text-navy-900 mb-8">
                 Rooted in Academia, Evolved by AI
               </h2>
 
-              <div className="space-y-6 text-gray-600 text-lg">
+              <div className="space-y-6 text-gray-600 text-xl">
                 <p>
                   Panorama Block was built on a strong academic foundation, with a focus on research and collaboration with top-tier talent. Our partnerships with UCLA’s Economics Department and leading Brazilian universities and think tanks drive the development of decentralized data analytics and AI/ML tools, fully aligned with our mission to advance AI technologies, simplify user experiences, democratize data access, and provide action-oriented intelligence that empower participants and investment decisions, supporting the growth of a data-powered, agentic economy.
                 </p>
@@ -421,7 +417,7 @@ const NewLanding = () => {
             ))}
           </div>
 
-          <div className="flex flex-col items-center gap-8">
+          <div id="resources" className="flex flex-col items-center gap-8">
             <div className="flex gap-4">
               <a
                 href="https://linkedin.com/company/panoramablock"
