@@ -153,7 +153,7 @@ const NewLanding = () => {
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            
+
             <div className="hidden md:flex gap-12">
               <button
                 onClick={() => scrollToSection('about')}
@@ -184,9 +184,8 @@ const NewLanding = () => {
           </div>
 
           <div
-            className={`fixed inset-0 bg-gray-900 transition-transform duration-300 ease-in-out md:hidden ${
-              isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`fixed inset-0 bg-gray-900 transition-transform duration-300 ease-in-out md:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+              }`}
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
               <button
@@ -207,19 +206,24 @@ const NewLanding = () => {
               >
                 Team
               </button>
-            <button
-              onClick={() => scrollToSection('resources')}
-              className="text-gray-300 text-lg hover:text-gray-100"
-            >
-              Resources
-            </button>
-            <a
-              href="https://docs.panoramablock.com"
-              target="_blank"
-              className="text-gray-300 text-lg hover:text-gray-100"
-            >
-              Docs
-            </a>
+              <button
+                onClick={() => {
+                  scrollToSection('resources')
+                  closeMenu()
+                }}
+                className="text-gray-300 text-xl hover:text-gray-100"
+              >
+                Resources
+              </button>
+              <a
+                href="https://docs.panoramablock.com"
+                target="_blank"
+                className="text-gray-300 text-xl hover:text-gray-100"
+                onClick={closeMenu}
+              >
+                Docs
+              </a>
+            </div>
           </div>
         </nav>
       </header>
@@ -339,7 +343,7 @@ const NewLanding = () => {
                 key={`${partner.name}-${index}`}
                 src={partner.image}
                 alt={partner.name}
-                className="h-20 md:h-18 object-contain"
+                className="h-14 md:h-18 object-contain"
               />
             ))}
           </div>
@@ -349,7 +353,7 @@ const NewLanding = () => {
                 key={`${partner.name}-second-${index}`}
                 src={partner.image}
                 alt={partner.name}
-                className="h-20 md:h-18 object-contain"
+                className="h-14 md:h-18 object-contain"
               />
             ))}
           </div>
