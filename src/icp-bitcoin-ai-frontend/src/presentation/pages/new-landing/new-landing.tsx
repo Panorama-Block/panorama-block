@@ -1,5 +1,5 @@
 import { Button } from '@/src/components/ui/button'
-import { ChevronUp, SearchCode } from 'lucide-react'
+import { ChevronUp, SearchCode, Menu, X } from 'lucide-react'
 import { Store, TrendingUp, Linkedin, Github, Twitter } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
@@ -48,9 +48,9 @@ const NewLanding = () => {
   const [currentWord, setCurrentWord] = useState(0)
 
   const cities = [
-    { name: 'Los Angeles', x: 182, y: 205 },
-    { name: 'São Paulo', x: 451, y: 478 },
-    { name: 'Puerto Rico', x: 360, y: 280 },
+    { name: 'Los Angeles', x: 30, y: 31 },
+    { name: 'Porto Rico', x: 60, y: 44.4 },
+    { name: 'São Paulo', x: 75.5, y: 75.1 },
   ]
 
   const [hoveredCity, setHoveredCity] = useState<string | null>(null)
@@ -127,50 +127,112 @@ const NewLanding = () => {
     }
   }
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+  }
+
   return (
     <div className="relative">
-      <header className="absolute w-full z-10 p-4">
-        <nav className="flex justify-between items-center max-w-7xl mx-auto">
-          <div className="flex items-center gap-2">
-            <img src="/new-logo.png" alt="Panorama Block" className="h-24" />
-            <span className="text-gray-300">Panorama Block</span>
+      <header className="absolute w-full z-50 p-4">
+        <nav className="relative max-w-7xl mx-auto">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2 z-50">
+              <img src="/new-logo.png" alt="Panorama Block" className="h-12 md:h-16" />
+              <span className="text-gray-300 text-sm md:text-base">Panorama Block</span>
+            </div>
+
+            <button
+              onClick={toggleMenu}
+              className="md:hidden z-50 text-gray-300 hover:text-gray-100 focus:outline-none"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            <div className="hidden md:flex gap-12">
+              <button
+                onClick={() => scrollToSection('about')}
+                className="text-gray-300 text-lg hover:text-gray-100"
+              >
+                About
+              </button>
+              <button
+                onClick={() => scrollToSection('team')}
+                className="text-gray-300 text-lg hover:text-gray-100"
+              >
+                Team
+              </button>
+              <button
+                onClick={() => scrollToSection('resources')}
+                className="text-gray-300 text-lg hover:text-gray-100"
+              >
+                Resources
+              </button>
+              <a
+                href="https://docs.panoramablock.com"
+                target="_blank"
+                className="text-gray-300 text-lg hover:text-gray-100"
+              >
+                Docs
+              </a>
+            </div>
           </div>
 
-          <div className="flex gap-12">
-            <button
-              onClick={() => scrollToSection('about')}
-              className="text-gray-300 text-lg hover:text-gray-100"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection('team')}
-              className="text-gray-300 text-lg hover:text-gray-100"
-            >
-              Team
-            </button>
-            <button
-              onClick={() => scrollToSection('resources')}
-              className="text-gray-300 text-lg hover:text-gray-100"
-            >
-              Resources
-            </button>
-            <a
-              href="https://docs.panoramablock.com"
-              target="_blank"
-              className="text-gray-300 text-lg hover:text-gray-100"
-            >
-              Docs
-            </a>
+          <div
+            className={`fixed inset-0 bg-gray-900 transition-transform duration-300 ease-in-out md:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+              }`}
+          >
+            <div className="flex flex-col items-center justify-center h-full gap-8">
+              <button
+                onClick={() => {
+                  scrollToSection('about')
+                  closeMenu()
+                }}
+                className="text-gray-300 text-xl hover:text-gray-100"
+              >
+                About
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection('team')
+                  closeMenu()
+                }}
+                className="text-gray-300 text-xl hover:text-gray-100"
+              >
+                Team
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection('resources')
+                  closeMenu()
+                }}
+                className="text-gray-300 text-xl hover:text-gray-100"
+              >
+                Resources
+              </button>
+              <a
+                href="https://docs.panoramablock.com"
+                target="_blank"
+                className="text-gray-300 text-xl hover:text-gray-100"
+                onClick={closeMenu}
+              >
+                Docs
+              </a>
+            </div>
           </div>
         </nav>
       </header>
 
-      <div className="relative h-screen bg-gray-600">
-        <div className="absolute inset-0 bg-[url('/bg.jpg')] bg-cover bg-center opacity-50" />
+      <div className="relative h-screen bg-gray-600 w-full">
+        <div className="absolute inset-0 bg-[url('/bg.jpg')] bg-cover bg-center opacity-50 w-full" />
 
         <div className="relative flex items-center justify-center h-full">
-          <h1 className="text-5xl font-neuton text-zinc-300 w-[1200px] mx-auto">
+          <h1 className="text-5xl md:text-6xl font-neuton text-zinc-300 w-full md:w-[1200px] mx-auto px-4 md:px-0">
             <span className='flex font-neuton flex-col gap-5 text-center'>
               Panoramic view of{' '}
               <span className="inline-block h-[1.2em]">
@@ -183,16 +245,16 @@ const NewLanding = () => {
               </span>
 
               <a href="/#home">
-                <Button variant="outline" className="mx-auto mt-10 w-[200px] text-gray-50 bg-gray-500">Launch Beta App</Button>
+                <Button variant="outline" className="mx-auto mt-6 md:mt-10 w-[200px] text-gray-50 bg-gray-500">Launch Beta App</Button>
               </a>
             </span>
           </h1>
         </div>
       </div>
 
-      <section id="about" className="py-24 bg-white">
+      <section id="about" className="py-24 bg-white flex flex-col min-h-screen">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-6xl w-full font-neuton text-navy-900 mb-8">
                 Rooted in Academia, Evolved by AI
@@ -212,7 +274,7 @@ const NewLanding = () => {
                 <div
                   key={city.name}
                   className="absolute w-3 h-3 bg-navy-900 rounded-full cursor-pointer"
-                  style={{ left: `${city.x}px`, top: `${city.y}px` }}
+                  style={{ left: `${city.x}%`, top: `${city.y}%` }}
                   onMouseEnter={() => setHoveredCity(city.name)}
                   onMouseLeave={() => setHoveredCity(null)}
                 >
@@ -230,7 +292,7 @@ const NewLanding = () => {
 
       <section id="products" className="py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="p-8 bg-gray-800/50 rounded-lg flex flex-col items-center text-center">
               <div className="w-14 h-14 mb-6 text-gray-400 relative">
                 <SearchCode className="w-full h-full" />
@@ -274,19 +336,25 @@ const NewLanding = () => {
           </h2>
         </div>
 
-        <div className="absolute flex h-[300px] w-[4000px] relative overflow-hidden">
+        <div className="absolute flex items-center h-[150px] w-[4000px] relative overflow-hidden">
           <div className="absolute flex gap-20 animate-scroll">
             {[...partners].map((partner, index) => (
-              <div key={`${partner.name}-${index}`} className="flex">
-                <img src={partner.image} alt={partner.name} className="w-80 h-80 object-contain" />
-              </div>
+              <img
+                key={`${partner.name}-${index}`}
+                src={partner.image}
+                alt={partner.name}
+                className="h-14 md:h-18 object-contain"
+              />
             ))}
           </div>
-          <div className="absolute flex gap-20 animate-scroll-2" aria-hidden={true}>
+          <div className="absolute flex items-center gap-20 animate-scroll-2" aria-hidden={true}>
             {[...partners].map((partner, index) => (
-              <div key={`${partner.name}-second-${index}`} className="flex">
-                <img src={partner.image} alt={partner.name} className="w-80 h-80 object-contain" />
-              </div>
+              <img
+                key={`${partner.name}-second-${index}`}
+                src={partner.image}
+                alt={partner.name}
+                className="h-14 md:h-18 object-contain"
+              />
             ))}
           </div>
         </div>
@@ -304,7 +372,7 @@ const NewLanding = () => {
                 key={member.name}
                 className="mx-auto w-[300px] bg-gray-800/50 rounded-lg p-8 flex flex-col items-center"
               >
-                <div className="w-40 h-40 mb-6 rounded-full overflow-hidden ring-4 ring-gray-700/50">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-4 ring-gray-700/50">
                   <img
                     src={member.image}
                     alt={member.name}
@@ -402,7 +470,7 @@ const NewLanding = () => {
             </div>
 
             <p className="text-gray-400 text-sm">
-              Copyright © {new Date().getFullYear()} - All rights reserved.
+              Copyright {new Date().getFullYear()} - All rights reserved.
             </p>
           </div>
         </div>
