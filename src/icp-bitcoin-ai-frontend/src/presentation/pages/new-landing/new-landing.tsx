@@ -89,7 +89,7 @@ const NewLanding = () => {
     },
     {
       name: 'André Costa',
-      role: 'Blockchain Engineer',
+      role: 'Token Engineer',
       image: '/team/andre_w&b.jpg',
       linkedin: 'https://www.linkedin.com/in/andre-mestriner-costa/'
     }
@@ -234,7 +234,7 @@ const NewLanding = () => {
         <div className="relative flex items-center justify-center h-full">
           <h1 className="text-5xl md:text-6xl font-neuton text-zinc-300 w-full md:w-[1200px] mx-auto px-4 md:px-0">
             <span className='flex font-neuton flex-col gap-5 text-center'>
-              Panoramic view of{' '}
+              A Panoramic View of{' '}
               <span className="inline-block h-[1.2em]">
                 <span
                   key={words[currentWord]}
@@ -256,11 +256,11 @@ const NewLanding = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-6xl w-full font-neuton text-navy-900 mb-8">
+              <h2 className="text-5xl w-full font-neuton text-navy-900 mb-8 md:text-7xl">
                 Rooted in Academia, Evolved by AI
               </h2>
 
-              <div className="space-y-6 text-gray-600 text-xl">
+              <div className="space-y-6 text-gray-600 text-xl md:text-2xl">
                 <p>
                   Panorama Block was built on a strong academic foundation, with a focus on research and collaboration with top-tier talent. Our partnerships with UCLA’s Economics Department and leading Brazilian universities and think tanks drive the development of decentralized data analytics and AI/ML tools, fully aligned with our mission to advance AI technologies, simplify user experiences, democratize data access, and provide action-oriented intelligence that empower participants and investment decisions, supporting the growth of a data-powered, agentic economy.
                 </p>
@@ -292,13 +292,18 @@ const NewLanding = () => {
 
       <section id="products" className="py-24 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 mb-8">
+            <h2 className="text-4xl font-neuton text-zinc-200 text-center mb-16">
+              Our Verticals
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="p-8 bg-gray-800/50 rounded-lg flex flex-col items-center text-center">
               <div className="w-14 h-14 mb-6 text-gray-400 relative">
                 <SearchCode className="w-full h-full" />
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl rounded-full" />
               </div>
-              <h3 className="text-2xl font-neuton text-gray-200 mb-4">Actionable Data Across Multiple Chains</h3>
+              <h3 className="text-2xl font-neuton text-gray-200 mb-4">Panorama Chain View</h3>
               <p className="text-gray-400">
                 Panorama Block will provide user-friendly blockchain scanners offering composable, actionable data across different chains. The platform will allow users to explore the latest blocks, analyze transactions, and track wallet activity, all powered by real-time AI analytics. With a focus on delivering valuable, easy-to-understand insights, Panorama Block will help users navigate various Web3 niches and verticals.
               </p>
@@ -309,7 +314,7 @@ const NewLanding = () => {
                 <Store className="w-full h-full" />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 blur-xl rounded-full" />
               </div>
-              <h3 className="text-2xl font-neuton text-gray-200 mb-4">Decentralized Marketplace for AI Agent Creation</h3>
+              <h3 className="text-2xl font-neuton text-gray-200 mb-4">AI Marketplace</h3>
               <p className="text-gray-400">
                 A marketplace for AI agents and Web3 analytics tools will enable developers to deploy and monetize custom agents tailored to specific use cases. Enterprises will be able to integrate advanced AI models for specialized applications, with APIs facilitating data interaction across multiple blockchains. Panorama Block will provide infrastructure for building, testing, and scaling AI-powered solutions, focusing on decentralized data processing and real-time analytics.
               </p>
@@ -320,9 +325,9 @@ const NewLanding = () => {
                 <TrendingUp className="w-full h-full" />
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 blur-xl rounded-full" />
               </div>
-              <h3 className="text-2xl font-neuton text-gray-200 mb-4">Pano Ranking: DeFi Strategy Hub</h3>
+              <h3 className="text-2xl font-neuton text-gray-200 mb-4">DeFi Vista: DeFi Strategy Hub</h3>
               <p className="text-gray-400">
-                Pano Ranking will allow users to create, deploy, and manage high-yield strategies within the Panorama Block ecosystem, acting as a hub for developing and optimizing DeFi yield models. The product will enable users to list their strategies, participate in a community-driven leaderboard, and tap into yield plays through AI-driven scorecards that highlight top opportunities.
+                DeFi Vista will allow users to create, deploy, and manage high-yield strategies within the Panorama Block ecosystem, acting as a hub for developing and optimizing DeFi yield models. The product will enable users to list their strategies, participate in a community-driven leaderboard, and tap into yield plays through AI-driven scorecards that highlight top opportunities.
               </p>
             </div>
           </div>
