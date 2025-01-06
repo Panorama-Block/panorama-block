@@ -20,6 +20,7 @@ export default {
 			fontFamily: {
 				'neuton': ['Neuton', 'serif'],
 				'asgard': ['AsgardTrial', 'serif'],
+				'gravitica': ['Gravitica-Mono', 'monospace'],
 			},
 			colors: {
 				'navy': {
