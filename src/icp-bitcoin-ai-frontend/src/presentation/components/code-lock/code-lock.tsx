@@ -54,6 +54,27 @@ const CodeLock = ({ isOpen, onClose, onSuccess }: CodeLockProps) => {
     }
   }
 
+  const handlePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    const pastedText = event.clipboardData.getData('text')
+    
+    if (/^\d{6}$/.test(pastedText)) {
+      const newCode = pastedText.split('')
+      setCode(newCode)
+      setError(false)
+      
+      if (pastedText === correctCode) {
+        onSuccess()
+      } else {
+        setError(true)
+        setTimeout(() => {
+          setCode(['', '', '', '', '', ''])
+          inputRefs.current[0]?.focus()
+        }, 500)
+      }
+    }
+  }
+
   if (!isOpen) return null
 
   return (
@@ -67,7 +88,7 @@ const CodeLock = ({ isOpen, onClose, onSuccess }: CodeLockProps) => {
         </button>
 
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-white mb-2">Enter Access Code</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">Enter Early-Access Code</h2>
           <p className="text-zinc-400">Please enter the 6-digit code to continue</p>
         </div>
 
@@ -80,6 +101,7 @@ const CodeLock = ({ isOpen, onClose, onSuccess }: CodeLockProps) => {
               value={digit}
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
+              onPaste={handlePaste}
               className={`w-12 h-12 text-center text-xl font-bold bg-zinc-800 border ${
                 error ? 'border-red-500' : 'border-zinc-700'
               } rounded-lg focus:outline-none focus:border-blue-500 text-white`}
