@@ -19,6 +19,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'neuton': ['Neuton', 'serif'],
+				'asgard': ['AsgardTrial', 'serif'],
 			},
 			colors: {
 				'navy': {
