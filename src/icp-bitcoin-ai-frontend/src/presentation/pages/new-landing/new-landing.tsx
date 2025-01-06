@@ -144,7 +144,7 @@ const NewLanding = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 z-50">
               <img src="/new-logo.png" alt="Panorama Block" className="h-12 md:h-16" />
-              <span className="text-gray-300 text-sm md:text-base">Panorama Block</span>
+              <span className="text-gray-300 !font-asgard text-sm md:text-base">Panorama Block</span>
             </div>
 
             <button
