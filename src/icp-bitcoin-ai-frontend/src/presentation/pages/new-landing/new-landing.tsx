@@ -244,7 +244,7 @@ const NewLanding = () => {
                 </span>
               </span>
 
-              <a href="/#home">
+              <a href="/#pano-view/bitcoin">
                 <Button variant="outline" className="mx-auto mt-6 md:mt-10 w-[240px] h-12 text-gray-50 bg-gray-500">Launch Beta App</Button>
               </a>
             </span>

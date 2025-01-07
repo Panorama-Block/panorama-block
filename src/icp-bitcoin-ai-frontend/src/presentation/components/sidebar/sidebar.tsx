@@ -44,41 +44,27 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
 
   const [pages, setPages] = useState([
     {
-      title: 'Dashboard',
+      title: 'Pano View',
       icon: 'account/dash.png',
-      url: window.location.href.toLowerCase().includes('solana') ? '/solana' : '/home'
+      url: window.location.href.toLowerCase().includes('solana') ? '/pano-view/solana' : '/pano-view/bitcoin'
+    },
+    {
+      title: 'AI Marketplace',
+      icon: 'account/trend.png',
+      url: '/ai-marketplace',
+      disabled: true
+    },
+    {
+      title: 'DeFi Vista',
+      icon: 'account/pano.png',
+      url: '/panoranking/solana',
+      disabled: true
     },
     {
       title: 'Portfolio',
       icon: 'account/portfolio.png',
+      disabled: true,
       url: '/portfolio/solana'
-    },
-    {
-      title: 'Market',
-      icon: 'account/market.png',
-      disabled: true,
-      url: '/home'
-    },
-    {
-      title: 'Transfers',
-      icon: 'account/transfers.png',
-      disabled: true,
-      url: '/home'
-    },
-    {
-      title: 'Whale Hunting',
-      icon: 'account/wallet.png',
-      url: window.location.href.toLowerCase().includes('solana') ? '/whale-hunting/solana' : '/whale-hunting/bitcoin'
-    },
-    {
-      title: 'Pano Ranking',
-      icon: 'account/pano.png',
-      url: '/panoranking/solana'
-    },
-    {
-      title: 'Logout',
-      icon: 'account/logout.png',
-      url: '/home'
     },
   ])
 

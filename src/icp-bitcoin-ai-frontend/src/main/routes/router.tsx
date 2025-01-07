@@ -1,5 +1,5 @@
-import React from 'react'
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation, HashRouter, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Home from '../../presentation/pages/home/home'
 import Landing from '../../presentation/pages/landing/landing'
@@ -17,10 +17,15 @@ import NewLanding from '@/src/presentation/pages/new-landing/new-landing'
 import XRPL from '@/src/presentation/pages/xrpl/xrpl'
 import CodeLock from '@/src/presentation/components/code-lock/code-lock'
 import NotFound from '@/src/presentation/pages/not-found/not-found'
+import MobileRedirect from '@/src/presentation/pages/mobile-redirect/mobile-redirect'
+import { useMobileRedirect } from '@/src/presentation/hooks/use-mobile-redirect'
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
   const isNewLanding = location.pathname === '/'
+  const navigate = useNavigate();
+
+  const [isMobile, setIsMobile] = useState(false);
 
   const initialLockState = !localStorage.getItem('isUnlocked')
   const [isLocked, setIsLocked] = useState(initialLockState)
@@ -31,6 +36,28 @@ const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
     setShowLock(false)
     localStorage.setItem('isUnlocked', 'true')
   }
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+    };
+  
+    checkMobile();
+  
+    window.addEventListener('resize', checkMobile);
+  
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [])
+
+  useEffect(() => {
+    const isLandingPage = location.pathname === '/';
+    const isMobileRedirectPage = location.pathname === '/mobile-redirect';
+    
+    if (isMobile && !isLandingPage && !isMobileRedirectPage) {
+      navigate('/mobile-redirect', { replace: true });
+    }
+  }, [isMobile, location.pathname, navigate]);
 
   if (isNewLanding) {
     return <>{children}</>
@@ -50,23 +77,26 @@ const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
 }
 
 const Router: React.FC = () => {
+  // useMobileRedirect()
+
   return (
     <HashRouter>
       <ProtectedRoutes>
         <Routes>
           <Route path='/' element={<NewLanding />} />
-          <Route path='/home' element={<Home />} />
-          <Route path='/solana' element={<Solana />} />
-          <Route path='/icp' element={<Icp />} />
-          <Route path='/ck-bitcoin' element={<CkBitcoin />} />
+          <Route path='/mobile-redirect' element={<MobileRedirect />} />
+          <Route path='/pano-view/bitcoin' element={<Home />} />
+          <Route path='/pano-view/solana' element={<Solana />} />
+          <Route path='/pano-view/icp' element={<Icp />} />
+          <Route path='/pano-view/ck-bitcoin' element={<CkBitcoin />} />
           <Route path='/solana/:id' element={<HashblockSolana />} />
           <Route path='/panoranking/solana' element={<PanorankingSolana />} />
           <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
           <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
           <Route path='/portfolio/solana' element={<PortfolioSolana />} />
-          <Route path='/stacks' element={<StacksBitcoin />} />
+          <Route path='/pano-view/stacks' element={<StacksBitcoin />} />
           <Route path='/solana/volume' element={<SolanaVolume />} />
-          <Route path='/xrpl' element={<XRPL />} />
+          <Route path='/pano-view/xrpl' element={<XRPL />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </ProtectedRoutes>
