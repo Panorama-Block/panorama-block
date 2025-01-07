@@ -1,21 +1,21 @@
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './select-network.module.scss'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const networks = [
     {
         id: 1,
         title: 'Bitcoin',
         icon: '/coins/bitcoin.png',
-        url: '/home'
+        url: '/pano-view/bitcoin'
     },
     {
         id: 2,
         title: 'Ethereum',
         icon: '/coins/eth.png',
         disabled: true,
-        url: '/ethereum'
+        url: '/pano-view/ethereum'
     },
     {
         id: 3,
@@ -26,13 +26,13 @@ const networks = [
                 id: 31,
                 title: "ICP",
                 icon: '/coins/icp.png',
-                url: '/icp'
+                url: '/pano-view/icp'
             },
             {
                 id: 32,
                 title: 'CkBTC',
                 icon: '/coins/bitcoin.png',
-                url: '/ck-bitcoin'
+                url: '/pano-view/ck-bitcoin'
             }
         ],
     },
@@ -40,26 +40,46 @@ const networks = [
         id: 4,
         title: 'Solana',
         icon: '/coins/solana.png',
-        url: '/solana'
+        url: '/pano-view/solana'
     },
     {
         id: 5,
         title: 'Stacks',
         icon: '/coins/stacks.png',
-        url: '/stacks'
+        url: '/pano-view/stacks'
     },
     {
         id: 6,
         title: 'XRPL',
         icon: '/coins/xrpl.png',
-        url: '/xrpl'
+        url: '/pano-view/xrpl'
     }
 ]
 
 const SelectNetwork = () => {
     const [open, setOpen] = useState(false)
     const [actualNetwork, setActualNetwork] = useState(networks)
+    const [selectedTitle, setSelectedTitle] = useState('Select Network')
     const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        const currentPath = location.pathname
+        const currentNetwork = networks.find(network => network.url === currentPath)
+        if (currentNetwork) {
+            setSelectedTitle(currentNetwork.title)
+            return
+        }
+
+        networks.forEach(network => {
+            if (network.items) {
+                const nestedNetwork = network.items.find(item => item.url === currentPath)
+                if (nestedNetwork) {
+                    setSelectedTitle(nestedNetwork.title)
+                }
+            }
+        })
+    }, [location.pathname])
 
     const handleOpen = () => {
         setActualNetwork(networks)
@@ -69,18 +89,25 @@ const SelectNetwork = () => {
     const changeNetwork = (network: any) => {
         if (network.items) {
             setActualNetwork(network.items)
-        }
-        else {
-            navigate(network.url)
+        } else {
+            if (network.url === location.pathname) {
+                setOpen(false)
+                return
+            }
+            if (network.url) {
+                setSelectedTitle(network.title)
+                navigate(network.url)
+            }
+            setOpen(false)
         }
     }
 
     return (
         <div className='select-none z-[1] flex relative flex-col'>
             <div className="flex gap-2 pr-32 text-zinc-100 hover:cursor-pointer" onClick={() => handleOpen()}>
-                <span>Network</span>
+                <span className='text-lg'>{selectedTitle}</span>
                 {
-                    open ? <ChevronUp /> : <ChevronDown />
+                    open ? <ChevronUp className='my-auto' /> : <ChevronDown className='my-auto' />
                 }
             </div>
 
