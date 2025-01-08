@@ -18,7 +18,7 @@ import { CkAreaChart } from './components/ck-area-chart/ck-area-chart'
 import Layout from '../../components/layout/Layout'
 
 const CkBitcoin: React.FC = () => {
-  const [actual, setActual] = useState('Bitcoin')
+  const [actual, setActual] = useState('CkBTC')
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
   const [whaleOpened, setWhaleOpened] = useState(false)
