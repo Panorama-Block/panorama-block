@@ -18,7 +18,6 @@ import XRPL from '@/src/presentation/pages/xrpl/xrpl'
 import CodeLock from '@/src/presentation/components/code-lock/code-lock'
 import NotFound from '@/src/presentation/pages/not-found/not-found'
 import MobileRedirect from '@/src/presentation/pages/mobile-redirect/mobile-redirect'
-import { useMobileRedirect } from '@/src/presentation/hooks/use-mobile-redirect'
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
@@ -77,8 +76,6 @@ const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
 }
 
 const Router: React.FC = () => {
-  // useMobileRedirect()
-
   return (
     <HashRouter>
       <ProtectedRoutes>
@@ -88,11 +85,15 @@ const Router: React.FC = () => {
           <Route path='/pano-view/bitcoin' element={<Home />} />
           <Route path='/pano-view/solana' element={<Solana />} />
           <Route path='/pano-view/icp' element={<Icp />} />
-          <Route path='/pano-view/ck-bitcoin' element={<CkBitcoin />} />
+          <Route path='/pano-view/ckbtc' element={<CkBitcoin />} />
           <Route path='/solana/:id' element={<HashblockSolana />} />
           <Route path='/panoranking/solana' element={<PanorankingSolana />} />
           <Route path='/whale-hunting/solana' element={<WhaleHuntingSolana />} />
           <Route path='/whale-hunting/bitcoin' element={<WhaleHuntingBitcoin />} />
+          <Route path='/whale-hunting/icp' element={<WhaleHuntingSolana />} />
+          <Route path='/whale-hunting/ckbtc' element={<WhaleHuntingSolana />} />
+          <Route path='/whale-hunting/stacks' element={<WhaleHuntingSolana />} />
+          <Route path='/whale-hunting/xrpl' element={<WhaleHuntingSolana />} />
           <Route path='/portfolio/solana' element={<PortfolioSolana />} />
           <Route path='/pano-view/stacks' element={<StacksBitcoin />} />
           <Route path='/solana/volume' element={<SolanaVolume />} />

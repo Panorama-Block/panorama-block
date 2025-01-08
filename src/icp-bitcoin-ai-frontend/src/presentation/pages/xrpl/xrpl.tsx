@@ -19,7 +19,7 @@ import Layout from '../../components/layout/Layout';
 import xrplService from '../../../data/services/xrpl-service'
 
 const XRPL: React.FC = () => {
-    const [actual, setActual] = useState('Bitcoin')
+    const [actual, setActual] = useState('Xrpl')
     const [actualHashblock, setActualHashblock] = useState(null)
     const [hashblocks, setHashblocks] = useState<HashblockProps[]>()
     const [modalOpened, setModalOpened] = useState(false)

@@ -2,6 +2,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import styles from './select-network.module.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Button } from '@/src/components/ui/button'
 
 const networks = [
     {
@@ -32,7 +33,7 @@ const networks = [
                 id: 32,
                 title: 'CkBTC',
                 icon: '/coins/bitcoin.png',
-                url: '/pano-view/ck-bitcoin'
+                url: '/pano-view/ckbtc'
             }
         ],
     },
@@ -59,21 +60,20 @@ const networks = [
 const SelectNetwork = () => {
     const [open, setOpen] = useState(false)
     const [actualNetwork, setActualNetwork] = useState(networks)
-    const [selectedTitle, setSelectedTitle] = useState('Select Network')
+    const [selectedTitle, setSelectedTitle] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
 
     useEffect(() => {
         const currentPath = location.pathname
-        const currentNetwork = networks.find(network => network.url === currentPath)
+        const currentNetwork = networks.find(network => currentPath.includes(network.title.toLowerCase()) ||  network.url === currentPath)
         if (currentNetwork) {
             setSelectedTitle(currentNetwork.title)
-            return
         }
 
         networks.forEach(network => {
             if (network.items) {
-                const nestedNetwork = network.items.find(item => item.url === currentPath)
+                const nestedNetwork = network.items.find(item => currentPath.includes(item.title.toLowerCase()) || item.url === currentPath)
                 if (nestedNetwork) {
                     setSelectedTitle(nestedNetwork.title)
                 }
@@ -103,17 +103,20 @@ const SelectNetwork = () => {
     }
 
     return (
-        <div className='select-none z-[1] flex relative flex-col'>
-            <div className="flex gap-2 pr-32 text-zinc-100 hover:cursor-pointer" onClick={() => handleOpen()}>
-                <span className='text-lg'>{selectedTitle}</span>
-                {
-                    open ? <ChevronUp className='my-auto' /> : <ChevronDown className='my-auto' />
-                }
+        <div className='select-none ml-auto my-auto w-fit z-[1] flex relative flex-col'>
+            <div className='flex align-center flex-col gap-1.5 mt-1 px-4'>
+                <span className='text-xs text-zinc-400 px-4'>Select Network</span>
+                <div className="pl-2 flex gap-1 mx-auto text-zinc-100 hover:cursor-pointer" onClick={() => handleOpen()}>
+                    <span className='text-md'>{selectedTitle}</span>
+                    {
+                        open ? <ChevronUp className='my-auto' /> : <ChevronDown className='my-auto' />
+                    }
+                </div>
             </div>
 
             {
                 open && (
-                    <div className={`${styles.network} select-none z-[1] grid grid-cols-2 gap-4 p-8 justify-start rounded-lg top-16 right-8 w-[300px] absolute `}>
+                    <div className={`${styles.network} select-none z-[1] grid grid-cols-2 gap-4 p-8 justify-start rounded-lg w-[300px] absolute top-16 right-[-100px]`}>
                         {
                             actualNetwork && actualNetwork.map((network: any) => (
                                 <div
