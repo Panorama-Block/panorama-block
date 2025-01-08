@@ -364,7 +364,7 @@ enum FilterENUM {
 }
 
 const StacksBitcoin: React.FC = () => {
-  const [actual, setActual] = useState('Bitcoin')
+  const [actual, setActual] = useState('Stacks')
   const [modalOpened, setModalOpened] = useState(false)
   const [chatOpened, setChatOpened] = useState(false)
   const [whaleOpened, setWhaleOpened] = useState(false)

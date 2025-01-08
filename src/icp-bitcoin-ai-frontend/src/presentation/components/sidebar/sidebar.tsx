@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './sidebar-styles.module.scss'
 import MenuItems from '../menu-items/menu-items'
 import { useNavigate } from 'react-router-dom'
@@ -46,7 +46,7 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
     {
       title: 'Pano View',
       icon: 'account/dash.png',
-      url: window.location.href.toLowerCase().includes('solana') ? '/pano-view/solana' : '/pano-view/bitcoin'
+      url: `/pano-view/${actual.toLowerCase()}`
     },
     {
       title: 'AI Marketplace',
@@ -61,12 +61,28 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
       disabled: true
     },
     {
+      title: 'Whale Hunting',
+      icon: 'account/wallet.png',
+      url: `/whale-hunting/${actual.toLowerCase()}`
+    },
+    {
       title: 'Portfolio',
       icon: 'account/portfolio.png',
       disabled: true,
       url: '/portfolio/solana'
     },
   ])
+
+  const getActive = (title: string) => {
+    const active = window.location.href.toLowerCase()
+
+    switch (title.toLowerCase()) {
+      case 'solana':
+        return active.includes('solana')
+      default:
+        return active.includes('bitcoin')
+    }
+  }
 
   const handleClick = (type: string, value: string) => {
     if (type === 'coin') {
