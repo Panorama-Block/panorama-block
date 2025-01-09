@@ -8,23 +8,20 @@ import { Button } from '@/src/components/ui/button'
 const NewLanding = () => {
   const words = [
     'On-Chain Data',
-    'Narratives Tracking',
     'AI Agents',
     'DeFi Opportunities',
     'Yield Strategies',
-    'Market Sentiment',
     'Agentic Economy',
-    'Decentralized Analytics',
-    'Web3 Hottest Trends'
+    'Decentralized Analytics'
   ]
   const partners = [
     { name: 'ICP', image: '/partners/icp.png' },
-    { name: 'Inteli', image: '/partners/inteli.webp' },
+    { name: 'Inteli', image: '/partners/inteli.jpg' },
     { name: 'LMU', image: '/partners/lmu.png' },
     { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
     { name: 'UCLA Economics', image: '/partners/ucla.png' },
-    { name: 'Coinstore', image: '/partners/coinstore.webp' },
-    { name: 'Dfinity', image: '/partners/dfinity.png' },
+    { name: 'Coinstore', image: '/partners/coinstore.jpg' },
+    { name: 'Dfinity', image: '/partners/dfinity-2.png' },
     { name: 'Blockchain Expo', image: '/partners/blockchain-expo.webp' },
     { name: 'Hiro', image: '/partners/hiro.png' },
     { name: 'Stacks', image: '/partners/stacks.jpg' },
@@ -32,7 +29,7 @@ const NewLanding = () => {
     { name: 'ICP México', image: '/partners/icp-mexico.jpg' },
     { name: 'Labitconf', image: '/partners/labitconf.png' },
     { name: 'Superteam', image: '/partners/superteam.png' },
-    { name: 'Tokenize', image: '/partners/tokenize.webp' },
+    { name: 'Tokenize', image: '/partners/tokenize.jpg' },
     { name: 'Ibiza', image: '/partners/ibiza.jpg' }
   ]
 
@@ -94,7 +91,7 @@ const NewLanding = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 2000);
+    }, 2200);
 
     return () => clearInterval(interval);
   }, []);
@@ -332,25 +329,29 @@ const NewLanding = () => {
           </h2>
         </div>
 
-        <div className="absolute flex items-center h-[150px] w-[4000px] relative overflow-hidden">
+        <div className="absolute flex items-center h-[120px] w-[2000px] relative overflow-hidden">
           <div className="absolute flex gap-20 animate-scroll">
             {[...partners].map((partner, index) => (
-              <img
-                key={`${partner.name}-${index}`}
-                src={partner.image}
-                alt={partner.name}
-                className="h-14 md:h-18 object-contain"
-              />
+              <div className="w-fit min-w-[150px] h-[120px]">
+                <img
+                  key={`${partner.name}-second-${index}`}
+                  src={partner.image}
+                  alt={partner.name}
+                  className={`  w-full h-full md:h-18 object-contain`}
+                />
+              </div>
             ))}
           </div>
-          <div className="absolute flex items-center gap-20 animate-scroll-2" aria-hidden={true}>
+          <div className="absolute flex justify-center items-center gap-20 animate-scroll-2" aria-hidden={true}>
             {[...partners].map((partner, index) => (
-              <img
-                key={`${partner.name}-second-${index}`}
-                src={partner.image}
-                alt={partner.name}
-                className="h-14 md:h-18 object-contain"
-              />
+              <div className="w-fit min-w-[150px] h-[120px]">
+                <img
+                  key={`${partner.name}-second-${index}`}
+                  src={partner.image}
+                  alt={partner.name}
+                  className={` w-full h-full md:h-18 object-contain`}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -398,12 +399,12 @@ const NewLanding = () => {
 
       <Footer />
 
-    {
-      scrollPosition >= 100 && <div className="w-10 h-10 flex items-center justify-center bg-gray-300/75 rounded-full p-2 text-navy-900 border border-gray-700/50 fixed bottom-10 right-10 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-        <ChevronUp />
-      </div>
-    }
-  </div>
+      {
+        scrollPosition >= 100 && <div className="w-10 h-10 flex items-center justify-center bg-gray-300/75 rounded-full p-2 text-navy-900 border border-gray-700/50 fixed bottom-10 right-10 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <ChevronUp />
+        </div>
+      }
+    </div>
   )
 }
 
