@@ -1,27 +1,33 @@
 @keyframes scroll {
   0% {
-    transform: translateX(110%);
+    transform: translateX(102%);
   }
   100% {
-    transform: translateX(-110%);
+    transform: translateX(-102%);
     }
 }
 
 @keyframes scroll-2 {
   0% {
-    transform: translateX(110%);
+    transform: translateX(102%);
   }
   100% {
-    transform: translateX(-110%);
+    transform: translateX(-102%);
   }
 }
 
 .animate-scroll {
-  animation: scroll 20s linear infinite;
+  animation: scroll 30s linear infinite;
 } 
 
 .animate-scroll-2 {
-  animation: scroll-2 20s linear infinite;
-  animation-delay: -10s; 
+  animation: scroll-2 30s linear infinite;
+  animation-delay: -15s; 
   /* animation-fill-mode: backwards; */
 } 
+
+.animate-scroll-3 {
+  animation: scroll-2 30s linear infinite;
+  animation-delay: -20s; 
+  /* animation-fill-mode: backwards; */
+}
