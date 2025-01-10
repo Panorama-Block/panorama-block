@@ -8,23 +8,21 @@ import { Button } from '@/src/components/ui/button'
 const NewLanding = () => {
   const words = [
     'On-Chain Data',
-    'Narratives Tracking',
     'AI Agents',
     'DeFi Opportunities',
     'Yield Strategies',
-    'Market Sentiment',
     'Agentic Economy',
-    'Decentralized Analytics',
-    'Web3 Hottest Trends'
+    'Decentralized Analytics'
   ]
+
   const partners = [
     { name: 'ICP', image: '/partners/icp.png' },
-    { name: 'Inteli', image: '/partners/inteli.webp' },
+    { name: 'Inteli', image: '/partners/inteli.jpg' },
     { name: 'LMU', image: '/partners/lmu.png' },
     { name: 'UCLA Blockchain', image: '/partners/ucla-blockchain.png' },
     { name: 'UCLA Economics', image: '/partners/ucla.png' },
-    { name: 'Coinstore', image: '/partners/coinstore.webp' },
-    { name: 'Dfinity', image: '/partners/dfinity.png' },
+    { name: 'Coinstore', image: '/partners/coinstore.jpg' },
+    { name: 'Dfinity', image: '/partners/dfinity-2.png' },
     { name: 'Blockchain Expo', image: '/partners/blockchain-expo.webp' },
     { name: 'Hiro', image: '/partners/hiro.png' },
     { name: 'Stacks', image: '/partners/stacks.jpg' },
@@ -32,7 +30,7 @@ const NewLanding = () => {
     { name: 'ICP México', image: '/partners/icp-mexico.jpg' },
     { name: 'Labitconf', image: '/partners/labitconf.png' },
     { name: 'Superteam', image: '/partners/superteam.png' },
-    { name: 'Tokenize', image: '/partners/tokenize.webp' },
+    { name: 'Tokenize', image: '/partners/tokenize.jpg' },
     { name: 'Ibiza', image: '/partners/ibiza.jpg' }
   ]
 
@@ -86,6 +84,31 @@ const NewLanding = () => {
     }
   ]
 
+  const roadmap = [
+    {
+      title: "Phase 1",
+      bullets: [
+        "Build a multi-chain data analytics pipeline with blockchain scanners that synthesizes unstructured on-chain data into structured formats, enabling agents to reason and perform at a higher level than deterministic systems.",
+        "Develop Python-based frameworks and toolkits in partnership with UCLA Masters of Quantitative Economics (MQE) students to deploy agents across any on-chain application."
+      ]
+    },
+    {
+      title: "Phase 2",
+      bullets: [
+        "Deploy foundational agents with low autonomy to simplify multi-protocol DeFi activities, abstracting complex on-chain actions into intuitive commands.",
+        "Launch a decentralized marketplace for deploying, selling, and monetizing AI agents, models, and tools."
+      ]
+    },
+    {
+      title: "Phase 3",
+      text: "Launch hybrid agents combining autonomous and manual capabilities, collaborating on complex DeFi operations while offering modular frameworks for users to build and customize their own agent teams."
+    },
+    {
+      title: "Phase 4",
+      text: "Introduce fully composable, DeFi strategist agents with advanced reasoning, capable of autonomously making critical decisions across multi-chain environments, enabling sophisticated, high-utility automation at scale."
+    }
+  ]
+
   const handleScroll = () => {
     const position = window.scrollY
     setScrollPosition(position)
@@ -94,7 +117,7 @@ const NewLanding = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 2000);
+    }, 2200);
 
     return () => clearInterval(interval);
   }, []);
@@ -235,8 +258,8 @@ const NewLanding = () => {
                 </span>
               </span>
 
-              <a href="/#pano-view/bitcoin">
-                <Button variant="outline" className="mx-auto mt-6 md:mt-10 w-[240px] h-12 text-gray-50 bg-gray-500">Launch Beta App</Button>
+              <a className='flex mx-auto w-fit h-12 mt-6 md:mt-10' href="/#pano-view/bitcoin">
+                <Button variant="outline" className="w-[240px] h-12 text-gray-50 bg-gray-500">Launch Beta App</Button>
               </a>
             </span>
           </h1>
@@ -332,25 +355,29 @@ const NewLanding = () => {
           </h2>
         </div>
 
-        <div className="absolute flex items-center h-[150px] w-[4000px] relative overflow-hidden">
+        <div className="absolute flex items-center h-[120px] w-[2000px] relative overflow-hidden">
           <div className="absolute flex gap-20 animate-scroll">
             {[...partners].map((partner, index) => (
-              <img
-                key={`${partner.name}-${index}`}
-                src={partner.image}
-                alt={partner.name}
-                className="h-14 md:h-18 object-contain"
-              />
+              <div className="w-fit min-w-[150px] h-[120px]">
+                <img
+                  key={`${partner.name}-second-${index}`}
+                  src={partner.image}
+                  alt={partner.name}
+                  className={`  w-full h-full md:h-18 object-contain`}
+                />
+              </div>
             ))}
           </div>
-          <div className="absolute flex items-center gap-20 animate-scroll-2" aria-hidden={true}>
+          <div className="absolute flex justify-center items-center gap-20 animate-scroll-2" aria-hidden={true}>
             {[...partners].map((partner, index) => (
-              <img
-                key={`${partner.name}-second-${index}`}
-                src={partner.image}
-                alt={partner.name}
-                className="h-14 md:h-18 object-contain"
-              />
+              <div className="w-fit min-w-[150px] h-[120px]">
+                <img
+                  key={`${partner.name}-second-${index}`}
+                  src={partner.image}
+                  alt={partner.name}
+                  className={` w-full h-full md:h-18 object-contain`}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -396,14 +423,69 @@ const NewLanding = () => {
         </div>
       </section>
 
+      <section id="roadmap" className="text-center py-24 bg-white">
+        <div className="flex flex-col items-center max-w-7xl mx-auto px-4">
+          <div className="mb-16">
+            <h2 className="text-5xl text-navy-900 mb-8">Vision</h2>
+            <p className="text-xl text-gray-600">
+              Our vision is to drive the next phase of the agentic evolution, shifting from simplistic intent-solving bots and AI assistants to robust, autonomous systems capable of navigating complex, unstructured blockchain data. Panorama Block is creating a foundation of immutable, tamper-proof data and scalable analytics infrastructure, that will serve as the bedrock for developing the next-generation of AI agents that redefine on-chain automation.
+            </p>
+          </div>
+
+          <div className="mb-16">
+            <h2 className="text-5xl text-navy-900 mb-12">Roadmap</h2>
+            <div className="space-y-12">
+              {
+                roadmap.map((item, index) => {
+                  if (item.text) {
+                    return (
+                      <div className="flex items-start gap-6" key={index}>
+                        <div className="text-xl text-gray-600 text-left">
+                          <span className="font-semibold block mb-2">{item.title}</span>
+                          <p className='ml-4'>
+                            {item.text}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  }
+
+                  else {
+                    return (
+                      <div className="flex items-start gap-6">
+                        <div className="text-xl text-gray-600 text-left">
+                          <span className="font-semibold block mb-4">{item.title}</span>
+                          <div className="space-y-4">
+                            { item.bullets?.map((bullet, index) => {
+                              return (
+                                <div className="ml-4 flex items-start gap-4" key={index}>
+                                  <div className="w-3 h-3 rounded-full bg-navy-900 flex-shrink-0 my-auto" />
+                                  <div>
+                                    {bullet}
+                                  </div>
+                                </div>
+                              )
+                            }) }
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                })
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
-    {
-      scrollPosition >= 100 && <div className="w-10 h-10 flex items-center justify-center bg-gray-300/75 rounded-full p-2 text-navy-900 border border-gray-700/50 fixed bottom-10 right-10 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-        <ChevronUp />
-      </div>
-    }
-  </div>
+      {
+        scrollPosition >= 100 && <div className="w-10 h-10 flex items-center justify-center bg-gray-300/75 rounded-full p-2 text-navy-900 border border-gray-700/50 fixed bottom-10 right-10 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <ChevronUp />
+        </div>
+      }
+    </div>
   )
 }
 
