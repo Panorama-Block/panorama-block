@@ -14,6 +14,7 @@ const NewLanding = () => {
     'Agentic Economy',
     'Decentralized Analytics'
   ]
+
   const partners = [
     { name: 'ICP', image: '/partners/icp.png' },
     { name: 'Inteli', image: '/partners/inteli.jpg' },
@@ -80,6 +81,31 @@ const NewLanding = () => {
       role: 'Token Engineer',
       image: '/team/andre_w&b.jpg',
       linkedin: 'https://www.linkedin.com/in/andre-mestriner-costa/'
+    }
+  ]
+
+  const roadmap = [
+    {
+      title: "Phase 1",
+      bullets: [
+        "Build a multi-chain data analytics pipeline with blockchain scanners that synthesizes unstructured on-chain data into structured formats, enabling agents to reason and perform at a higher level than deterministic systems.",
+        "Develop Python-based frameworks and toolkits in partnership with UCLA Masters of Quantitative Economics (MQE) students to deploy agents across any on-chain application."
+      ]
+    },
+    {
+      title: "Phase 2",
+      bullets: [
+        "Deploy foundational agents with low autonomy to simplify multi-protocol DeFi activities, abstracting complex on-chain actions into intuitive commands.",
+        "Launch a decentralized marketplace for deploying, selling, and monetizing AI agents, models, and tools."
+      ]
+    },
+    {
+      title: "Phase 3",
+      text: "Launch hybrid agents combining autonomous and manual capabilities, collaborating on complex DeFi operations while offering modular frameworks for users to build and customize their own agent teams."
+    },
+    {
+      title: "Phase 4",
+      text: "Introduce fully composable, DeFi strategist agents with advanced reasoning, capable of autonomously making critical decisions across multi-chain environments, enabling sophisticated, high-utility automation at scale."
     }
   ]
 
@@ -232,8 +258,8 @@ const NewLanding = () => {
                 </span>
               </span>
 
-              <a href="/#pano-view/bitcoin">
-                <Button variant="outline" className="mx-auto mt-6 md:mt-10 w-[240px] h-12 text-gray-50 bg-gray-500">Launch Beta App</Button>
+              <a className='flex mx-auto w-fit h-12 mt-6 md:mt-10' href="/#pano-view/bitcoin">
+                <Button variant="outline" className="w-[240px] h-12 text-gray-50 bg-gray-500">Launch Beta App</Button>
               </a>
             </span>
           </h1>
@@ -393,6 +419,61 @@ const NewLanding = () => {
                 </a>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" className="text-center py-24 bg-white">
+        <div className="flex flex-col items-center max-w-7xl mx-auto px-4">
+          <div className="mb-16">
+            <h2 className="text-5xl text-navy-900 mb-8">Vision</h2>
+            <p className="text-xl text-gray-600">
+              Our vision is to drive the next phase of the agentic evolution, shifting from simplistic intent-solving bots and AI assistants to robust, autonomous systems capable of navigating complex, unstructured blockchain data. Panorama Block is creating a foundation of immutable, tamper-proof data and scalable analytics infrastructure, that will serve as the bedrock for developing the next-generation of AI agents that redefine on-chain automation.
+            </p>
+          </div>
+
+          <div className="mb-16">
+            <h2 className="text-5xl text-navy-900 mb-12">Roadmap</h2>
+            <div className="space-y-12">
+              {
+                roadmap.map((item, index) => {
+                  if (item.text) {
+                    return (
+                      <div className="flex items-start gap-6" key={index}>
+                        <div className="text-xl text-gray-600 text-left">
+                          <span className="font-semibold block mb-2">{item.title}</span>
+                          <p className='ml-4'>
+                            {item.text}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  }
+
+                  else {
+                    return (
+                      <div className="flex items-start gap-6">
+                        <div className="text-xl text-gray-600 text-left">
+                          <span className="font-semibold block mb-4">{item.title}</span>
+                          <div className="space-y-4">
+                            { item.bullets?.map((bullet, index) => {
+                              return (
+                                <div className="ml-4 flex items-start gap-4" key={index}>
+                                  <div className="w-3 h-3 rounded-full bg-navy-900 flex-shrink-0 my-auto" />
+                                  <div>
+                                    {bullet}
+                                  </div>
+                                </div>
+                              )
+                            }) }
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                })
+              }
+            </div>
           </div>
         </div>
       </section>
