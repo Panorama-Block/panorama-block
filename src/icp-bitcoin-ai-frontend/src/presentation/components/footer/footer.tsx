@@ -3,7 +3,7 @@ import {Linkedin, Github, Twitter} from "lucide-react"
 const resources = [
     { name: 'Resources', href: '#', isTitle: true },
     { name: 'Docs', href: 'https://docs.panoramablock.com' },
-    { name: 'Blog', href: 'https://panoramablock.medium.com/' },
+    // { name: 'Blog', href: 'https://panoramablock.medium.com/' },
     { name: 'Github', href: 'https://github.com/Panorama-Block' },
     { name: 'LinkedIn', href: 'https://linkedin.com/company/panoramablock' },
     { name: 'X', href: 'https://x.com/panoramablock' },

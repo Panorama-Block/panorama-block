@@ -176,6 +176,12 @@ const NewLanding = () => {
                 About
               </button>
               <button
+                onClick={() => scrollToSection('roadmap')}
+                className="text-gray-300 text-lg hover:text-gray-100"
+              >
+                Vision & Roadmap
+              </button>
+              <button
                 onClick={() => scrollToSection('team')}
                 className="text-gray-300 text-lg hover:text-gray-100"
               >
@@ -383,65 +389,25 @@ const NewLanding = () => {
         </div>
       </section>
 
-      <section id="team" className="py-24 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl text-zinc-200 text-center mb-16">
-            Our Team
-          </h2>
-
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {teamMembers.map((member) => (
-              <div
-                key={member.name}
-                className="mx-auto w-[300px] bg-gray-800/50 rounded-lg p-8 flex flex-col items-center"
-              >
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-4 ring-gray-700/50">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <h3 className="text-xl text-zinc-200 mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-gray-400 mb-4">
-                  {member.role}
-                </p>
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-8 h-8 bg-gray-700/50 rounded-full text-blue-400 hover:text-blue-300 hover:bg-gray-700 transition-all"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="roadmap" className="text-center py-24 bg-white">
+      <section id="roadmap" className="text-center py-24 bg-gray-900">
         <div className="flex flex-col items-center max-w-7xl mx-auto px-4">
           <div className="mb-16">
-            <h2 className="text-5xl text-navy-900 mb-8">Vision</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-5xl text-zinc-200 mb-8">Vision</h2>
+            <p className="text-xl text-gray-400">
               Our vision is to drive the next phase of the agentic evolution, shifting from simplistic intent-solving bots and AI assistants to robust, autonomous systems capable of navigating complex, unstructured blockchain data. Panorama Block is creating a foundation of immutable, tamper-proof data and scalable analytics infrastructure, that will serve as the bedrock for developing the next-generation of AI agents that redefine on-chain automation.
             </p>
           </div>
 
           <div className="mb-16">
-            <h2 className="text-5xl text-navy-900 mb-12">Roadmap</h2>
+            <h2 className="text-5xl text-zinc-200 mb-12">Roadmap</h2>
             <div className="space-y-12">
               {
                 roadmap.map((item, index) => {
                   if (item.text) {
                     return (
                       <div className="flex items-start gap-6" key={index}>
-                        <div className="text-xl text-gray-600 text-left">
-                          <span className="font-semibold block mb-2">{item.title}</span>
+                        <div className="text-xl text-gray-400 text-left">
+                          <span className="font-bold block mb-2">{item.title}</span>
                           <p className='ml-4'>
                             {item.text}
                           </p>
@@ -453,13 +419,13 @@ const NewLanding = () => {
                   else {
                     return (
                       <div className="flex items-start gap-6">
-                        <div className="text-xl text-gray-600 text-left">
-                          <span className="font-semibold block mb-4">{item.title}</span>
+                        <div className="text-xl text-gray-400 text-left">
+                          <span className="font-bold block mb-4">{item.title}</span>
                           <div className="space-y-4">
                             { item.bullets?.map((bullet, index) => {
                               return (
                                 <div className="ml-4 flex items-start gap-4" key={index}>
-                                  <div className="w-3 h-3 rounded-full bg-navy-900 flex-shrink-0 my-auto" />
+                                  <div className="w-3 h-3 rounded-full bg-blue-200 flex-shrink-0 my-auto" />
                                   <div>
                                     {bullet}
                                   </div>
@@ -478,6 +444,47 @@ const NewLanding = () => {
         </div>
       </section>
 
+      <section id="team" className="py-24 bg-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl text-navy-900 font-bold text-center mb-16">
+            Our Team
+          </h2>
+
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {teamMembers.map((member) => (
+              <div
+                key={member.name}
+                className="mx-auto w-[300px] bg-gray-50 shadow-md hover:shadow-xl transition-all duration-300 rounded-xl p-8 flex flex-col items-center group"
+              >
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 transform group-hover:scale-105 transition-transform duration-300 ring-2 ring-gray-200">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <h3 className="text-xl text-gray-900 font-semibold mb-1">
+                  {member.name}
+                </h3>
+                <p className="text-sm text-gray-500 mb-6">
+                  {member.role}
+                </p>
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:ring-2 hover:ring-gray-300 transition-all duration-300"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      
       <Footer />
 
       {
