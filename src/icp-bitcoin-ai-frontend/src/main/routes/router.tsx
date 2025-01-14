@@ -27,7 +27,8 @@ const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
 
   const [isMobile, setIsMobile] = useState(false);
 
-  const initialLockState = !localStorage.getItem('isUnlocked')
+  // const initialLockState = !localStorage.getItem('isUnlocked')
+  const initialLockState = false
   const [isLocked, setIsLocked] = useState(initialLockState)
   const [showLock, setShowLock] = useState(initialLockState)
 
