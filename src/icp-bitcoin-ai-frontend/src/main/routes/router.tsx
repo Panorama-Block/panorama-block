@@ -18,6 +18,7 @@ import XRPL from '@/src/presentation/pages/xrpl/xrpl'
 import CodeLock from '@/src/presentation/components/code-lock/code-lock'
 import NotFound from '@/src/presentation/pages/not-found/not-found'
 import MobileRedirect from '@/src/presentation/pages/mobile-redirect/mobile-redirect'
+import XAiAgents from '@/src/presentation/pages/x-ai-agents/x-ai-agents'
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
@@ -98,6 +99,7 @@ const Router: React.FC = () => {
           <Route path='/pano-view/stacks' element={<StacksBitcoin />} />
           <Route path='/solana/volume' element={<SolanaVolume />} />
           <Route path='/pano-view/xrpl' element={<XRPL />} />
+          <Route path='/x-ai-agents' element={<XAiAgents />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </ProtectedRoutes>

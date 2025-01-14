@@ -70,6 +70,9 @@ const SelectNetwork = () => {
         if (currentNetwork) {
             setSelectedTitle(currentNetwork.title)
         }
+        else {
+            setSelectedTitle('Bitcoin')
+        }
 
         networks.forEach(network => {
             if (network.items) {
