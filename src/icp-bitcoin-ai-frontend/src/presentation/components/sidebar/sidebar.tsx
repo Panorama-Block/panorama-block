@@ -61,6 +61,12 @@ const AppSidebar: React.FC<Props> = ({ actual, onChange, open, active }: Props) 
       disabled: true
     },
     {
+      title: 'X AI Agents',
+      icon: 'account/research.png',
+      url: '/x-ai-agents',
+      disabled: false
+    },
+    {
       title: 'Whale Hunting',
       icon: 'account/wallet.png',
       url: `/whale-hunting/${actual.toLowerCase()}`
