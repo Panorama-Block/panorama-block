@@ -77,15 +77,16 @@ const XAiAgents: React.FC = () => {
                     onSubmit: handleGetInfo
                 }}
             >
-                <div className="flex h-full flex-col gap-4">
+                <div className="flex flex-col w-full h-[calc(100vh-160px)] gap-4">
                     <h1 className="ml-4 text-2xl font-bold text-zinc-100">AI Agents</h1>
-                        <Timeline
+                        {/* <Timeline
                             dataSource={{
                                 sourceType: "list",
                                 ownerScreenName: "twitter",
                                 id: "1878841204239904785"
                             }}
-                        />
+                        /> */}
+                        <iframe src='https://widgets.sociablekit.com/twitter-list/iframe/25510380' frameBorder='0' width='100%' height='100%'></iframe>
                 </div>
             </Layout>
 
