@@ -77,7 +77,7 @@ const XAiAgents: React.FC = () => {
                     onSubmit: handleGetInfo
                 }}
             >
-                <div className="flex flex-col w-full h-[calc(100vh-160px)] gap-4">
+                <div className="flex flex-col w-full h-[calc(70vh)] gap-8">
                     <h1 className="ml-4 text-2xl font-bold text-zinc-100">AI Agents</h1>
                         {/* <Timeline
                             dataSource={{
