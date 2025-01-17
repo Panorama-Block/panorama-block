@@ -218,6 +218,12 @@ const NewLanding = () => {
                 About
               </button>
               <button
+                onClick={() => scrollToSection('roadmap')}
+                className="text-gray-300 text-lg hover:text-gray-100"
+              >
+                Vision & Roadmap
+              </button>
+              <button
                 onClick={() => {
                   scrollToSection('team')
                   closeMenu()
