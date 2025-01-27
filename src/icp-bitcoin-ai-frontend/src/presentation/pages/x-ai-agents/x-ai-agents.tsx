@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Timeline } from 'react-twitter-widgets'
 import IcpService from '../../../data/services/icp-service'
 import InfoModal from '../../components/info-modal/info-modal'
 import OpenChat from '../../components/open-chat/open-chat'
 import WhaleHunting from '../../components/whale-hunting/whale-hunting'
 import TransactionInfo from '../../components/transaction-info/transaction-info'
-
+import TweetList from '../../components/tweet-list/tweet-list'
 import AddressInfo from '../../components/address-info/address-info'
 import { Tooltip } from '@mui/material'
 
 import styles from './x-ai-agents-styles.module.scss'
 import Layout from '../../components/layout/Layout'
+import XService from '@/src/data/services/x-service'
+
+interface Tweet {
+    _id: string;
+    tweet_id: string;
+    username: string;
+    created_at: number;
+    created_at_datetime: number;
+    favorite_count: string;
+    text: string | null;
+    media: string | null;
+}
 
 const XAiAgents: React.FC = () => {
     const [actual, setActual] = useState('bitcoin')
@@ -18,9 +30,22 @@ const XAiAgents: React.FC = () => {
     const [chatOpened, setChatOpened] = useState(false)
     const [whaleOpened, setWhaleOpened] = useState(false)
     const [info, setInfo] = useState<any>()
+    const [tweets, setTweets] = useState<Tweet[]>([])
+
+    useEffect(() => {
+        const getTweets = async () => {
+            const response = await XService.getTweets()
+            if(response.ok) {
+                setTweets(response.ok)
+            }
+        }
+
+        getTweets()
+    }, [])
 
     const handleGetInfo = async (type: string, value: string) => {
         setModalOpened(true)
+        
 
         if (type === 'address') {
             const response: any = await IcpService.getAddressInfo(value)
@@ -77,16 +102,21 @@ const XAiAgents: React.FC = () => {
                     onSubmit: handleGetInfo
                 }}
             >
-                <div className="flex flex-col w-full h-[calc(70vh)] gap-8">
+                <div className="flex flex-col w-full h-[calc(80vh)] gap-8">
                     <h1 className="ml-4 text-2xl font-bold text-zinc-100">AI Agents</h1>
-                        {/* <Timeline
-                            dataSource={{
-                                sourceType: "list",
-                                ownerScreenName: "twitter",
-                                id: "1878841204239904785"
-                            }}
-                        /> */}
-                        <iframe src='https://widgets.sociablekit.com/twitter-list/iframe/25510380' frameBorder='0' width='100%' height='100%'></iframe>
+                    <div className="w-full mx-auto px-4 h-full overflow-hidden">
+                        {
+                            tweets && <TweetList tweets={tweets} />
+                        }
+                    </div>
+                    {/* <Timeline
+                        dataSource={{
+                            sourceType: "list",
+                            ownerScreenName: "twitter",
+                            id: "1878841204239904785"
+                        }}
+                    /> */}
+                    {/* <iframe src='https://widgets.sociablekit.com/twitter-list/iframe/25510380' frameBorder='0' width='100%' height='100%'></iframe> */}
                 </div>
             </Layout>
 
