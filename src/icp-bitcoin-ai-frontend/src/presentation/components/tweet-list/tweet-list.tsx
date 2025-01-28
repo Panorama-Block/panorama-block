@@ -5,6 +5,7 @@ export interface Tweet {
     _id: string;
     tweet_id: string;
     username: string;
+    user_image: string;
     created_at: number;
     created_at_datetime: number;
     favorite_count: string;
@@ -22,19 +23,25 @@ const TweetList: React.FC<TweetListProps> = ({ tweets }) => {
             {tweets.map((tweet) => (
                 <div
                     key={tweet._id}
-                    className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-200/20 dark:border-gray-700/50"
+                    className="bg-gray-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-700/30 transform transition-all duration-200 hover:scale-[1.02] hover:border-blue-500/30 hover:shadow-xl"
                 >
                     <div className="flex flex-col h-full">
                         <div className="flex items-start space-x-3">
                             <div className="flex-shrink-0">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700" />
+                                <div className="w-10 h-10 ring-2 ring-blue-500/20 rounded-full overflow-hidden">
+                                    <img
+                                        src={tweet.user_image}
+                                        alt="User image"
+                                        className="w-full h-full object-cover transform transition-transform duration-200 hover:scale-110"
+                                    />
+                                </div>
                             </div>
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center space-x-2">
-                                    <span className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                    <span className="text-sm font-medium text-white truncate hover:text-blue-400 transition-colors">
                                         @{tweet.username}
                                     </span>
-                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                    <span className="text-xs text-gray-400">
                                         {format(new Date(tweet.created_at_datetime), 'MMM d, yyyy')}
                                     </span>
                                 </div>
@@ -42,24 +49,24 @@ const TweetList: React.FC<TweetListProps> = ({ tweets }) => {
                         </div>
                         <div className="mt-3 flex-grow">
                             {tweet.text && (
-                                <p className="text-sm text-gray-900 dark:text-gray-100 line-clamp-4">
+                                <p className="text-sm text-gray-200 leading-relaxed line-clamp-4">
                                     {tweet.text}
                                 </p>
                             )}
                             {tweet.media && (
-                                <div className="mt-3 rounded-lg overflow-hidden">
+                                <div className="mt-3 rounded-lg overflow-hidden ring-1 ring-white/10">
                                     <img
                                         src={tweet.media}
                                         alt="Tweet media"
-                                        className="w-full h-auto object-cover"
+                                        className="w-full h-auto object-cover transform transition-transform duration-200 hover:scale-105"
                                     />
                                 </div>
                             )}
                         </div>
-                        <div className="mt-3 flex items-center space-x-4">
-                            <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-400">
+                        <div className="mt-4 flex items-center space-x-4">
+                            <div className="flex items-center space-x-1.5 text-gray-400 group">
                                 <svg
-                                    className="w-4 h-4"
+                                    className="w-4 h-4 transition-colors group-hover:text-red-500"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -71,7 +78,7 @@ const TweetList: React.FC<TweetListProps> = ({ tweets }) => {
                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                                     />
                                 </svg>
-                                <span className="text-xs">{tweet.favorite_count}</span>
+                                <span className="text-xs group-hover:text-red-500 transition-colors">{tweet.favorite_count}</span>
                             </div>
                         </div>
                     </div>
