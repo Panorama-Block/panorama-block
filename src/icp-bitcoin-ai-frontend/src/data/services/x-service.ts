@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = "http://localhost:8000"
+const BASE_URL = import.meta.env.VITE_X_SERVICE_URL
 
 const XService = {
   getTweets: async () => {
