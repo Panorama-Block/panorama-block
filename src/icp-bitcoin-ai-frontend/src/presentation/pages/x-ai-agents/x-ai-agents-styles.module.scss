@@ -1,49 +1,53 @@
 .xAiAgents {
-    .info {
-      display: flex;
-      max-height: 60%;
+  .info {
+    display: flex;
+    max-height: 60%;
+  }
+
+  .card {
+    background: linear-gradient(
+      94.84deg,
+      rgba(16, 27, 82, 0.9) 10%,
+      rgb(6, 11, 38) 100%
+    );
+    border: none;
+  }
+
+  .chat {
+    z-index: 100;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 30px;
+    transition: 0.3s;
+
+    background-color: #ffffff25;
+
+    img {
+      width: 30px;
+      height: 30px;
     }
-  
-    .card {
-      background: linear-gradient(94.84deg, rgba(16, 27, 82, 0.9) 10%, rgb(6, 11, 38) 100%);
-      border: none;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
     }
-  
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .home {
+    min-height: 100vh;
+
     .chat {
-      z-index: 100;
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
-      border-radius: 30px;
-      transition: 0.3s;
-  
-      background-color: #ffffff25;
-  
       img {
-        width: 30px;
-        height: 30px;
-      }
-  
-      &:hover {
-        cursor: pointer;
-        opacity: .7;
+        width: 24px;
+        height: 24px;
       }
     }
   }
-  
-  @media screen and (max-width: 1440px) {
-    .home {
-      min-height: 100vh;
-  
-      .chat {
-        img {
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-  }
+}
