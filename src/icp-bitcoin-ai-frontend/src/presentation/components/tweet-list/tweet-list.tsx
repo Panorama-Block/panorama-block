@@ -18,6 +18,25 @@ interface TweetListProps {
 }
 
 const TweetList: React.FC<TweetListProps> = ({ tweets }) => {
+    const formatTweetText = (text: string) => {
+        const words = text.split(/(\s+)/);
+        
+        return words.map((word, index) => {
+            const isUrl = word.match(/^(https?:\/\/[^\s]+)/);
+
+            const isDollar = word.startsWith('$');
+            
+            if (isUrl || isDollar) {
+                return (
+                    <span key={index} className="text-[#1DA1F2]">
+                        {word}
+                    </span>
+                );
+            }
+            return word;
+        });
+    };
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full h-full overflow-y-auto px-4 custom-scrollbar">
             {tweets.map((tweet) => (
@@ -50,7 +69,7 @@ const TweetList: React.FC<TweetListProps> = ({ tweets }) => {
                         <div className="mt-3 flex-grow">
                             {tweet.text && (
                                 <p className="text-sm text-gray-200 leading-relaxed line-clamp-4">
-                                    {tweet.text}
+                                    {formatTweetText(tweet.text)}
                                 </p>
                             )}
                             {tweet.media && (
