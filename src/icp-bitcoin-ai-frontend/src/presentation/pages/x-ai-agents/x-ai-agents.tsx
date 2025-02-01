@@ -21,18 +21,39 @@ const XAiAgents: React.FC = () => {
     const [whaleOpened, setWhaleOpened] = useState(false)
     const [info, setInfo] = useState<any>()
     const [tweets, setTweets] = useState<Tweet[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [hasMore, setHasMore] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [newsletterModalOpen, setNewsletterModalOpen] = useState(false)
 
     useEffect(() => {
         const getTweets = async () => {
-            const response = await XService.getTweets()
-            if(response.ok) {
-                setTweets(response.ok)
+            setIsLoading(true)
+            const response = await XService.getTweets(1)
+            if(response?.tweets) {
+                setTweets(response.tweets)
+                setHasMore(currentPage < response.pagination.totalPages)
             }
+            setIsLoading(false)
         }
 
         getTweets()
     }, [])
+
+    const loadMoreTweets = async () => {
+        if (isLoading || !hasMore) return
+
+        setIsLoading(true)
+        const nextPage = currentPage + 1
+        const response = await XService.getTweets(nextPage)
+        
+        if (response?.tweets) {
+            setTweets(prev => [...prev, ...response.tweets])
+            setCurrentPage(nextPage)
+            setHasMore(nextPage < response.pagination.totalPages)
+        }
+        setIsLoading(false)
+    }
 
     const handleGetInfo = async (type: string, value: string) => {
         setModalOpened(true)
@@ -122,10 +143,23 @@ const XAiAgents: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="w-full mx-auto pr-4 h-full overflow-hidden">
-                        {
-                            tweets && <TweetList tweets={tweets} />
-                        }
+                    <div className={styles.content}>
+                        <div className="w-full">
+                            <div className="w-full">
+                                <TweetList tweets={tweets} />
+                                {hasMore && (
+                                    <div className="flex justify-center my-5">
+                                        <button 
+                                            onClick={loadMoreTweets}
+                                            disabled={isLoading}
+                                            className="px-5 py-2.5 bg-[#1DA1F2] text-white font-semibold rounded-full hover:bg-[#1a91da] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                                        >
+                                            {isLoading ? 'Loading...' : 'Load more'}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Layout>
