@@ -8,7 +8,7 @@ import TransactionInfo from '../../components/transaction-info/transaction-info'
 import TweetList, { Tweet } from '../../components/tweet-list/tweet-list'
 import AddressInfo from '../../components/address-info/address-info'
 import NewsletterModal from '../../components/newsletter-modal/newsletter-modal'
-import { Tooltip } from '@mui/material'
+import { Tooltip, Tabs, Tab, Box } from '@mui/material'
 
 import styles from './x-ai-agents-styles.module.scss'
 import Layout from '../../components/layout/Layout'
@@ -21,23 +21,38 @@ const XAiAgents: React.FC = () => {
     const [whaleOpened, setWhaleOpened] = useState(false)
     const [info, setInfo] = useState<any>()
     const [tweets, setTweets] = useState<Tweet[]>([])
+    const [zicoTweets, setZicoTweets] = useState<Tweet[]>([])
     const [currentPage, setCurrentPage] = useState(1)
+    const [zicoCurrentPage, setZicoCurrentPage] = useState(1)
     const [hasMore, setHasMore] = useState(true)
+    const [zicoHasMore, setZicoHasMore] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
+    const [activeTab, setActiveTab] = useState(0)
     const [newsletterModalOpen, setNewsletterModalOpen] = useState(false)
 
     useEffect(() => {
         const getTweets = async () => {
             setIsLoading(true)
             const response = await XService.getTweets(1)
-            if(response?.tweets) {
+            if (response?.tweets) {
                 setTweets(response.tweets)
                 setHasMore(currentPage < response.pagination.totalPages)
             }
             setIsLoading(false)
         }
 
+        const getZicoTweets = async () => {
+            setIsLoading(true)
+            const response = await XService.getZicoTweets(1)
+            if (response?.tweets) {
+                setZicoTweets(response.tweets)
+                setZicoHasMore(zicoCurrentPage < response.pagination.totalPages)
+            }
+            setIsLoading(false)
+        }
+
         getTweets()
+        getZicoTweets()
     }, [])
 
     const loadMoreTweets = async () => {
@@ -46,7 +61,7 @@ const XAiAgents: React.FC = () => {
         setIsLoading(true)
         const nextPage = currentPage + 1
         const response = await XService.getTweets(nextPage)
-        
+
         if (response?.tweets) {
             setTweets(prev => [...prev, ...response.tweets])
             setCurrentPage(nextPage)
@@ -55,9 +70,28 @@ const XAiAgents: React.FC = () => {
         setIsLoading(false)
     }
 
+    const loadMoreZicoTweets = async () => {
+        if (isLoading || !zicoHasMore) return
+
+        setIsLoading(true)
+        const nextPage = zicoCurrentPage + 1
+        const response = await XService.getZicoTweets(nextPage)
+
+        if (response?.tweets) {
+            setZicoTweets(prev => [...prev, ...response.tweets])
+            setZicoCurrentPage(nextPage)
+            setZicoHasMore(nextPage < response.pagination.totalPages)
+        }
+        setIsLoading(false)
+    }
+
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setActiveTab(newValue)
+    }
+
     const handleGetInfo = async (type: string, value: string) => {
         setModalOpened(true)
-        
+
         if (type === 'address') {
             const response: any = await IcpService.getAddressInfo(value)
 
@@ -125,7 +159,7 @@ const XAiAgents: React.FC = () => {
             >
                 <div className="flex flex-col w-full h-[calc(80vh)] gap-6">
                     <h1 className="ml-4 text-xl font-bold text-zinc-100">AI Agents</h1>
-                    
+
                     <div className="mx-4 p-3 rounded-lg bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/20">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                             <div className="flex-1">
@@ -133,7 +167,7 @@ const XAiAgents: React.FC = () => {
                                 <p className="text-blue-200/80">Subscribe to our newsletter and receive curated AI analysis summaries directly in your inbox. Be the first to know about market trends and AI predictions.</p>
                             </div>
                             <div className="flex-shrink-0">
-                                <button 
+                                <button
                                     className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors"
                                     onClick={() => setNewsletterModalOpen(true)}
                                 >
@@ -145,20 +179,65 @@ const XAiAgents: React.FC = () => {
 
                     <div className={styles.content}>
                         <div className="w-full">
-                            <div className="w-full">
-                                <TweetList tweets={tweets} />
-                                {hasMore && (
-                                    <div className="flex justify-center my-5">
-                                        <button 
-                                            onClick={loadMoreTweets}
-                                            disabled={isLoading}
-                                            className="px-5 py-2.5 bg-[#1DA1F2] text-white font-semibold rounded-full hover:bg-[#1a91da] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                        >
-                                            {isLoading ? 'Loading...' : 'Load more'}
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+                            <Box sx={{
+                                borderBottom: 1,
+                                borderColor: 'rgba(59, 130, 246, 0.2)',
+                                mb: 2
+                            }}>
+                                <Tabs
+                                    value={activeTab}
+                                    onChange={handleTabChange}
+                                    aria-label="tweet tabs"
+                                    sx={{
+                                        '& .MuiTabs-indicator': {
+                                            backgroundColor: '#1DA1F2'
+                                        },
+                                        '& .MuiTab-root': {
+                                            color: 'rgba(255, 255, 255, 0.7)',
+                                            '&.Mui-selected': {
+                                                color: '#1DA1F2'
+                                            }
+                                        }
+                                    }}
+                                >
+                                    <Tab label="All Tweets" />
+                                    <Tab label="Zico's Tweets" />
+                                </Tabs>
+                            </Box>
+
+                            {activeTab === 0 && (
+                                <>
+                                    <TweetList tweets={tweets} />
+                                    {hasMore && (
+                                        <div className="flex justify-center my-5">
+                                            <button
+                                                onClick={loadMoreTweets}
+                                                disabled={isLoading}
+                                                className="px-5 py-2.5 bg-[#1DA1F2] text-white font-semibold rounded-full hover:bg-[#1a91da] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                                            >
+                                                {isLoading ? 'Loading...' : 'Load more'}
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
+                            )}
+
+                            {activeTab === 1 && (
+                                <>
+                                    <TweetList tweets={zicoTweets} />
+                                    {zicoHasMore && (
+                                        <div className="flex justify-center my-5">
+                                            <button
+                                                onClick={loadMoreZicoTweets}
+                                                disabled={isLoading}
+                                                className="px-5 py-2.5 bg-[#1DA1F2] text-white font-semibold rounded-full hover:bg-[#1a91da] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                                            >
+                                                {isLoading ? 'Loading...' : 'Load more'}
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
